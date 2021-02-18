@@ -1,39 +1,53 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
-import Post, { PostProps } from "../components/Post"
+import prisma from '../lib/prisma'
+import TextSource, { TextSourceProps } from "../components/TextSource"
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
+import MyDocument from "../lib/pdf/pdf-document"
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = [
-    {
-      id: 1,
-      title: "Prisma is the perfect ORM for Next.js",
-      content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
-      published: false,
-      author: {
-        name: "Nikolas Burk",
-        email: "burk@prisma.io",
-      },
-    },
-  ]
+  const feed = await prisma.textSource.findMany()
   return { props: { feed } }
 }
 
 type Props = {
-  feed: PostProps[]
+  feed: TextSourceProps[]
 }
 
-const Blog: React.FC<Props> = (props) => {
+const Home: React.FC<Props> = (props) => {
+  const [isClient, setIsClient] = useState(false)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   return (
     <Layout>
       <div className="page">
-        <h1>Public Feed</h1>
+        <h1>Textos</h1>
         <main>
-          {props.feed.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
-            </div>
+          {props.feed.map((text) => (
+            <div key={text.id} className="post">
+             
+              <TextSource textSource={text} />
+            </div>            
           ))}
+          
+          <div>
+            {isClient && (
+              <PDFDownloadLink document={ <MyDocument /> } fileName="Documento.pdf">
+                {({ blob, url, loading, error }) => (loading ? 'Carregando Documento...' : 'Download PDF')}
+              </PDFDownloadLink> 
+            )}
+          </div>
+
+          <div>
+            {isClient && (
+              <PDFViewer>
+                <MyDocument />
+              </PDFViewer>
+            )}
+          </div>
         </main>
       </div>
       <style jsx>{`
@@ -54,4 +68,4 @@ const Blog: React.FC<Props> = (props) => {
   )
 }
 
-export default Blog
+export default Home

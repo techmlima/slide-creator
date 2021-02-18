@@ -2,38 +2,36 @@ import React from "react"
 import { GetServerSideProps } from "next"
 import ReactMarkdown from "react-markdown"
 import Layout from "../../components/Layout"
-import { PostProps } from "../../components/Post"
+import prisma from '../../lib/prisma'
+import { TextSourceProps } from "../../components/TextSource"
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = {
-    id: 1,
-    title: "Prisma is the perfect ORM for Next.js",
-    content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
-    published: false,
-    author: {
-      name: "Nikolas Burk",
-      email: "burk@prisma.io",
-    },
-  }
+  
+  const texts = await prisma.textSource.findUnique({
+    where: {
+      id: 3,
+    }
+  })
+
   return {
-    props: post,
+    props: texts,
   }
 }
 
-const Post: React.FC<PostProps> = (props) => {
+const TextSource: React.FC<TextSourceProps> = (props) => {
   let title = props.title
-  if (!props.published) {
-    title = `${title} (Draft)`
-  }
-
   return (
     <Layout>
       <div>
         <h2>{title}</h2>
-        <p>By {props?.author?.name || "Unknown author"}</p>
-        <ReactMarkdown source={props.content} />
+        <p>{props?.title}</p>
+        <ReactMarkdown source={props.text} />
       </div>
       <style jsx>{`
+        p{
+          white-space: break-spaces;
+        }
+
         .page {
           background: white;
           padding: 2rem;
@@ -58,4 +56,4 @@ const Post: React.FC<PostProps> = (props) => {
   )
 }
 
-export default Post
+export default TextSource
