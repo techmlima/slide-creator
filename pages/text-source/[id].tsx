@@ -5,12 +5,9 @@ import Layout from "../../components/Layout"
 import prisma from '../../lib/prisma'
 import { TextSourceProps } from "../../components/TextSource"
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const texts = await prisma.textSource.findUnique({
-    where: {
-      id: 3,
-    }
+    where: { id: Number(query.id), }
   })
 
   return {
