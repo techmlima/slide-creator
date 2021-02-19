@@ -18,12 +18,23 @@ type Props = {
   feed: TextSourceProps[]
 }
 
+
 const Home: React.FC<Props> = (props) => {
   const [isClient, setIsClient] = useState(false)
   useEffect(() => {
     setIsClient(true)
   }, [])
 
+const [state, setState] = useState({})
+
+const handleChange = (e, id) => {
+  setState({
+    ...state,
+    [e.target.name]: e.target.checked
+  })
+  pdfUtil.findSourceById(props.feed, id).isCreatePDF = e.target.checked;
+  console.log(props.feed);  
+}
   return (
     <Layout>
       <div>
@@ -33,7 +44,7 @@ const Home: React.FC<Props> = (props) => {
         <main>
           {props.feed.map((textSource) => (
             <div key={textSource.id} className="layout-text">
-              <TextSource textSource={textSource} />
+              <TextSource textSource={textSource} onChange={handleChange} state={state}/>
             </div>            
           ))}                 
 

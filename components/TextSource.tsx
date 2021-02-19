@@ -13,7 +13,7 @@ export type TextSourceProps = {
     isCreatePDF: boolean;
 };
 
-const TextSource: React.FC<{ textSource: TextSourceProps }> = ({ textSource }) => {
+const TextSource: React.FC<{ textSource: TextSourceProps, onChange, state }> = ({ textSource, onChange, state }) => {
   const [isClient, setIsClient] = useState(false)
   useEffect(() => {
     setIsClient(true)
@@ -33,8 +33,8 @@ const TextSource: React.FC<{ textSource: TextSourceProps }> = ({ textSource }) =
             Participa PDF:
             <input type='checkbox' 
               name="Participa PDF"
-              checked={textSource.isCreatePDF}
-              onChange={(e) => textSource.isCreatePDF = e.target.checked}>                         
+              checked={state.isCreatePDF}
+              onChange={e => onChange(e, textSource.id)}>                         
             </input>
             
             <style jsx>
