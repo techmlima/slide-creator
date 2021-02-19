@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import Router from 'next/router'
 
-const Draft: React.FC = () => {
+const Create: React.FC = () => {
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
 
@@ -78,4 +78,4 @@ const Draft: React.FC = () => {
   )
 }
 
-export default Draft
+export default Create

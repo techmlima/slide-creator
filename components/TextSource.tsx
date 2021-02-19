@@ -1,17 +1,17 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import Router from "next/router";
+import React from "react";
 import { useEffect, useState } from "react";
 import MyDocument from "../lib/pdf/pdf-document";
+
+var pdfUtil = require('../util/pdf-util');
 
 export type TextSourceProps = {
     id: number;
     title: string;
     text: string;
+    isCreatePDF: boolean;
 };
-
-const getSourcePDF = (textSource: TextSourceProps) => {
-  return [textSource?.title].concat(textSource?.text.split('\n\n'));
-}
 
 const TextSource: React.FC<{ textSource: TextSourceProps }> = ({ textSource }) => {
   const [isClient, setIsClient] = useState(false)
@@ -24,11 +24,18 @@ const TextSource: React.FC<{ textSource: TextSourceProps }> = ({ textSource }) =
             <h2>{textSource.title}</h2>
             <div>
               {isClient && (
-                <PDFDownloadLink document={ <MyDocument documentSource={getSourcePDF(textSource)}/> } fileName="Documento.pdf">
+                <PDFDownloadLink document={ <MyDocument documentSource={pdfUtil.generateSourcePDF(textSource, '\n\n')}/> } fileName="Documento.pdf">
                   {({ blob, url, loading, error }) => (loading ? 'Carregando Documento...' : 'Download PDF')}
                 </PDFDownloadLink> 
               )}
             </div>
+
+            Participa PDF:
+            <input type='checkbox' 
+              name="Participa PDF"
+              checked={textSource.isCreatePDF}
+              onChange={(e) => textSource.isCreatePDF = e.target.checked}>                         
+            </input>
             
             <style jsx>
               {

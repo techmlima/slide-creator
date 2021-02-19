@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: 'black',
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'center'
   },
   text: {
