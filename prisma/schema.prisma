@@ -9,11 +9,11 @@ generator client {
 }
 
 model TextSource {
-  id        Int     @default(autoincrement()) @id
+  id       Int     @default(autoincrement()) @id
   title    String
   text     String
   user     User?   @relation(fields: [userId], references: [id])
-  userId  Int?
+  userId   Int?
 }
 
 model User {
@@ -24,6 +24,15 @@ model User {
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
   texts        TextSource[]
   @@map(name: "users")
+}
+
+model ConfigurationPreferencesPDF {
+  id             Int     @default(autoincrement()) @id
+  orientation    String
+  size           String
+  delimiter      String
+  user           User?   @relation(fields: [userId], references: [id])
+  userId         Int?
 }
 
 model Account {

@@ -13,7 +13,7 @@ export type TextSourceProps = {
     isCreatePDF: boolean;
 };
 
-const TextSource: React.FC<{ textSource: TextSourceProps, onChange, state }> = ({ textSource, onChange, state }) => {
+const TextSource: React.FC<{ textSource: TextSourceProps, onChange }> = ({ textSource, onChange }) => {
   const [isClient, setIsClient] = useState(false)
   useEffect(() => {
     setIsClient(true)
@@ -22,18 +22,10 @@ const TextSource: React.FC<{ textSource: TextSourceProps, onChange, state }> = (
     return (
         <div onDoubleClick={() => Router.push("/text-source/[id]", `/text-source/${textSource.id}`)}>
             <h2>{textSource.title}</h2>
-            <div>
-              {isClient && (
-                <PDFDownloadLink document={ <MyDocument documentSource={pdfUtil.generateSourcePDF(textSource, '\n\n')}/> } fileName="Documento.pdf">
-                  {({ blob, url, loading, error }) => (loading ? 'Carregando Documento...' : 'Download PDF')}
-                </PDFDownloadLink> 
-              )}
-            </div>
-
             Participa PDF:
             <input type='checkbox' 
               name="Participa PDF"
-              checked={state.isCreatePDF}
+              checked={textSource.isCreatePDF}
               onChange={e => onChange(e, textSource.id)}>                         
             </input>
             

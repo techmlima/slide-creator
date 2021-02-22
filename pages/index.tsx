@@ -10,31 +10,34 @@ import MyDocument from "../lib/pdf/pdf-document"
 var pdfUtil = require('../util/pdf-util');
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.textSource.findMany()
-  return { props: { feed } }
+  const texts = await prisma.textSource.findMany()
+  return { props: { texts } }
 }
 
 type Props = {
-  feed: TextSourceProps[]
+  texts: TextSourceProps[]
 }
-
 
 const Home: React.FC<Props> = (props) => {
   const [isClient, setIsClient] = useState(false)
+  const [texts, setTexts] = useState({})
+  const [documentSource, setDocumentSource] = useState([])
+
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-const [state, setState] = useState({})
-
 const handleChange = (e, id) => {
-  setState({
-    ...state,
+  setTexts({
+    ...texts,
     [e.target.name]: e.target.checked
   })
-  pdfUtil.findSourceById(props.feed, id).isCreatePDF = e.target.checked;
-  console.log(props.feed);  
+
+  pdfUtil.findSourceById(props.texts, id).isCreatePDF = e.target.checked;  
+  setDocumentSource(pdfUtil.generateSourceMultiplePDF(props.texts, '\n\n'))
 }
+
+
   return (
     <Layout>
       <div>
@@ -42,28 +45,28 @@ const handleChange = (e, id) => {
         <button onClick={() => Router.push("/text-source/create")}>Novo</button>
         
         <main>
-          {props.feed.map((textSource) => (
+          {props.texts.map((textSource) => (
             <div key={textSource.id} className="layout-text">
-              <TextSource textSource={textSource} onChange={handleChange} state={state}/>
+              <TextSource textSource={textSource} onChange={handleChange}/>
             </div>            
           ))}                 
 
           <div>
-              {isClient && (
-                <PDFDownloadLink document={ <MyDocument documentSource={pdfUtil.generateSourceMultiplePDF(props.feed, '\n\n')}/> } fileName="Documento.pdf">
+              {isClient && documentSource.length > 0 ? (
+                <PDFDownloadLink document={ <MyDocument documentSource={documentSource}/> } fileName="Documento.pdf">
                   {({ blob, url, loading, error }) => (loading ? 'Carregando Documento...' : 'Download PDF')}
                 </PDFDownloadLink> 
-              )}
+              ): null}
           </div>
           
           <hr className='mt-2'/>
           <h1>Área de teste</h1>
           <div>
-            {isClient && (
+            {isClient && documentSource.length > 0 ? (
               <PDFViewer>
-                <MyDocument documentSource={pdfUtil.generateSourceMultiplePDF(props.feed, '\n\n')}/>
+                <MyDocument documentSource={documentSource}/>
               </PDFViewer>
-            )}
+            ) : null}
           </div>
         </main>
       </div>
