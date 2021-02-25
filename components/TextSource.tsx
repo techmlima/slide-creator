@@ -29,7 +29,7 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
       </thead>
       <tbody>
         {textsSource.map((textSource) => (
-          <tr>
+          <tr key={textSource.id}>
             <td>
               <Link href={`/text-source/${textSource.id}`}>
                 <a>{textSource.title}</a>
@@ -38,7 +38,7 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
             <td className="limit-text">{textSource.text}</td>
             <td>
               <input type='checkbox'
-                name="Selecionar"
+                name={`Selecionar${textSource.id}`}
                 checked={textSource.isCreatePDF}
                 onChange={e => onChange(e, textSource.id)}>
               </input>
@@ -55,10 +55,6 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
 
             table > th, td{
               text-align: center!important;
-            }
-
-            mouse {
-              
             }
          `}</style>
       </tbody>
