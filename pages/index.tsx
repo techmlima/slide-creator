@@ -6,6 +6,8 @@ import TextSource, { TextSourceProps } from "../components/TextSource"
 import Router from "next/router"
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer'
 import MyDocument from "../lib/pdf/pdf-document"
+import { Button, Table } from "react-bootstrap"
+import { Download, Trash } from "react-bootstrap-icons"
 
 var pdfUtil = require('../util/pdf-util');
 
@@ -19,75 +21,67 @@ type Props = {
 }
 
 const Home: React.FC<Props> = (props) => {
-  const [isClient, setIsClient] = useState(false)
   const [texts, setTexts] = useState({})
   const [documentSource, setDocumentSource] = useState([])
 
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  const handleChange = (e, id) => {
+    setTexts({
+      ...texts,
+      [e.target.name]: e.target.checked
+    })
 
-const handleChange = (e, id) => {
-  setTexts({
-    ...texts,
-    [e.target.name]: e.target.checked
-  })
+    pdfUtil.findSourceById(props.texts, id).isCreatePDF = e.target.checked;
+    setDocumentSource(pdfUtil.generateSourceMultiplePDF(props.texts, '\n\n'))
+  }
 
-  pdfUtil.findSourceById(props.texts, id).isCreatePDF = e.target.checked;  
-  setDocumentSource(pdfUtil.generateSourceMultiplePDF(props.texts, '\n\n'))
-}
-
-
+  const deleteText = () => {
+    console.log("vaai nãoo");
+  }
   return (
     <Layout>
       <div>
-        <h1>Textos</h1>
-        <button onClick={() => Router.push("/text-source/create")}>Novo</button>
-        
         <main>
-          {props.texts.map((textSource) => (
-            <div key={textSource.id} className="layout-text">
-              <TextSource textSource={textSource} onChange={handleChange}/>
-            </div>            
-          ))}                 
+          <div className='row'>
+            <div className="col">
+              <h1>Textos</h1>
+            </div>
 
-          <div>
-              {isClient && documentSource.length > 0 ? (
-                <PDFDownloadLink document={ <MyDocument documentSource={documentSource}/> } fileName="Documento.pdf">
+            <div className="col">
+            {documentSource.length > 0 ? (
+                <PDFDownloadLink document={<MyDocument documentSource={documentSource} />} fileName="Documento.pdf">
                   {({ blob, url, loading, error }) => (loading ? 'Carregando Documento...' : 'Download PDF')}
-                </PDFDownloadLink> 
-              ): null}
+                </PDFDownloadLink>
+              ) : null}
+
+              <Button onClick={deleteText} variant="danger" disabled={documentSource.length === 0}
+                className=''> Deletar
+                        <Trash className="mt-n1 ml-1" />
+              </Button>             
+
+              <Button onClick={() => Router.push("/text-source/create")}
+                variant="success" className='float-right'>
+                Novo
+              </Button>
+            </div>
           </div>
-          
-          <hr className='mt-2'/>
+
+          <TextSource textsSource={props.texts} onChange={handleChange} />
+
+          <div className="row">
+
+          </div>
+
+          <hr className='mt-2' />
           <h1>Área de teste</h1>
           <div>
-            {isClient && documentSource.length > 0 ? (
+            {documentSource.length > 0 ? (
               <PDFViewer>
-                <MyDocument documentSource={documentSource}/>
+                <MyDocument documentSource={documentSource} />
               </PDFViewer>
             ) : null}
           </div>
         </main>
       </div>
-      <style jsx>{`
-        mt-2{
-          margin-top: 2rem;
-        }
-
-        .layout-text {
-          background: white;
-          transition: box-shadow 0.1s ease-in;
-        }
-
-        .layout-text:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .layout-text + .layout-text {
-          margin-top: 2rem;
-        }
-      `}</style>
     </Layout>
   )
 }

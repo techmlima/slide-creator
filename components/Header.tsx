@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import 'font-awesome/css/font-awesome.min.css'
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -11,7 +13,7 @@ const Header: React.FC = () => {
     <div className="left">
       <Link href="/">
         <a className="bold" data-active={isActive("/")}>
-          Feed
+          Slide Creator
         </a>
       </Link>
       <style jsx>{`
