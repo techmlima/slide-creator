@@ -2,8 +2,10 @@ import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Button, Modal } from "react-bootstrap";
 import { Download } from "react-bootstrap-icons";
 import MyDocument from "../../lib/pdf/pdf-document";
+import { TextSourceProps } from "../TextSource";
+var pdfUtil = require('../../util/pdf-util');
   
-const ModalPDFView: React.FC<{ show, onHide, documentSource }> = ({ show, onHide, documentSource }) => {
+const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], changeDocumentSource }> = ({ show, onHide, textsSelected, changeDocumentSource }) => {
     return (
         <Modal
             onHide={onHide}
@@ -21,12 +23,12 @@ const ModalPDFView: React.FC<{ show, onHide, documentSource }> = ({ show, onHide
                 <div className="row">
                     <div className="col-9">
                         <PDFViewer>
-                            <MyDocument documentSource={documentSource} />
+                            <MyDocument textSource={textsSelected} />
                         </PDFViewer>
                     </div>
                     <div className="col">
                         <div className="d-flex flex-row-reverse">
-                            <PDFDownloadLink document={<MyDocument documentSource={documentSource} />} fileName="Documento.pdf">
+                            <PDFDownloadLink document={<MyDocument textSource={textsSelected} />} fileName="Documento.pdf">
                                     {({ blob, url, loading, error }) => (loading ? '...' :
                                         <div className='btn btn-info' >
                                             <Download />
@@ -35,7 +37,9 @@ const ModalPDFView: React.FC<{ show, onHide, documentSource }> = ({ show, onHide
                             </PDFDownloadLink>
                         </div>
                         <div className="row">
-                                jslfjaslkdfk
+                             {textsSelected.map(item =>(
+                                 <li onClick={changeDocumentSource} key={`li${item.id}`}>{item.title}</li>
+                             ))}
                         </div>
                     </div>
                 </div>

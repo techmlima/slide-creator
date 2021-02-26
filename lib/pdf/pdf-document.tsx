@@ -1,5 +1,7 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { TextSourceProps } from '../../components/TextSource';
+var pdfUtil = require('../../util/pdf-util');
 
 const styles = StyleSheet.create({
   page: {
@@ -16,7 +18,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const MyDocument: React.FC<{ documentSource: string[] }> = ({ documentSource }) => {
+const MyDocument: React.FC<{ textSource: TextSourceProps[] }> = ({ textSource }) => {
+  const documentSource = pdfUtil.generateSourceMultiplePDF(textSource, '\n\n');
   return (
     <Document key='docPDF' >
       {documentSource.map((text, index) => {

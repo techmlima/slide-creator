@@ -1,10 +1,10 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
 import prisma from '../lib/prisma'
 import TextSource, { TextSourceProps } from "../components/TextSource"
 import NavBar from "../components/Nav/NavBar"
-import FilterList from "../components/FilterList"
+import FilterList from "../components/List/FilterList"
 
 var pdfUtil = require('../util/pdf-util');
 
@@ -19,17 +19,16 @@ type Props = {
 
 const Home: React.FC<Props> = (props) => {
   const [textsFilter, setTextsFilter] = useState(props.texts)
-  const [documentSource, setDocumentSource] = useState([])
-
+  const [textsSelected, setTextsSelected] = useState([])
 
   const handleChange = (e, id: number) => {
-    pdfUtil.findSourceById(props.texts, id).isCreatePDF = e.target.checked;
-    setDocumentSource(pdfUtil.generateSourceMultiplePDF(props.texts, '\n\n'))
+    pdfUtil.findSourceById(props.texts, id).isCreatePDF = e.target.checked
+    setTextsSelected(props.texts.filter(item => item.isCreatePDF))
+    
   }
 
-  const handleChangeFilter = (listFilter: TextSourceProps[]) => {  
-    setTextsFilter(listFilter);
-    
+  const changeDocumentSource = (calbackFunction) =>{
+    calbackFunction();
   }
 
   return (
@@ -40,13 +39,19 @@ const Home: React.FC<Props> = (props) => {
             <h1>Músicas</h1>
           </div>
           <div className="container">
-            <NavBar documentSource={documentSource} />
+            <NavBar textsSelected={textsSelected}/>
           </div>
         </div>
 
-        
-        <FilterList placeholder='Filtro' list={props.texts} handleChange={handleChangeFilter} />
-        <TextSource textsSource={textsFilter} onChange={handleChange} />
+        <div className="row mt-1">
+            <FilterList placeholder='Filtro' list={props.texts}
+              handleChange={(listFilter: TextSourceProps[]) => setTextsFilter(listFilter)}
+            />
+        </div>
+
+        <div className="row mt-1">
+          <TextSource textsSource={textsFilter} onChange={handleChange} />
+        </div>
       </>
     </Layout>
   )

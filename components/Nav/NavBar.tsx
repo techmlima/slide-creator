@@ -1,15 +1,17 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useRouter  } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { Download, Eye, PlusCircle, Trash } from "react-bootstrap-icons";
 import MyDocument from "../../lib/pdf/pdf-document";
 import ModalPDFView from "../Modal/ModalPDFView";
+import { TextSourceProps } from "../TextSource";
 import NavButton from "./NavButton";
 
-const NavBar: React.FC<{ documentSource: string[] }> = ({ documentSource }) => {
+const NavBar: React.FC<{ textsSelected: TextSourceProps[] }> = ({ textsSelected }) => {
     const router = useRouter()
     const [modalShow, setModalShow] = useState(false);
+
 
     const deleteTextSource = () => {
         //TODO: pegar o número também
@@ -24,12 +26,12 @@ const NavBar: React.FC<{ documentSource: string[] }> = ({ documentSource }) => {
       }
 
     return (
-        <div className="row float-right">
+        <div key="nav-itens" className="row float-right">
             <NavButton keyName='top1' placement='top' text='Download PDF'
                 component={(
                     <div className='nav-button'>
-                        {documentSource.length > 0 ? (
-                            <PDFDownloadLink document={<MyDocument documentSource={documentSource} />} fileName="Documento.pdf">
+                        {textsSelected.length > 0 ? (
+                            <PDFDownloadLink document={<MyDocument textSource={textsSelected} />} fileName="Documento.pdf">
                                 {({ blob, url, loading, error }) => (loading ? '...' :
                                     <div className='btn btn-info' >
                                         <Download />
@@ -44,7 +46,7 @@ const NavBar: React.FC<{ documentSource: string[] }> = ({ documentSource }) => {
             <NavButton keyName='top2' placement='top' text='Deletar um ou mais textos'
                 component={(
                     <div className='nav-button'>
-                        <Button onClick={deleteTextSource} variant="danger" disabled={documentSource.length === 0}
+                        <Button onClick={deleteTextSource} variant="danger" disabled={textsSelected.length === 0}
                             className='nav-button'>
                             <Trash />
                         </Button>
@@ -55,11 +57,12 @@ const NavBar: React.FC<{ documentSource: string[] }> = ({ documentSource }) => {
             <NavButton keyName='top3' placement='top' text='Visualizar PDF'
                 component={(
                     <div className='nav-button'>
-                        <Button className='nav-button' disabled={documentSource.length === 0} variant="primary" onClick={() => setModalShow(true)}>
+                        <Button className='nav-button' disabled={textsSelected.length === 0} variant="primary" onClick={() => setModalShow(true)}>
                             <Eye />
                         </Button>
 
-                        <ModalPDFView documentSource={documentSource} show={modalShow} onHide={() => setModalShow(false)} />
+                        <ModalPDFView textsSelected={textsSelected} changeDocumentSource={() => console.log('oi')                        }
+                            show={modalShow} onHide={() => setModalShow(false)} />
                     </div>
                 )}>
             </NavButton>
