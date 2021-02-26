@@ -38,8 +38,9 @@ const Home: React.FC<Props> = (props) => {
           <div className="col">
             <h1>Músicas</h1>
           </div>
-
-          <NavBar documentSource={documentSource} />
+          <div className="container">
+            <NavBar documentSource={documentSource} />
+          </div>
         </div>
 
         <TextSource textsSource={props.texts} onChange={handleChange} />

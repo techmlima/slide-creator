@@ -1,7 +1,7 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useRouter  } from "next/router";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import { Download, Eye, PlusCircle, Trash } from "react-bootstrap-icons";
 import MyDocument from "../../lib/pdf/pdf-document";
 import ModalPDFView from "../ModalPDFView";
@@ -12,11 +12,19 @@ const NavBar: React.FC<{ documentSource: string[] }> = ({ documentSource }) => {
     const [modalShow, setModalShow] = useState(false);
 
     const deleteTextSource = () => {
-        console.log("vaai nãoo");
+        //TODO: pegar o número também
+        //deleteMusic(3);
     }
 
+    async function deleteMusic(id: number): Promise<void> {
+        await fetch(`http://localhost:3000/api/text-source/${id}`, {
+          method: 'DELETE',
+        })
+        router.push('/')
+      }
+
     return (
-        <div className="row">
+        <div className="row float-right">
             <NavButton keyName='top1' placement='top' text='Download PDF'
                 component={(
                     <div className='nav-button'>

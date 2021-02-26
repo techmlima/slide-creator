@@ -1,7 +1,6 @@
 
 import Link from "next/link";
 import React from "react";
-import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 
 export type TextSourceProps = {
