@@ -2,10 +2,10 @@ import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Button, Modal } from "react-bootstrap";
 import { Download } from "react-bootstrap-icons";
 import MyDocument from "../../lib/pdf/pdf-document";
+import DragAndDrop from "../DragAndDrop";
 import { TextSourceProps } from "../TextSource";
-var pdfUtil = require('../../util/pdf-util');
-  
-const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], changeDocumentSource }> = ({ show, onHide, textsSelected, changeDocumentSource }) => {
+
+const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[] }> = ({ show, onHide, textsSelected }) => {
     return (
         <Modal
             onHide={onHide}
@@ -21,34 +21,36 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], c
             </Modal.Header>
             <Modal.Body>
                 <div className="row">
-                    <div className="col-9">
+                    <div className="col-5">
                         <PDFViewer>
                             <MyDocument textSource={textsSelected} />
                         </PDFViewer>
                     </div>
-                    <div className="col">
-                        <div className="d-flex flex-row-reverse">
-                            <PDFDownloadLink document={<MyDocument textSource={textsSelected} />} fileName="Documento.pdf">
+                    <div className="col border-left">
+                        <div className="row">
+                            <div className="col">
+                                <PDFDownloadLink document={<MyDocument textSource={textsSelected} />} fileName="Documento.pdf">
                                     {({ blob, url, loading, error }) => (loading ? '...' :
                                         <div className='btn btn-info' >
                                             <Download />
                                         </div>
                                     )}
-                            </PDFDownloadLink>
+                                </PDFDownloadLink>
+
+                                <div className="col">
+                                    <DragAndDrop textSource={textsSelected}/>
+                                </div>
+                            </div>
                         </div>
-                        <div className="row">
-                             {textsSelected.map(item =>(
-                                 <li onClick={changeDocumentSource} key={`li${item.id}`}>{item.title}</li>
-                             ))}
-                        </div>
+
                     </div>
                 </div>
-               
+
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={onHide}>Fechar</Button>
             </Modal.Footer>
-        </Modal>        
+        </Modal>
     );
 }
 
