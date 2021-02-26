@@ -38,7 +38,7 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[] }>
                                 </PDFDownloadLink>
 
                                 <div className="col">
-                                    <DragAndDrop textSource={textsSelected}/>
+                                    <DragAndDrop textsSource={textsSelected}/>
                                 </div>
                             </div>
                         </div>

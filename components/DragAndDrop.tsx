@@ -55,15 +55,17 @@ const getListStyle = (isDraggingOver: boolean): object => ({
 });
 
 interface State {
-  list1: object;
+  list1?: object;
+  textsSource: TextSourceProps[]
 }
 
 class DragAndDrop extends Component<State> {
-  state: State = { list1: [] };
-
+  //TODO: CONTINUAR DAQUI
+  state: State = { list1: [], textsSource: [] };
+  
   constructor(props){
     super(props) 
-    this.state.list1 = props.textSource.map((item =>(
+    this.state.list1 = props.textSource?.map((item =>(
       {
         id: String(item.id),
         content: item.title,
