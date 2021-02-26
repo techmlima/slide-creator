@@ -22,7 +22,7 @@ const MyDocument: React.FC<{ documentSource: string[] }> = ({ documentSource }) 
       {documentSource.map((text, index) => {
         return (
           <Page key={`page${index}`} orientation='landscape' size="A5" style={styles.page}>
-            <View style={{flex:1}}>
+            <View>
               <Text style={styles.text}>{text}</Text>
             </View>
           </Page>

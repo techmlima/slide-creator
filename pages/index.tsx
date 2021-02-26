@@ -4,6 +4,7 @@ import Layout from "../components/Layout"
 import prisma from '../lib/prisma'
 import TextSource, { TextSourceProps } from "../components/TextSource"
 import NavBar from "../components/Nav/NavBar"
+import FilterList from "../components/FilterList"
 
 var pdfUtil = require('../util/pdf-util');
 
@@ -17,18 +18,18 @@ type Props = {
 }
 
 const Home: React.FC<Props> = (props) => {
-  const [texts, setTexts] = useState({})
+  const [textsFilter, setTextsFilter] = useState(props.texts)
   const [documentSource, setDocumentSource] = useState([])
 
 
   const handleChange = (e, id: number) => {
-    setTexts({
-      ...texts,
-      [e.target.name]: e.target.checked
-    })
-
     pdfUtil.findSourceById(props.texts, id).isCreatePDF = e.target.checked;
     setDocumentSource(pdfUtil.generateSourceMultiplePDF(props.texts, '\n\n'))
+  }
+
+  const handleChangeFilter = (listFilter: TextSourceProps[]) => {  
+    setTextsFilter(listFilter);
+    
   }
 
   return (
@@ -43,7 +44,9 @@ const Home: React.FC<Props> = (props) => {
           </div>
         </div>
 
-        <TextSource textsSource={props.texts} onChange={handleChange} />
+        
+        <FilterList placeholder='Filtro' list={props.texts} handleChange={handleChangeFilter} />
+        <TextSource textsSource={textsFilter} onChange={handleChange} />
       </>
     </Layout>
   )

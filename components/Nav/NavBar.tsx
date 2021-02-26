@@ -1,10 +1,10 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useRouter  } from "next/router";
 import { useState } from "react";
-import { Alert, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Download, Eye, PlusCircle, Trash } from "react-bootstrap-icons";
 import MyDocument from "../../lib/pdf/pdf-document";
-import ModalPDFView from "../ModalPDFView";
+import ModalPDFView from "../Modal/ModalPDFView";
 import NavButton from "./NavButton";
 
 const NavBar: React.FC<{ documentSource: string[] }> = ({ documentSource }) => {
