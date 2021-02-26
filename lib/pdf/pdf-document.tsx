@@ -13,20 +13,15 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     fontFamily: 'Times-Roman'
-  },
-  canvas: {
-    width: '100% !important',
-    height: 'auto !important'
   }
 });
 
 const MyDocument: React.FC<{ documentSource: string[] }> = ({ documentSource }) => {
-  
   return (
-    <Document>
-      {documentSource.map(text => {
+    <Document key='docPDF' >
+      {documentSource.map((text, index) => {
         return (
-          <Page orientation='landscape' size="A5" style={styles.page}>
+          <Page key={`page${index}`} orientation='landscape' size="A5" style={styles.page}>
             <View>
               <Text style={styles.text}>{text}</Text>
             </View>

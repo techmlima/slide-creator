@@ -1,9 +1,8 @@
 
 import Link from "next/link";
-import Router from "next/router";
 import React from "react";
 import { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 
 export type TextSourceProps = {
   id: number;
@@ -13,11 +12,6 @@ export type TextSourceProps = {
 };
 
 const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ textsSource, onChange }) => {
-  const [isClient, setIsClient] = useState(false)
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
   return (
     <Table striped bordered hover>
       <thead>
@@ -38,14 +32,15 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
             <td className="limit-text">{textSource.text}</td>
             <td>
               <input type='checkbox'
-                name={`Selecionar${textSource.id}`}
-                checked={textSource.isCreatePDF}
+                name={`checkText${textSource.id}`}
+                checked={textSource.isCreatePDF || false}
                 onChange={e => onChange(e, textSource.id)}>
               </input>
             </td>
           </tr>
         ))}
-        <style jsx>{`
+      </tbody>
+      <style jsx>{`
             .limit-text {
               max-width: 300px;
               white-space: nowrap;
@@ -53,11 +48,10 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
               text-overflow: ellipsis;
             }
 
-            table > th, td{
+            th, td{
               text-align: center!important;
             }
          `}</style>
-      </tbody>
     </Table>
   );
 };
