@@ -19,7 +19,7 @@ type Props = {
 const Home: React.FC<Props> = (props) => {
   const [texts, setTexts] = useState({})
   const [documentSource, setDocumentSource] = useState([])
-  
+
 
   const handleChange = (e, id: number) => {
     setTexts({
@@ -30,22 +30,20 @@ const Home: React.FC<Props> = (props) => {
     pdfUtil.findSourceById(props.texts, id).isCreatePDF = e.target.checked;
     setDocumentSource(pdfUtil.generateSourceMultiplePDF(props.texts, '\n\n'))
   }
- 
+
   return (
     <Layout>
-      <div>
-        <main>
-          <div className='row'>
-            <div className="col">
-              <h1>Músicas</h1>
-            </div>
-
-            <NavBar documentSource={documentSource} />
+      <>
+        <div className='row'>
+          <div className="col">
+            <h1>Músicas</h1>
           </div>
 
-          <TextSource textsSource={props.texts} onChange={handleChange} />
-        </main>
-      </div>
+          <NavBar documentSource={documentSource} />
+        </div>
+
+        <TextSource textsSource={props.texts} onChange={handleChange} />
+      </>
     </Layout>
   )
 }

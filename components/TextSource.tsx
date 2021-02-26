@@ -24,13 +24,13 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
       <tbody>
         {textsSource.map((textSource) => (
           <tr key={textSource.id}>
-            <td>
+            <td className="max-width">
               <Link href={`/text-source/${textSource.id}`}>
                 <a>{textSource.title}</a>
               </Link>
             </td>
             <td className="limit-text">{textSource.text}</td>
-            <td>
+            <td className="max-width">
               <input type='checkbox'
                 name={`checkText${textSource.id}`}
                 checked={textSource.isCreatePDF || false}
@@ -42,7 +42,7 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
       </tbody>
       <style jsx>{`
             .limit-text {
-              max-width: 300px;
+              max-width: 30vw;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
@@ -50,6 +50,10 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
 
             th, td{
               text-align: center!important;
+            }
+
+            max-width {
+              max-width: 5rem;
             }
          `}</style>
     </Table>

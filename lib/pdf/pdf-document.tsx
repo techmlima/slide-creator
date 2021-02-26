@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: 'black',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center', flex:1
   },
   text: {
     color: 'white',
