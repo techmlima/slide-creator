@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: 'black',
     display: 'flex',
-    justifyContent: 'center', flex:1
+    justifyContent: 'center'
   },
   text: {
     color: 'white',
@@ -22,7 +22,7 @@ const MyDocument: React.FC<{ documentSource: string[] }> = ({ documentSource }) 
       {documentSource.map((text, index) => {
         return (
           <Page key={`page${index}`} orientation='landscape' size="A5" style={styles.page}>
-            <View>
+            <View style={{flex:1}}>
               <Text style={styles.text}>{text}</Text>
             </View>
           </Page>
