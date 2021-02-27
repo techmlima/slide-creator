@@ -61,7 +61,7 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[] }> = ({ textsSelected 
                             <Eye />
                         </Button>
 
-                        <ModalPDFView textsSelected={textsSelected} changeDocumentSource={() => console.log('oi')                        }
+                        <ModalPDFView textsSelected={textsSelected}
                             show={modalShow} onHide={() => setModalShow(false)} />
                     </div>
                 )}>

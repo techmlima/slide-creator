@@ -35,15 +35,11 @@ const move = (
 const grid = 4;
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any): object => ({
-  // some basic styles to make the items look a bit nicer
   userSelect: "none",
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
 
-  // change background colour if dragging
   background: isDragging ? "lightgreen" : "lightgrey",
-
-  // styles we need to apply on draggables
   ...draggableStyle
 });
 
@@ -55,26 +51,22 @@ const getListStyle = (isDraggingOver: boolean): object => ({
 });
 
 interface State {
-  list1?: object;
-  textsSource: TextSourceProps[]
+  list?: object;
+  textsSource: TextSourceProps[];
 }
 
 class DragAndDrop extends Component<State> {
   //TODO: CONTINUAR DAQUI
-  state: State = { list1: [], textsSource: [] };
-  
-  constructor(props){
-    super(props) 
-    this.state.list1 = props.textSource?.map((item =>(
-      {
-        id: String(item.id),
-        content: item.title,
-        color:"lightgreen"
-      }
-    )))
-  }
+  state: State = { list: this.props?.textsSource?.map((item =>(
+    {
+      id: String(item.id),
+      content: item.title,
+      color:"lightgreen"
+    }
+  ))), textsSource: []};
 
-  droppableIds = { droppable1: "list1" };
+  
+  droppableIds = { droppable1: "list" };
   getList = (id: string): any => this.state[this.droppableIds[id]];
 
   onDragEnd = (result: any) => {
@@ -95,7 +87,7 @@ class DragAndDrop extends Component<State> {
       let copiedState: any = Object.assign({}, this.state);
 
       if (source.droppableId === "droppable1") {
-        copiedState.list1 = items;
+        copiedState.list = items;
       } 
       this.setState(copiedState);
     } else {
@@ -107,43 +99,33 @@ class DragAndDrop extends Component<State> {
       );
 
       this.setState({
-        list1: result.droppable1 ? result.droppable1 : this.state.list1
+        list: result.droppable1 ? result.droppable1 : this.state.list
       });
-    }
+    }   
   };
 
   render() {
-    const lists = [
+    const listContainer =
       {
         droppableId: "droppable1",
-        listId: "list1",
+        listId: "list",
         title: "Defina a ordem"
-      }];
+      };
 
     return (
       <div style={{ display: "flex" }}>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          {lists.map((list, listIndex) => (
-            <Droppable
-              key={"list-droppable-" + listIndex}
-              droppableId={list.droppableId}
-            >
+            <Droppable key="list-droppable" droppableId={listContainer.droppableId} >
               {(provided: any, snapshot: any) => (
                 <div
                   ref={provided.innerRef}
                   style={getListStyle(snapshot.isDraggingOver)}
                 >
-                  <h4>{list.title}</h4>
-                  {this.state[list.listId] &&
-                    this.state[list.listId].map((item: any, index: number) => (
-                      <Draggable
-                        key={item.id}
-                        draggableId={item.id}
-                        index={index}
-                      >
+                  <h4>{listContainer.title}</h4>
+                  {this.state[listContainer.listId] && this.state[listContainer.listId].map((item: any, index: number) => (
+                      <Draggable key={item.id} draggableId={item.id} index={index} >
                         {(provided: any, snapshot: any) => (
-                          <div
-                            ref={provided.innerRef}
+                          <div ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             style={getItemStyle(
@@ -162,7 +144,6 @@ class DragAndDrop extends Component<State> {
                 </div>
               )}
             </Droppable>
-          ))}
         </DragDropContext>
       </div>
     );
