@@ -5,9 +5,10 @@ import MyDocument from "../../lib/pdf/pdf-document";
 import DragAndDrop from "../DragAndDrop";
 import { TextSourceProps } from "../TextSource";
 
-const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[] }> = ({ show, onHide, textsSelected }) => {
+const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], changeOrderList }> = ({ show, onHide, textsSelected, changeOrderList }) => {
+
     return (
-        <Modal
+        <Modal 
             onHide={onHide}
             show={show}
             size="lg"
@@ -38,7 +39,7 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[] }>
                                 </PDFDownloadLink>
 
                                 <div className="col">
-                                    <DragAndDrop textsSource={textsSelected}/>
+                                    <DragAndDrop textsSource={textsSelected} changeOrderList={changeOrderList}/>
                                 </div>
                             </div>
                         </div>

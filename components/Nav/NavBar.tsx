@@ -8,18 +8,18 @@ import ModalPDFView from "../Modal/ModalPDFView";
 import { TextSourceProps } from "../TextSource";
 import NavButton from "./NavButton";
 
-const NavBar: React.FC<{ textsSelected: TextSourceProps[] }> = ({ textsSelected }) => {
+const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = ({ textsSelected, changeOrderList }) => {
     const router = useRouter()
     const [modalShow, setModalShow] = useState(false);
 
 
     const deleteTextSource = () => {
-        //TODO: pegar o número também
-        //deleteMusic(3);
+        textsSelected.forEach(t => deleteMusic(t.id));
     }
 
+    //TODO: melhorar método
     async function deleteMusic(id: number): Promise<void> {
-        await fetch(`http://localhost:3000/api/text-source/${id}`, {
+        await fetch(`/api/text-source/${id}`, {
           method: 'DELETE',
         })
         router.push('/')
@@ -61,7 +61,7 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[] }> = ({ textsSelected 
                             <Eye />
                         </Button>
 
-                        <ModalPDFView textsSelected={textsSelected}
+                        <ModalPDFView textsSelected={textsSelected} changeOrderList={changeOrderList}
                             show={modalShow} onHide={() => setModalShow(false)} />
                     </div>
                 )}>

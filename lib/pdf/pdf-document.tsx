@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 const MyDocument: React.FC<{ textSource: TextSourceProps[] }> = ({ textSource }) => {
   const documentSource = pdfUtil.generateSourceMultiplePDF(textSource, '\n\n');
   return (
-    <Document key='docPDF' >
+    <Document>
       {documentSource.map((text, index) => {
         return (
           <Page key={`page${index}`} orientation='landscape' size="A5" style={styles.page}>

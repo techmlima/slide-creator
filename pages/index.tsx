@@ -24,11 +24,12 @@ const Home: React.FC<Props> = (props) => {
   const handleChange = (e, id: number) => {
     pdfUtil.findSourceById(props.texts, id).isCreatePDF = e.target.checked
     setTextsSelected(props.texts.filter(item => item.isCreatePDF))
-    
   }
 
-  const changeDocumentSource = (calbackFunction) =>{
-    calbackFunction();
+  const changeOrderList = (list: TextSourceProps[]) => {
+    let listFilter = [];
+    list.forEach(item => listFilter.push(props.texts.find(t => t.id === Number(item.id))))
+    setTextsSelected(listFilter);
   }
 
   return (
@@ -39,7 +40,7 @@ const Home: React.FC<Props> = (props) => {
             <h1>Músicas</h1>
           </div>
           <div className="container">
-            <NavBar textsSelected={textsSelected}/>
+            <NavBar textsSelected={textsSelected} changeOrderList={changeOrderList}/>
           </div>
         </div>
 

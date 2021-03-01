@@ -1,4 +1,4 @@
-import { Component, useState } from "react";
+import { Component } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { TextSourceProps } from "./TextSource";
 
@@ -53,19 +53,24 @@ const getListStyle = (isDraggingOver: boolean): object => ({
 interface State {
   list?: object;
   textsSource: TextSourceProps[];
+  changeOrderList;
 }
 
 class DragAndDrop extends Component<State> {
   //TODO: CONTINUAR DAQUI
-  state: State = { list: this.props?.textsSource?.map((item =>(
-    {
-      id: String(item.id),
-      content: item.title,
-      color:"lightgreen"
-    }
-  ))), textsSource: []};
+  state: State = {
+    list: this.props?.textsSource?.map((item => (
+      {
+        id: String(item.id),
+        content: item.title,
+        color: "lightgreen"
+      }
+    )))
+    , textsSource: []
+    , changeOrderList: this.props.changeOrderList
+  };
 
-  
+
   droppableIds = { droppable1: "list" };
   getList = (id: string): any => this.state[this.droppableIds[id]];
 
@@ -88,7 +93,7 @@ class DragAndDrop extends Component<State> {
 
       if (source.droppableId === "droppable1") {
         copiedState.list = items;
-      } 
+      }
       this.setState(copiedState);
     } else {
       const result: any = move(
@@ -101,49 +106,53 @@ class DragAndDrop extends Component<State> {
       this.setState({
         list: result.droppable1 ? result.droppable1 : this.state.list
       });
-    }   
+    }
+
+    setTimeout(() => {
+      this.state.changeOrderList(this.state.list)
+    })
   };
 
   render() {
     const listContainer =
-      {
-        droppableId: "droppable1",
-        listId: "list",
-        title: "Defina a ordem"
-      };
+    {
+      droppableId: "droppable1",
+      listId: "list",
+      title: "Defina a ordem"
+    };
 
     return (
       <div style={{ display: "flex" }}>
         <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable key="list-droppable" droppableId={listContainer.droppableId} >
-              {(provided: any, snapshot: any) => (
-                <div
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
-                  <h4>{listContainer.title}</h4>
-                  {this.state[listContainer.listId] && this.state[listContainer.listId].map((item: any, index: number) => (
-                      <Draggable key={item.id} draggableId={item.id} index={index} >
-                        {(provided: any, snapshot: any) => (
-                          <div ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={getItemStyle(
-                              snapshot.isDragging,
-                              provided.draggableProps.style
-                            )}
-                          >
-                            <div style={{ background: item.color }}>
-                              {item.content}
-                            </div>
-                          </div>
+          <Droppable key="list-droppable" droppableId={listContainer.droppableId} >
+            {(provided: any, snapshot: any) => (
+              <div
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+              >
+                <h4>{listContainer.title}</h4>
+                {this.state[listContainer.listId] && this.state[listContainer.listId].map((item: any, index: number) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index} >
+                    {(provided: any, snapshot: any) => (
+                      <div ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(
+                          snapshot.isDragging,
+                          provided.draggableProps.style
                         )}
-                      </Draggable>
-                    ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
+                      >
+                        <div style={{ background: item.color }}>
+                          {item.content}
+                        </div>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </DragDropContext>
       </div>
     );
