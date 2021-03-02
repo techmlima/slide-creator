@@ -38,8 +38,9 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any): object => ({
   userSelect: "none",
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
+  borderRadius: '5px',
 
-  background: isDragging ? "lightgreen" : "lightgrey",
+  background: isDragging ? "grey" : "lightgrey",
   ...draggableStyle
 });
 
@@ -47,7 +48,8 @@ const getListStyle = (isDraggingOver: boolean): object => ({
   background: isDraggingOver ? "lightblue" : "#eee",
   padding: grid,
   margin: "3px",
-  width: 250
+  width: 250,
+  borderRadius: '15px',
 });
 
 interface State {
@@ -63,7 +65,7 @@ class DragAndDrop extends Component<State> {
       {
         id: String(item.id),
         content: item.title,
-        color: "lightgreen"
+        color: "lightgrey"
       }
     )))
     , textsSource: []
@@ -130,7 +132,7 @@ class DragAndDrop extends Component<State> {
                 ref={provided.innerRef}
                 style={getListStyle(snapshot.isDraggingOver)}
               >
-                <h4>{listContainer.title}</h4>
+                <h4 className="text-center">{listContainer.title}</h4>
                 {this.state[listContainer.listId] && this.state[listContainer.listId].map((item: any, index: number) => (
                   <Draggable key={item.id} draggableId={item.id} index={index} >
                     {(provided: any, snapshot: any) => (

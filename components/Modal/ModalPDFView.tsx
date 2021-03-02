@@ -8,10 +8,11 @@ import { TextSourceProps } from "../TextSource";
 const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], changeOrderList }> = ({ show, onHide, textsSelected, changeOrderList }) => {
 
     return (
-        <Modal 
+        <Modal
             onHide={onHide}
             show={show}
             size="lg"
+            dialogClassName="modal-90w"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
@@ -22,14 +23,14 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], c
             </Modal.Header>
             <Modal.Body>
                 <div className="row">
-                    <div className="col-5">
+                    <div className="col-6">
                         <PDFViewer>
                             <MyDocument textSource={textsSelected} />
                         </PDFViewer>
                     </div>
                     <div className="col border-left">
                         <div className="row">
-                            <div className="col">
+                            <div className="col-2">
                                 <PDFDownloadLink document={<MyDocument textSource={textsSelected} />} fileName="Documento.pdf">
                                     {({ blob, url, loading, error }) => (loading ? '...' :
                                         <div className='btn btn-info' >
@@ -37,10 +38,10 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], c
                                         </div>
                                     )}
                                 </PDFDownloadLink>
+                            </div>
 
-                                <div className="col">
-                                    <DragAndDrop textsSource={textsSelected} changeOrderList={changeOrderList}/>
-                                </div>
+                            <div className="col">
+                                <DragAndDrop textsSource={textsSelected} changeOrderList={changeOrderList} />
                             </div>
                         </div>
 
