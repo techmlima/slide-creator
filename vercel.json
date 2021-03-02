@@ -4,8 +4,8 @@
             "source": "/(.*)",
             "headers": [
                 {
-                    "key": "cache-control",
-                    "value": "public, s-maxage=1, stale-while-revalidate"
+                    "key": "Cache-Control",
+                    "value": "public, max-age=0, stale-while-revalidate"
                 }
             ]
         }
