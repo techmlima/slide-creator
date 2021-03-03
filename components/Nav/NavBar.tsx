@@ -1,6 +1,6 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useRouter  } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Download, Eye, PlusCircle, Trash } from "react-bootstrap-icons";
 import MyDocument from "../pdf/pdf-document";
@@ -13,14 +13,15 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = 
     const [modalShow, setModalShow] = useState(false);
 
 
-    const deleteTextSource = async () => {
-        await textsSelected.forEach(t => deleteMusic(t.id));
-        setTimeout(() => router.reload())       
+    const deleteTextSource = () => {
+        Promise.all(
+            textsSelected.map(t => (deleteMusic(t.id)))
+        ).finally(() => location.reload())
     }
 
     //TODO: melhorar método
-    async function deleteMusic(id: number): Promise<void> {
-        await fetch(`/api/text-source/${id}`, { method: 'DELETE' })       
+    async function deleteMusic(id: number): Promise<any> {
+      return await fetch(`/api/text-source/${id}`, { method: 'DELETE' })       
     }
 
     return (
