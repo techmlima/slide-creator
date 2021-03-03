@@ -1,4 +1,4 @@
-import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Placement } from "react-bootstrap/esm/Overlay";
 
 const TooltipElement: React.FC<{ keyName: string , placement: Placement , text: string , component }> = ({ keyName, placement, text, component }) => {
@@ -12,7 +12,6 @@ const TooltipElement: React.FC<{ keyName: string , placement: Placement , text: 
                 </Tooltip>
             }
         >
-        
             {component}
         </OverlayTrigger>
     );

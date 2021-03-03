@@ -1,7 +1,7 @@
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Button, Modal } from "react-bootstrap";
 import { Download } from "react-bootstrap-icons";
-import MyDocument from "../../lib/pdf/pdf-document";
+import MyDocument from "../pdf/pdf-document";
 import DragAndDrop from "../DragAndDrop";
 import { TextSourceProps } from "../TextSource";
 
@@ -30,16 +30,6 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], c
                     </div>
                     <div className="col border-left">
                         <div className="row">
-                            <div className="col-2">
-                                <PDFDownloadLink document={<MyDocument textSource={textsSelected} />} fileName="Documento.pdf">
-                                    {({ blob, url, loading, error }) => (loading ? '...' :
-                                        <div className='btn btn-info' >
-                                            <Download />
-                                        </div>
-                                    )}
-                                </PDFDownloadLink>
-                            </div>
-
                             <div className="col">
                                 <DragAndDrop textsSource={textsSelected} changeOrderList={changeOrderList} />
                             </div>
@@ -50,6 +40,14 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], c
 
             </Modal.Body>
             <Modal.Footer>
+                <PDFDownloadLink className="ml-2" document={<MyDocument textSource={textsSelected} />} fileName="Documento.pdf">
+                    {({ blob, url, loading, error }) => (loading ? '...' :
+                        <div className='btn btn-info' >
+                            Download PDF <Download className="mb-1"/>
+                        </div>
+                    )}
+                </PDFDownloadLink>
+
                 <Button onClick={onHide}>Fechar</Button>
             </Modal.Footer>
         </Modal>

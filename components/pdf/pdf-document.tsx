@@ -1,12 +1,11 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
-import { TextSourceProps } from '../../components/TextSource';
+import { TextSourceProps } from '../TextSource';
 var pdfUtil = require('../../util/pdf-util');
 
 const styles = StyleSheet.create({
   page: {
     backgroundColor: 'black',
-    display: 'flex',
     justifyContent: 'center'
   },
   text: {

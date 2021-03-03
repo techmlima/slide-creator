@@ -3,7 +3,7 @@ import { useRouter  } from "next/router";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { Download, Eye, PlusCircle, Trash } from "react-bootstrap-icons";
-import MyDocument from "../../lib/pdf/pdf-document";
+import MyDocument from "../pdf/pdf-document";
 import ModalPDFView from "../Modal/ModalPDFView";
 import { TextSourceProps } from "../TextSource";
 import TooltipElement from "../TooltipElement";
@@ -24,7 +24,7 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = 
     }
 
     return (
-        <div key="nav-itens" className="row float-right">
+        <div key="nav-itens" className="row">
             <TooltipElement keyName='top1' placement='top' text='Download PDF'
                 component={(
                     <div className='nav-button'>
@@ -77,7 +77,6 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = 
 
             <style jsx>{`
                 .nav-button {
-                  padding-right: 0.2rem;
                   padding-left: 0.2rem;
                 }
             `}</style>

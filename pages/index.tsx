@@ -34,19 +34,20 @@ const Home: React.FC<Props> = (props) => {
   return (
     <Layout>
       <>
-        <div className='row'>
+        <div className='row position-absolute'>
           <div className="col">
-            <h1>Músicas</h1>
-          </div>
-          <div className="container">
-            <NavBar textsSelected={textsSelected} changeOrderList={changeOrderList}/>
+            <h3>Músicas</h3>
           </div>
         </div>
 
-        <div className="row mt-1">
+        <div className="row">
+          <div className="col-12 d-flex justify-content-end">
+            <NavBar textsSelected={textsSelected} changeOrderList={changeOrderList} />
+          </div>
+          <div className="col-12 d-flex justify-content-end mt-1">
             <FilterList placeholder='Filtro' list={props.texts}
-              handleChange={(listFilter: TextSourceProps[]) => setTextsFilter(listFilter)}
-            />
+              handleChange={(listFilter: TextSourceProps[]) => setTextsFilter(listFilter)} />
+          </div>
         </div>
 
         <div className="row mt-1">

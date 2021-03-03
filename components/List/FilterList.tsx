@@ -24,22 +24,18 @@ const FilterList: React.FC<{ placeholder, list: Array<any>, propertName?: string
     }
 
     return (
-        <div className="row">
-            <div className="col">
-                <form>
-                    <input type="text" placeholder={placeholder}
-                        onChange={(e) => handleChange(filter(e.target.value))} />
+        <form>
+            <input type="text" placeholder={placeholder}
+                onChange={(e) => handleChange(filter(e.target.value))} />
 
-                    <TooltipElement keyName='topCancel' placement='top' text='Limpar filtro'
-                        component={(
-                            <Button type='reset' onClick={() => handleChange(filter(""))} variant="primary" className='ml-1 mb-1'>
-                                <XCircle />
-                            </Button>
-                        )}>
-                    </TooltipElement>
-                </form>
-            </div>
-        </div>
+            <TooltipElement keyName='topCancel' placement='top' text='Limpar filtro'
+                component={(
+                    <Button type='reset' onClick={() => handleChange(filter(""))} variant="primary" className='ml-1 mb-1'>
+                        <XCircle />
+                    </Button>
+                )}>
+            </TooltipElement>
+        </form>
     );
 }
 

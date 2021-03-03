@@ -48,7 +48,7 @@ const getListStyle = (isDraggingOver: boolean): object => ({
   background: isDraggingOver ? "lightblue" : "#eee",
   padding: grid,
   margin: "3px",
-  width: 250,
+  width: 300,
   borderRadius: '15px',
 });
 
