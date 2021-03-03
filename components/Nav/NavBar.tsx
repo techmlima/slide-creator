@@ -13,17 +13,15 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = 
     const [modalShow, setModalShow] = useState(false);
 
 
-    const deleteTextSource = () => {
-        textsSelected.forEach(t => deleteMusic(t.id));
+    const deleteTextSource = async () => {
+        await textsSelected.forEach(t => deleteMusic(t.id));
+        setTimeout(() => router.reload())       
     }
 
     //TODO: melhorar método
     async function deleteMusic(id: number): Promise<void> {
-        await fetch(`/api/text-source/${id}`, {
-          method: 'DELETE',
-        })
-        router.push('/')
-      }
+        await fetch(`/api/text-source/${id}`, { method: 'DELETE' })       
+    }
 
     return (
         <div key="nav-itens" className="row float-right">

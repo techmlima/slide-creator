@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import Router from 'next/router'
+import { Button } from 'react-bootstrap'
 
 const Create: React.FC = () => {
   const [title, setTitle] = useState('')
@@ -9,15 +10,15 @@ const Create: React.FC = () => {
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     try {
-        const body = { title, text }
-        await fetch('/api/text-source', {
+      const body = { title, text }
+      await fetch('/api/text-source', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
-        })
-        await Router.push('/')
+      })
+      await Router.push('/')
     } catch (error) {
-        console.error(error)
+      console.error(error)
     }
   }
 
@@ -25,7 +26,7 @@ const Create: React.FC = () => {
     <Layout>
       <div>
         <form onSubmit={submitData}>
-          <h1>Novo texto</h1>
+          <h1>Nova Música</h1>
           <input
             autoFocus
             onChange={(e) => setTitle(e.target.value)}
@@ -40,10 +41,18 @@ const Create: React.FC = () => {
             rows={8}
             value={text}
           />
-          <input disabled={!text || !title} type="submit" value="Salvar" />
-          <a className="back" href="#" onClick={() => Router.push('/')}>
-            Cancelar
-          </a>
+
+          <div className="row">
+            <div className="col d-flex justify-content-end">
+              <Button variant="success" type="submit" disabled={!text || !title}>
+                Salvar
+            </Button>
+              <Button variant="primary" className="ml-2" onClick={() => Router.push('/')}>
+                Cancelar
+            </Button>
+            </div>
+          </div>
+
         </form>
       </div>
       <style jsx>{`
