@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import Router from 'next/router'
 import { Button } from 'react-bootstrap'
+import Unauthorized from '../Unauthorized'
+import { useSession } from 'next-auth/client'
 
 const Create: React.FC = () => {
+  const [session, loading] = useSession();
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
 
@@ -24,38 +27,40 @@ const Create: React.FC = () => {
 
   return (
     <Layout>
-      <div>
-        <form onSubmit={submitData}>
-          <h1>Nova Música</h1>
-          <input
-            autoFocus
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Título"
-            type="text"
-            value={title}
-          />
-          <textarea
-            cols={50}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Conteúdo"
-            rows={8}
-            value={text}
-          />
+      {!session ? (<Unauthorized />) : (
+        <>
+          <div>
+            <form onSubmit={submitData}>
+              <h1>Nova Música</h1>
+              <input
+                autoFocus
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Título"
+                type="text"
+                value={title}
+              />
+              <textarea
+                cols={50}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Conteúdo"
+                rows={8}
+                value={text}
+              />
 
-          <div className="row">
-            <div className="col d-flex justify-content-end">
-              <Button variant="success" type="submit" disabled={!text || !title}>
-                Salvar
+              <div className="row">
+                <div className="col d-flex justify-content-end">
+                  <Button variant="success" type="submit" disabled={!text || !title}>
+                    Salvar
             </Button>
-              <Button variant="primary" className="ml-2" onClick={() => Router.push('/')}>
-                Cancelar
+                  <Button variant="primary" className="ml-2" onClick={() => Router.push('/')}>
+                    Cancelar
             </Button>
-            </div>
+                </div>
+              </div>
+
+            </form>
           </div>
-
-        </form>
-      </div>
-      <style jsx>{`
+          <style jsx>{`
         .page {
           background: white;
           padding: 3rem;
@@ -83,6 +88,8 @@ const Create: React.FC = () => {
           margin-left: 1rem;
         }
       `}</style>
+        </>
+      )}
     </Layout>
   )
 }

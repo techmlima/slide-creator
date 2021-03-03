@@ -20,6 +20,8 @@ model User {
   id            Int       @default(autoincrement()) @id
   name          String?
   email         String?   @unique
+  emailVerified DateTime? @map(name: "email_verified")
+  image         String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
   texts        TextSource[]
