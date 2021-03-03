@@ -6,7 +6,7 @@ import TextSource, { TextSourceProps } from "../components/TextSource"
 import NavBar from "../components/Nav/NavBar"
 import FilterList from "../components/List/FilterList"
 import { useSession } from "next-auth/client"
-import Unauthorized from "./Unauthorized"
+import Unauthorized from "../components/Unauthorized"
 var pdfUtil = require('../util/pdf-util');
 
 type Props = {

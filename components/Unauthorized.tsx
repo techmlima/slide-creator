@@ -8,7 +8,7 @@ export default function Unauthorized() {
 
                 <p>Para ter acesso a essa página é necessário efetuar login.</p>
 
-                <p> Por favor clique em Entrar.</p>
+                <p> Por favor clique em Entrar ou Sing In.</p>
 
                 <p> <button className="btn btn-secondary" onClick={() => signIn()}>Entrar</button></p>
             </div>

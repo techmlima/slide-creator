@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import Router from 'next/router'
 import { Button } from 'react-bootstrap'
-import Unauthorized from '../Unauthorized'
+import Unauthorized from '../../components/Unauthorized'
 import { useSession } from 'next-auth/client'
 
 const Create: React.FC = () => {
