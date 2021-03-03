@@ -5,16 +5,15 @@ import prisma from '../lib/prisma'
 import TextSource, { TextSourceProps } from "../components/TextSource"
 import NavBar from "../components/Nav/NavBar"
 import FilterList from "../components/List/FilterList"
-
 var pdfUtil = require('../util/pdf-util');
-
-export const getStaticProps: GetStaticProps = async () => {
-  const texts = await prisma.textSource.findMany()
-  return { props: { texts } }
-}
 
 type Props = {
   texts: TextSourceProps[]
+}
+
+export const getServerSideProps: GetStaticProps = async () => {
+  const texts = await prisma.textSource.findMany()
+  return { props: { texts } }
 }
 
 const Home: React.FC<Props> = (props) => {
