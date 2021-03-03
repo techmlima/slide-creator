@@ -1,3 +1,6 @@
+import { Button } from "react-bootstrap";
+import { XCircle } from "react-bootstrap-icons";
+import TooltipElement from "../TooltipElement";
 
 const FilterList: React.FC<{ placeholder, list: Array<any>, propertName?: string, handleChange }> = ({ placeholder, list, propertName, handleChange }) => {
 
@@ -13,7 +16,7 @@ const FilterList: React.FC<{ placeholder, list: Array<any>, propertName?: string
                     .filter(i => String(i)
                         .toLowerCase()
                         .includes(searchValue?.toLowerCase()));
-                
+
                 return itemFind?.length > 0;
             }
         });
@@ -23,8 +26,18 @@ const FilterList: React.FC<{ placeholder, list: Array<any>, propertName?: string
     return (
         <div className="row">
             <div className="col">
-                <input type="text" placeholder={placeholder}
-                    onChange={(e) => handleChange(filter(e.target.value))} />
+                <form>
+                    <input type="text" placeholder={placeholder}
+                        onChange={(e) => handleChange(filter(e.target.value))} />
+
+                    <TooltipElement keyName='topCancel' placement='top' text='Limpar filtro'
+                        component={(
+                            <Button type='reset' onClick={() => handleChange(filter(""))} variant="primary" className='ml-1 mb-1'>
+                                <XCircle />
+                            </Button>
+                        )}>
+                    </TooltipElement>
+                </form>
             </div>
         </div>
     );

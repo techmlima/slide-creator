@@ -1,7 +1,7 @@
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Placement } from "react-bootstrap/esm/Overlay";
 
-const NavButton: React.FC<{ keyName: string , placement: Placement , text: string , component }> = ({ keyName, placement, text, component }) => {
+const TooltipElement: React.FC<{ keyName: string , placement: Placement , text: string , component }> = ({ keyName, placement, text, component }) => {
     return (
         <OverlayTrigger
             key={keyName}
@@ -18,4 +18,4 @@ const NavButton: React.FC<{ keyName: string , placement: Placement , text: strin
     );
 }
 
-export default NavButton;
+export default TooltipElement;

@@ -6,7 +6,7 @@ import { Download, Eye, PlusCircle, Trash } from "react-bootstrap-icons";
 import MyDocument from "../../lib/pdf/pdf-document";
 import ModalPDFView from "../Modal/ModalPDFView";
 import { TextSourceProps } from "../TextSource";
-import NavButton from "./NavButton";
+import TooltipElement from "../TooltipElement";
 
 const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = ({ textsSelected, changeOrderList }) => {
     const router = useRouter()
@@ -25,7 +25,7 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = 
 
     return (
         <div key="nav-itens" className="row float-right">
-            <NavButton keyName='top1' placement='top' text='Download PDF'
+            <TooltipElement keyName='top1' placement='top' text='Download PDF'
                 component={(
                     <div className='nav-button'>
                         {textsSelected.length > 0 ? (
@@ -39,9 +39,9 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = 
                         ) : null}
                     </div>
                 )}>
-            </NavButton>
+            </TooltipElement>
 
-            <NavButton keyName='top2' placement='top' text='Deletar um ou mais textos'
+            <TooltipElement keyName='top2' placement='top' text='Deletar um ou mais textos'
                 component={(
                     <div className='nav-button'>
                         <Button onClick={deleteTextSource} variant="danger" disabled={textsSelected.length === 0}
@@ -50,9 +50,9 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = 
                         </Button>
                     </div>
                 )}>
-            </NavButton>
+            </TooltipElement>
 
-            <NavButton keyName='top3' placement='top' text='Visualizar PDF'
+            <TooltipElement keyName='top3' placement='top' text='Visualizar PDF'
                 component={(
                     <div className='nav-button'>
                         <Button className='nav-button' disabled={textsSelected.length === 0} variant="primary" onClick={() => setModalShow(true)}>
@@ -63,9 +63,9 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = 
                             show={modalShow} onHide={() => setModalShow(false)} />
                     </div>
                 )}>
-            </NavButton>
+            </TooltipElement>
 
-            <NavButton keyName='top4' placement='top' text='Criar Novo'
+            <TooltipElement keyName='top4' placement='top' text='Criar Novo'
                 component={(
                     <div className='nav-button mr-3'>
                         <Button onClick={() => router.push("/text-source/create")} variant="success">
@@ -73,7 +73,7 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = 
                         </Button>
                     </div>
                 )}>
-            </NavButton>
+            </TooltipElement>
 
             <style jsx>{`
                 .nav-button {
