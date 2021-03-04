@@ -14,6 +14,12 @@ const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     })
   ],
+  callbacks: {
+    session: async (session, user) => {
+      session.user = user;
+      return Promise.resolve(session);
+    }
+  },
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
 }

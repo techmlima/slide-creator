@@ -12,34 +12,39 @@ export type TextSourceProps = {
 
 const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ textsSource, onChange }) => {
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Título</th>
-          <th>Trecho</th>
-          <th>Selecionar</th>
-        </tr>
-      </thead>
-      <tbody>
-        {textsSource.map((textSource) => (
-          <tr key={textSource.id}>
-            <td className="max-width">
-              <Link href={`/text-source/${textSource.id}`}>
-                <a>{textSource.title}</a>
-              </Link>
-            </td>
-            <td className="limit-text">{textSource.text}</td>
-            <td className="max-width">
-              <input type='checkbox'
-                name={`checkText${textSource.id}`}
-                checked={textSource.isCreatePDF || false}
-                onChange={e => onChange(e, textSource.id)}>
-              </input>
-            </td>
+    <>
+      {textsSource.length == 0 ? (
+        <h5 className="w-100 mt-5 text-center">
+            Nenhuma música cadastrada para a sua Organização
+        </h5>
+      ) : (<Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Trecho</th>
+            <th>Selecionar</th>
           </tr>
-        ))}
-      </tbody>
-      <style jsx>{`
+        </thead>
+        <tbody>
+          {textsSource.map((textSource) => (
+            <tr key={textSource.id}>
+              <td className="max-width">
+                <Link href={`/text-source/${textSource.id}`}>
+                  <a>{textSource.title}</a>
+                </Link>
+              </td>
+              <td className="limit-text">{textSource.text}</td>
+              <td className="max-width">
+                <input type='checkbox'
+                  name={`checkText${textSource.id}`}
+                  checked={textSource.isCreatePDF || false}
+                  onChange={e => onChange(e, textSource.id)}>
+                </input>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+        <style jsx>{`
             .limit-text {
               max-width: 30vw;
               white-space: nowrap;
@@ -55,7 +60,9 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
               max-width: 5rem;
             }
          `}</style>
-    </Table>
+      </Table>
+        )}
+    </>
   );
 };
 
