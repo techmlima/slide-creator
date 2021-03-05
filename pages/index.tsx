@@ -15,8 +15,11 @@ type Props = {
 export const getServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req })  
   const texts = await prisma.textSource.findMany({
-    //TODO: configurar join para trazer todas as musicas da organização organizationId
-    where:{ userId: (session?.user as any)?.id | 0 }
+    where:{ 
+      user: {
+          organizationId: (session?.user as any)?.organizationId | 0
+      }
+    }
   })
   return { props: { texts } } 
 }
