@@ -59,7 +59,7 @@ interface State {
 }
 
 class DragAndDrop extends Component<State> {
-  //TODO: CONTINUAR DAQUI
+  //TODO: Falta melhorar muito esse código
   state: State = {
     list: this.props?.textsSource?.map((item => (
       {

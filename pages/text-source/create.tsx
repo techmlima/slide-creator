@@ -4,23 +4,26 @@ import Router from 'next/router'
 import { Button } from 'react-bootstrap'
 import Unauthorized from '../../components/Unauthorized'
 import { useSession } from 'next-auth/client'
+import SpinnerLoading from '../../components/SpinnerLoading'
 
 const Create: React.FC = () => {
   const [session, loading] = useSession();
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
+  const [spinner, showSpinner] = useState(false)
 
   const submitData = async (e: React.SyntheticEvent) => {
-
+    showSpinner(true)
     e.preventDefault()
     try {
+
       const body = { title, text, userId:  (session?.user as any)?.id | 0 }
       
       await fetch('/api/text-source', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
-      })
+      }).finally(() =>   showSpinner(false))
       await Router.push('/')
     } catch (error) {
       console.error(error)
@@ -29,7 +32,8 @@ const Create: React.FC = () => {
 
   return (
     <Layout>
-      {!session ? (<Unauthorized />) : (
+      {spinner ? (<SpinnerLoading />) : (null)}
+      {!loading && !session ? (<Unauthorized />) : (
         <>
           <div>
             <form onSubmit={submitData}>

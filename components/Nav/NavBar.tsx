@@ -9,28 +9,30 @@ import { TextSourceProps } from "../TextSource";
 import TooltipElement from "../TooltipElement";
 import BasicConfirmModalCenter from "../Modal/BasicConfirmModalCenter";
 
-const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = ({ textsSelected, changeOrderList }) => {
+const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList, showSpinner}> = ({ textsSelected, changeOrderList, showSpinner }) => {
     const router = useRouter()
     const [modalShow, setModalShow] = useState(false);
     const [modalExcludeShow, setModalExcludeShow] = useState(false);
 
-
     const deleteTextSource = () => {
+        showSpinner(true)
+        setModalExcludeShow(false)
+
         Promise.all(
             textsSelected.map(t => (deleteMusic(t.id)))
-        ).finally(() =>{
-            setModalExcludeShow(false)
+        ).finally(() =>{            
+            showSpinner(false)
+            //TODO: RECARREGAR SOMENTE O QUE MUDOU
             location.reload()
         })
     }
 
-    //TODO: melhorar método
     async function deleteMusic(id: number): Promise<any> {
       return await fetch(`/api/text-source/${id}`, { method: 'DELETE' })       
     }
 
     return (
-        <div key="nav-itens" className="row">
+        <div key="nav-itens" className="row">         
             <TooltipElement keyName='top1' placement='top' text='Download PDF'
                 component={(
                     <div className='nav-button'>

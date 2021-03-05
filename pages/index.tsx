@@ -6,6 +6,7 @@ import NavBar from "../components/Nav/NavBar"
 import FilterList from "../components/List/FilterList"
 import { getSession, useSession } from "next-auth/client"
 import Unauthorized from "../components/Unauthorized"
+import SpinnerLoading from "../components/SpinnerLoading"
 var pdfUtil = require('../util/pdf-util')
 
 type Props = {
@@ -28,6 +29,7 @@ const Home: React.FC<Props> = (props) => {
   const [session, loading] = useSession();
   const [textsFilter, setTextsFilter] = useState(props.texts)
   const [textsSelected, setTextsSelected] = useState([])
+  const [spinner, showSpinner] = useState(false)
 
   const handleChange = (e, id: number) => {
     pdfUtil.findSourceById(props.texts, id).isCreatePDF = e.target.checked
@@ -42,7 +44,8 @@ const Home: React.FC<Props> = (props) => {
 
   return (
     <Layout>
-      {!session ? (<Unauthorized />) : (
+      {loading || spinner ? (<SpinnerLoading />) : (null)}
+      {!loading && !session ? (<Unauthorized />) : (
         <div>
           <div className='row position-absolute'>
             <div className="col">
@@ -52,7 +55,7 @@ const Home: React.FC<Props> = (props) => {
 
           <div className="row">
             <div className="col-12 d-flex justify-content-end">
-              <NavBar textsSelected={textsSelected} changeOrderList={changeOrderList} />
+              <NavBar textsSelected={textsSelected} changeOrderList={changeOrderList} showSpinner={showSpinner}/>
             </div>
             <div className="col-12 d-flex justify-content-end mt-1">
               <FilterList placeholder='Filtro' list={props.texts}

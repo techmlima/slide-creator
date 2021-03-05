@@ -12,6 +12,7 @@ const Header: React.FC = () => {
 
   const [session, loading] = useSession()
 
+  //TODO: MELHORAR ESSE CÓDIGO
   let left = (
     <div className="left">
       <Link href="/">
