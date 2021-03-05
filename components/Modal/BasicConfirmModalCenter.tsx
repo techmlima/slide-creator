@@ -1,7 +1,6 @@
-import { title } from "process";
 import { Button, Modal } from "react-bootstrap";
 
-const BasicModalCenter: React.FC<{ show, onHide, titleText: string, bodyComponent: HTMLElement }> = ({ show, onHide, titleText, bodyComponent }) => {
+const BasicConfirmModalCenter: React.FC<{ show, onHide, titleText: string, message: string, confirmAction }> = ({ show, onHide, titleText, message, confirmAction }) => {
     return (
         <Modal
             onHide={onHide}
@@ -16,13 +15,14 @@ const BasicModalCenter: React.FC<{ show, onHide, titleText: string, bodyComponen
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {bodyComponent}
+                {message}
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={onHide}>Fechar</Button>
+                <Button onClick={onHide}>Não</Button>
+                <Button variant="danger" onClick={confirmAction}>Sim</Button>
             </Modal.Footer>
         </Modal>
     );
 }
 
-export default BasicModalCenter;
+export default BasicConfirmModalCenter;

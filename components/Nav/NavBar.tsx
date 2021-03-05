@@ -7,16 +7,21 @@ import MyDocument from "../pdf/pdf-document";
 import ModalPDFView from "../Modal/ModalPDFView";
 import { TextSourceProps } from "../TextSource";
 import TooltipElement from "../TooltipElement";
+import BasicConfirmModalCenter from "../Modal/BasicConfirmModalCenter";
 
 const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = ({ textsSelected, changeOrderList }) => {
     const router = useRouter()
     const [modalShow, setModalShow] = useState(false);
+    const [modalExcludeShow, setModalExcludeShow] = useState(false);
 
 
     const deleteTextSource = () => {
         Promise.all(
             textsSelected.map(t => (deleteMusic(t.id)))
-        ).finally(() => location.reload())
+        ).finally(() =>{
+            setModalExcludeShow(false)
+            location.reload()
+        })
     }
 
     //TODO: melhorar método
@@ -45,10 +50,13 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList }> = 
             <TooltipElement keyName='top2' placement='top' text='Deletar um ou mais textos'
                 component={(
                     <div className='nav-button'>
-                        <Button onClick={deleteTextSource} variant="danger" disabled={textsSelected.length === 0}
+                        <Button onClick={() => setModalExcludeShow(true)} variant="danger" disabled={textsSelected.length === 0}
                             className='nav-button'>
                             <Trash />
                         </Button>
+
+                        <BasicConfirmModalCenter titleText="Cuidado!" show={modalExcludeShow}  onHide={() => setModalExcludeShow(false)} 
+                            message="Deseja realmente excluir a(s) música(s) selecinada(s)?" confirmAction={deleteTextSource}/>
                     </div>
                 )}>
             </TooltipElement>

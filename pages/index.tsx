@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
 import prisma from '../lib/prisma'
 import TextSource, { TextSourceProps } from "../components/TextSource"
@@ -7,7 +6,7 @@ import NavBar from "../components/Nav/NavBar"
 import FilterList from "../components/List/FilterList"
 import { getSession, useSession } from "next-auth/client"
 import Unauthorized from "../components/Unauthorized"
-var pdfUtil = require('../util/pdf-util');
+var pdfUtil = require('../util/pdf-util')
 
 type Props = {
   texts: TextSourceProps[]
@@ -18,7 +17,7 @@ export const getServerSideProps = async ({ req, res }) => {
   const texts = await prisma.textSource.findMany({
     where:{ organizationId: (session?.user as any)?.organizationId | 0 }
   })
-  return { props: { texts } }
+  return { props: { texts } } 
 }
 
 const Home: React.FC<Props> = (props) => {

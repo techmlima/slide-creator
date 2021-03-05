@@ -9,11 +9,15 @@ const Create: React.FC = () => {
   const [session, loading] = useSession();
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
+  const [organizationId, setOrganizationId] = useState(0)
 
-  const submitData = async (e: React.SyntheticEvent) => {
+  const submitData = async (e: React.SyntheticEvent) => { 
+    //TODO: Conseguir salvar a organização
+    //setOrganizationId(1)
+  
     e.preventDefault()
     try {
-      const body = { title, text }
+      const body = { title, text, organizationId }
       await fetch('/api/text-source', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
