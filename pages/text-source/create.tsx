@@ -9,15 +9,13 @@ const Create: React.FC = () => {
   const [session, loading] = useSession();
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
-  const [organizationId, setOrganizationId] = useState(0)
 
-  const submitData = async (e: React.SyntheticEvent) => { 
-    //TODO: Conseguir salvar a organização
-    //setOrganizationId(1)
-  
+  const submitData = async (e: React.SyntheticEvent) => {
+
     e.preventDefault()
     try {
-      const body = { title, text, organizationId }
+      const body = { title, text, userId:  (session?.user as any)?.id | 0 }
+      
       await fetch('/api/text-source', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -55,10 +53,10 @@ const Create: React.FC = () => {
                 <div className="col d-flex justify-content-end">
                   <Button variant="success" type="submit" disabled={!text || !title}>
                     Salvar
-            </Button>
+                  </Button>
                   <Button variant="primary" className="ml-2" onClick={() => Router.push('/')}>
                     Cancelar
-            </Button>
+                  </Button>
                 </div>
               </div>
 
