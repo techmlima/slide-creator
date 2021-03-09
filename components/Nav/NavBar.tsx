@@ -85,7 +85,6 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList, show
                     </div>
                 )}>
             </TooltipElement>
-
             <style jsx>{`
                 .nav-button {
                   padding-left: 0.2rem;

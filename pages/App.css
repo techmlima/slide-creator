@@ -1,0 +1,13 @@
+.modal-custom { 
+    max-width: 90% !important; 
+    height: 80% !important;
+}
+
+.modal-content {
+    height: 100% !important;
+}
+
+iframe {
+    width: 100% !important;
+    height: 100% !important;
+}
