@@ -89,7 +89,7 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <Link href="/api/auth/signin">
-          <a data-active={isActive('/signup')}>Sing In</a>
+          <a data-active={isActive('/signup')}>Entrar</a>
         </Link>
         <style jsx>{`
           a {
@@ -149,7 +149,7 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <button onClick={() => signOut()}>
-          <a>Sing out</a>
+          <a>Sair</a>
         </button>
         <style jsx>{`
           a {

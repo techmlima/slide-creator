@@ -3,7 +3,7 @@ import { useRouter  } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Download, Eye, PlusCircle, Trash } from "react-bootstrap-icons";
-import MyDocument from "../pdf/pdf-document";
+import MyDocument from "../pdf/PdfDocument";
 import ModalPDFView from "../Modal/ModalPDFView";
 import { TextSourceProps } from "../TextSource";
 import TooltipElement from "../TooltipElement";
