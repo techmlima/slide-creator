@@ -46,7 +46,7 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], c
                                     component={(
                                         <Button
                                             variant='info'
-                                            className='ml-2'
+                                            className='ml-1 mb-1'
                                             onClick={() => setShowConfig(!showConfig)}
                                             aria-controls="collapse-config-pdf"
                                             aria-expanded={showConfig}
