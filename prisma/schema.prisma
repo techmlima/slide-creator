@@ -41,12 +41,15 @@ model User {
 }
 
 model ConfigurationPreferencesPDF {
-  id          Int    @id @default(autoincrement())
-  orientation String
-  size        String
-  delimiter   String
-  user        User?  @relation(fields: [userId], references: [id])
-  userId      Int?
+  id              Int    @id @default(autoincrement())
+  size            String
+  fontColor       String
+  fontSize        Int
+  fontFamily      String
+  backgroundColor String
+  delimiter       String
+  user            User?  @relation(fields: [userId], references: [id])
+  userId          Int?
 }
 
 model Account {

@@ -1,17 +1,8 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { TextSourceProps } from '../TextSource';
+import { PdfStyleSheet } from '../Modal/pdf/ConfigPreferencesPDF';
 var pdfUtil = require('../../util/pdf-util');
-
-export class PdfStyleSheet {
-  constructor(
-    public fontColor: string,
-    public fontSize: number,
-    public fontFamily: string,
-    public backgroundColor: string) {
-
-  }
-}
 
 const initStyleSheet = (pdfStyleSheet) => {
   return StyleSheet.create({
@@ -37,7 +28,7 @@ const MyDocument: React.FC<{ textSource: TextSourceProps[], pdfStyleSheet?: PdfS
     <Document>
       {documentSource.map((text, index) => {
         return (
-          <Page key={`page${index}`} orientation='landscape' size="A5" style={styles.page}>
+          <Page key={`page${index}`} orientation='landscape' size={pdfStyleSheet?.size ? pdfStyleSheet.size : "A5"} style={styles.page}>
             <View>
               <Text style={styles.text}>{text}</Text>
             </View>

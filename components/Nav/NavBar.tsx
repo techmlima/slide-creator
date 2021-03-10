@@ -4,10 +4,10 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Download, Eye, PlusCircle, Trash } from "react-bootstrap-icons";
 import MyDocument from "../pdf/PdfDocument";
-import ModalPDFView from "../Modal/ModalPDFView";
 import { TextSourceProps } from "../TextSource";
 import TooltipElement from "../TooltipElement";
 import BasicConfirmModalCenter from "../Modal/BasicConfirmModalCenter";
+import ModalPDFView from "../Modal/pdf/ModalPDFView";
 
 const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList, showSpinner}> = ({ textsSelected, changeOrderList, showSpinner }) => {
     const router = useRouter()
