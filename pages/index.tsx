@@ -7,13 +7,15 @@ import FilterList from "../components/List/FilterList"
 import { getSession, useSession } from "next-auth/client"
 import Unauthorized from "../components/Unauthorized"
 import SpinnerLoading from "../components/SpinnerLoading"
+import { PdfStyleSheet } from "../components/Modal/pdf/ConfigPreferencesPDF"
 var pdfUtil = require('../util/pdf-util')
 
 type Props = {
-  texts: TextSourceProps[]
+  texts: TextSourceProps[],
+  configPreferences: PdfStyleSheet
 }
 
-export const getServerSideProps = async ({ req, res }) => {
+export const getServerSideProps = async ({ req }) => {
   const session = await getSession({ req })  
   const texts = await prisma.textSource.findMany({
     where:{ 
@@ -22,7 +24,14 @@ export const getServerSideProps = async ({ req, res }) => {
       }
     }
   })
-  return { props: { texts } } 
+
+  const configPreferences = await prisma.configurationPreferencesPDF.findUnique({
+      where: { userId: 11 }
+  })
+
+  console.log((session?.user as any)?.userId);
+  
+  return { props: { texts, configPreferences } } 
 }
 
 const Home: React.FC<Props> = (props) => {
@@ -55,7 +64,7 @@ const Home: React.FC<Props> = (props) => {
 
           <div className="row">
             <div className="col-12 d-flex justify-content-end">
-              <NavBar textsSelected={textsSelected} changeOrderList={changeOrderList} showSpinner={showSpinner}/>
+              <NavBar textsSelected={textsSelected} configPreferences={props.configPreferences} changeOrderList={changeOrderList} showSpinner={showSpinner}/>
             </div>
             <div className="col-12 d-flex justify-content-end mt-1">
               <FilterList placeholder='Filtro' list={props.texts}

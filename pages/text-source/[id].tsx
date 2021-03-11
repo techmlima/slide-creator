@@ -7,7 +7,7 @@ import { TextSourceProps } from "../../components/TextSource"
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const texts = await prisma.textSource.findUnique({
-    where: { id: Number(query.id), }
+    where: { id: Number(query.id) }
   })
 
   return {

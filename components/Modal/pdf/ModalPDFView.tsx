@@ -6,18 +6,12 @@ import DragAndDrop from "../../DragAndDrop";
 import { TextSourceProps } from "../../TextSource";
 import { useState } from "react";
 import TooltipElement from "../../TooltipElement";
-import ConfigPreferencesPDF from "./ConfigPreferencesPDF";
+import ConfigPreferencesPDF, { PdfStyleSheet } from "./ConfigPreferencesPDF";
 
-const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], changeOrderList }> = ({ show, onHide, textsSelected, changeOrderList }) => {
+
+const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], changeOrderList, configPreferencesDefault: PdfStyleSheet }> = ({ show, onHide, textsSelected, changeOrderList, configPreferencesDefault }) => {
     const [showConfig, setShowConfig] = useState(false);
-    const [pdfStyleSheet, setPdfStyleSheet] = useState({
-        size: "A5",
-        fontSize: 17,
-        backgroundColor: 'black',
-        fontFamily: 'Times-Roman',
-        fontColor: 'white',
-        delimiter: '\n\n'
-    });    
+    const [pdfStyleSheet, setPdfStyleSheet] = useState(configPreferencesDefault);
 
     return (
         <Modal
@@ -57,7 +51,7 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], c
 
                             <Collapse in={showConfig}>
                                 <div id="collapse-config-pdf">
-                                    <ConfigPreferencesPDF pdfStyleSheet={pdfStyleSheet} setPdfStyleSheet={setPdfStyleSheet}/>
+                                    <ConfigPreferencesPDF pdfStyleSheet={pdfStyleSheet} setPdfStyleSheet={setPdfStyleSheet} />
                                     <hr />
                                 </div>
                             </Collapse>

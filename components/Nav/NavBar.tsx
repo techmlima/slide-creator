@@ -8,8 +8,9 @@ import { TextSourceProps } from "../TextSource";
 import TooltipElement from "../TooltipElement";
 import BasicConfirmModalCenter from "../Modal/BasicConfirmModalCenter";
 import ModalPDFView from "../Modal/pdf/ModalPDFView";
+import { PdfStyleSheet } from "../Modal/pdf/ConfigPreferencesPDF";
 
-const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList, showSpinner}> = ({ textsSelected, changeOrderList, showSpinner }) => {
+const NavBar: React.FC<{ textsSelected: TextSourceProps[], configPreferences: PdfStyleSheet, changeOrderList, showSpinner}> = ({ textsSelected, configPreferences, changeOrderList, showSpinner }) => {
     const router = useRouter()
     const [modalShow, setModalShow] = useState(false);
     const [modalExcludeShow, setModalExcludeShow] = useState(false);
@@ -70,7 +71,7 @@ const NavBar: React.FC<{ textsSelected: TextSourceProps[], changeOrderList, show
                             <Eye />
                         </Button>
 
-                        <ModalPDFView textsSelected={textsSelected} changeOrderList={changeOrderList}
+                        <ModalPDFView textsSelected={textsSelected} changeOrderList={changeOrderList} configPreferencesDefault={configPreferences}
                             show={modalShow} onHide={() => setModalShow(false)} />
                     </div>
                 )}>
