@@ -3,7 +3,7 @@ import prisma from '../../../lib/prisma'
 export default async function handle(req, res) {
   const textId = req.query.id
   if (req.method === 'DELETE') {
-    const music = await prisma.textSource.delete({
+    const music = await prisma.music.delete({
       where: { id: Number(textId) },
     })
     res.json(music)

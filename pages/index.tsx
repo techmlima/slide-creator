@@ -1,35 +1,33 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import Layout from "../components/Layout"
 import prisma from '../lib/prisma'
-import TextSource, { TextSourceProps } from "../components/TextSource"
 import NavBar from "../components/Nav/NavBar"
 import FilterList from "../components/List/FilterList"
 import { getSession, useSession } from "next-auth/client"
 import Unauthorized from "../components/Unauthorized"
 import SpinnerLoading from "../components/SpinnerLoading"
 import { PdfStyleSheet } from "../components/Modal/pdf/ConfigPreferencesPDF"
+import MusicTable, { MusicTableProps } from "../components/MusicTable"
 var pdfUtil = require('../util/pdf-util')
 
 type Props = {
-  texts: TextSourceProps[],
+  texts: MusicTableProps[],
   configPreferences: PdfStyleSheet
 }
 
 export const getServerSideProps = async ({ req }) => {
   const session = await getSession({ req })  
-  const texts = await prisma.textSource.findMany({
+  const organizationId = (session?.user as any)?.organizationId | 0;
+
+  const texts = await prisma.music.findMany({
     where:{ 
-      user: {
-          organizationId: (session?.user as any)?.organizationId | 0
-      }
+      user: { organizationId: organizationId }
     }
   })
 
   const configPreferences = await prisma.configurationPreferencesPDF.findUnique({
-      where: { userId: 11 }
+      where: { organizationId: organizationId }
   })
-
-  console.log((session?.user as any)?.userId);
   
   return { props: { texts, configPreferences } } 
 }
@@ -37,18 +35,18 @@ export const getServerSideProps = async ({ req }) => {
 const Home: React.FC<Props> = (props) => {
   const [session, loading] = useSession();
   const [textsFilter, setTextsFilter] = useState(props.texts)
-  const [textsSelected, setTextsSelected] = useState([])
+  const [musicsSelect, setMusicsSelect] = useState([])
   const [spinner, showSpinner] = useState(false)
 
   const handleChange = (e, id: number) => {
     pdfUtil.findSourceById(props.texts, id).isCreatePDF = e.target.checked
-    setTextsSelected(props.texts.filter(item => item.isCreatePDF))
+    setMusicsSelect(props.texts.filter(item => item.isCreatePDF))
   }
 
-  const changeOrderList = (list: TextSourceProps[]) => {
+  const changeOrderList = (list: MusicTableProps[]) => {
     let listFilter = [];
     list.forEach(item => listFilter.push(props.texts.find(t => t.id === Number(item.id))))
-    setTextsSelected(listFilter);
+    setMusicsSelect(listFilter);
   }
 
   return (
@@ -64,16 +62,16 @@ const Home: React.FC<Props> = (props) => {
 
           <div className="row">
             <div className="col-12 d-flex justify-content-end">
-              <NavBar textsSelected={textsSelected} configPreferences={props.configPreferences} changeOrderList={changeOrderList} showSpinner={showSpinner}/>
+              <NavBar musicsSelect={musicsSelect} configPreferences={props.configPreferences} changeOrderList={changeOrderList} showSpinner={showSpinner}/>
             </div>
             <div className="col-12 d-flex justify-content-end mt-1">
               <FilterList placeholder='Filtro' list={props.texts}
-                handleChange={(listFilter: TextSourceProps[]) => setTextsFilter(listFilter)} />
+                handleChange={(listFilter: MusicTableProps[]) => setTextsFilter(listFilter)} />
             </div>
           </div>
 
           <div className="row mt-1">
-            <TextSource textsSource={textsFilter} onChange={handleChange} />
+            <MusicTable musics={textsFilter} onChange={handleChange} />
           </div>
         </div>
       )}

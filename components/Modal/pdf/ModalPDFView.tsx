@@ -3,15 +3,23 @@ import { Button, Collapse, Modal } from "react-bootstrap";
 import { Download, Gear } from "react-bootstrap-icons";
 import MyDocument from "../../pdf/PdfDocument";
 import DragAndDrop from "../../DragAndDrop";
-import { TextSourceProps } from "../../TextSource";
+import { MusicTableProps } from "../../MusicTable";
 import { useState } from "react";
 import TooltipElement from "../../TooltipElement";
 import ConfigPreferencesPDF, { PdfStyleSheet } from "./ConfigPreferencesPDF";
+import * as EnumColor from "../../../util/colors";
 
-
-const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], changeOrderList, configPreferencesDefault: PdfStyleSheet }> = ({ show, onHide, textsSelected, changeOrderList, configPreferencesDefault }) => {
+const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOrderList, configPreferencesDefault: PdfStyleSheet }> = ({ show, onHide, musics, changeOrderList, configPreferencesDefault }) => {
     const [showConfig, setShowConfig] = useState(false);
-    const [pdfStyleSheet, setPdfStyleSheet] = useState(configPreferencesDefault);
+    const [pdfStyleSheet, setPdfStyleSheet] = useState(
+        configPreferencesDefault ? configPreferencesDefault : {
+            size: 'A4',
+            fontColor: EnumColor.Colors.WHITE,
+            fontSize: 20,
+            fontFamily: 'Times-Roman',
+            backgroundColor: EnumColor.Colors.BLACK,
+            delimiter: '\n\n'
+        });
 
     return (
         <Modal
@@ -31,7 +39,7 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], c
                     <div className="row h-100">
                         <div className="col">
                             <PDFViewer>
-                                <MyDocument textSource={textsSelected} pdfStyleSheet={pdfStyleSheet} />
+                                <MyDocument musics={musics} pdfStyleSheet={pdfStyleSheet} />
                             </PDFViewer>
                         </div>
                         <div className="col-4 border-left">
@@ -56,13 +64,13 @@ const ModalPDFView: React.FC<{ show, onHide, textsSelected: TextSourceProps[], c
                                 </div>
                             </Collapse>
 
-                            <DragAndDrop textsSource={textsSelected} changeOrderList={changeOrderList} />
+                            <DragAndDrop textsSource={musics} changeOrderList={changeOrderList} />
                         </div>
                     </div>
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <PDFDownloadLink className="ml-2" document={<MyDocument textSource={textsSelected} pdfStyleSheet={pdfStyleSheet} />} fileName="Documento.pdf">
+                <PDFDownloadLink className="ml-2" document={<MyDocument musics={musics} pdfStyleSheet={pdfStyleSheet} />} fileName="Documento.pdf">
                     {({ blob, url, loading, error }) => (loading ? '...' :
                         <div className='btn btn-info' >
                             Download PDF <Download className="mb-1" />

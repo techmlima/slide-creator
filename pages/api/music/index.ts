@@ -4,7 +4,7 @@ import prisma from '../../../lib/prisma'
 export default async function handle(req, res) {
   const { title, text, userId } = req.body
 
-  const result = await prisma.textSource.create({
+  const result = await prisma.music.create({
     data: {
       title: title,
       text: text,

@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { TextSourceProps } from "./TextSource";
+import { MusicTableProps } from "./MusicTable";
 
 // a little function to help us with reordering the result
 const reorder = (list: [], startIndex: number, endIndex: number): object => {
@@ -54,7 +54,7 @@ const getListStyle = (isDraggingOver: boolean): object => ({
 
 interface State {
   list?: object;
-  textsSource: TextSourceProps[];
+  textsSource: MusicTableProps[];
   changeOrderList;
 }
 

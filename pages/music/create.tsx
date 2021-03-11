@@ -19,7 +19,7 @@ const Create: React.FC = () => {
 
       const body = { title, text, userId:  (session?.user as any)?.id | 0 }
       
-      await fetch('/api/text-source', {
+      await fetch('/api/music', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

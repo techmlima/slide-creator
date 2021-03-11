@@ -1,20 +1,21 @@
-import { TextSourceProps } from "../components/TextSource";
+import { MusicTableProps } from "../components/MusicTable";
 
-const generateSourcePDF = (textSource: TextSourceProps, splitValue: string) => {
-    return [textSource?.title].concat(textSource?.text.split(splitValue));
+
+const generateSourcePDF = (music: MusicTableProps, splitValue: string) => {
+    return [music?.title].concat(music?.text.split(splitValue));
 }
 
-const generateSourceMultiplePDF = (textSources: TextSourceProps[], splitValue: string) => {
+const generateSourceMultiplePDF = (musics: MusicTableProps[], splitValue: string) => {
     let arrayRetorno = [];
-    textSources.filter(textS => textS.isCreatePDF)
+    musics.filter(textS => textS.isCreatePDF)
       .map(t => ([t.title].concat(t?.text.split(splitValue))))
       .forEach(t => arrayRetorno = arrayRetorno.concat(t))  
   
     return arrayRetorno;
 }
 
-const findSourceById = (textSources: TextSourceProps[], id: number):TextSourceProps => {
-  return textSources.find(t => t.id === id)
+const findSourceById = (musics: MusicTableProps[], id: number):MusicTableProps => {
+  return musics.find(t => t.id === id)
 }
 
 exports.generateSourcePDF = generateSourcePDF

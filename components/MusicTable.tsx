@@ -3,17 +3,17 @@ import Link from "next/link";
 import React from "react";
 import { Table } from "react-bootstrap";
 
-export type TextSourceProps = {
+export type MusicTableProps = {
   id: number;
   title: string;
   text: string;
   isCreatePDF: boolean;
 };
 
-const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ textsSource, onChange }) => {
+const MusicTable: React.FC<{ musics: MusicTableProps[], onChange }> = ({ musics, onChange }) => {
   return (
     <>
-      {textsSource.length == 0 ? (
+      {musics.length == 0 ? (
         <h5 className="w-100 mt-5 text-center">
             Nenhuma música cadastrada para a sua Organização
         </h5>
@@ -26,19 +26,19 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
           </tr>
         </thead>
         <tbody>
-          {textsSource.map((textSource) => (
-            <tr key={textSource.id}>
+          {musics.map((music) => (
+            <tr key={music.id}>
               <td className="max-width">
-                <Link href={`/text-source/${textSource.id}`}>
-                  <a>{textSource.title}</a>
+                <Link href={`/music/${music.id}`}>
+                  <a>{music.title}</a>
                 </Link>
               </td>
-              <td className="limit-text">{textSource.text}</td>
+              <td className="limit-text">{music.text}</td>
               <td className="max-width">
                 <input type='checkbox'
-                  name={`checkText${textSource.id}`}
-                  checked={textSource.isCreatePDF || false}
-                  onChange={e => onChange(e, textSource.id)}>
+                  name={`checkText${music.id}`}
+                  checked={music.isCreatePDF || false}
+                  onChange={e => onChange(e, music.id)}>
                 </input>
               </td>
             </tr>
@@ -66,4 +66,4 @@ const TextSource: React.FC<{ textsSource: TextSourceProps[], onChange }> = ({ te
   );
 };
 
-export default TextSource;
+export default MusicTable;

@@ -3,10 +3,10 @@ import { GetServerSideProps } from "next"
 import ReactMarkdown from "react-markdown"
 import Layout from "../../components/Layout"
 import prisma from '../../lib/prisma'
-import { TextSourceProps } from "../../components/TextSource"
+import { MusicTableProps } from "../../components/MusicTable"
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const texts = await prisma.textSource.findUnique({
+  const texts = await prisma.music.findUnique({
     where: { id: Number(query.id) }
   })
 
@@ -15,13 +15,12 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   }
 }
 
-const TextSource: React.FC<TextSourceProps> = (props) => {
+const MusicDetail: React.FC<MusicTableProps> = (props) => {
   let title = props.title
   return (
     <Layout>
       <div>
         <h2>{title}</h2>
-        <p>{props?.title}</p>
         <ReactMarkdown source={props.text} />
       </div>
       <style jsx>{`
@@ -53,4 +52,4 @@ const TextSource: React.FC<TextSourceProps> = (props) => {
   )
 }
 
-export default TextSource
+export default MusicDetail

@@ -10,18 +10,20 @@ export class PdfStyleSheet {
       public fontColor: string,
       public fontSize: number,
       public fontFamily: string,
-      public backgroundColor: string) {
+      public backgroundColor: string,
+      public delimiter: string) {
   
     }
   }
 
-const ConfigPreferencesPDF: React.FC<{ pdfStyleSheet?: PdfStyleSheet, setPdfStyleSheet}> = ({pdfStyleSheet, setPdfStyleSheet}) => {
+const ConfigPreferencesPDF: React.FC<{ pdfStyleSheet?: PdfStyleSheet, setPdfStyleSheet?}> = ({pdfStyleSheet, setPdfStyleSheet}) => {
     const [session, loading] = useSession();
     const saveConfigPreferences = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         try {
-            const body = { ...pdfStyleSheet, userId: (session?.user as any)?.id }
+            const body = { ...pdfStyleSheet, organizationId: (session?.user as any)?.organizationId }
 
+            //TODO: EXIBIR SPINER E AVISAR QUANDO SALVAR Quando já ouver usar PUT EM vez de POST
             await fetch('/api/configuration-preferences-pdf', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

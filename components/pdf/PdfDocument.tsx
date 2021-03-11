@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
-import { TextSourceProps } from '../TextSource';
+import { MusicTableProps } from '../MusicTable';
 import { PdfStyleSheet } from '../Modal/pdf/ConfigPreferencesPDF';
 var pdfUtil = require('../../util/pdf-util');
 
@@ -20,9 +20,9 @@ const initStyleSheet = (pdfStyleSheet) => {
   })
 }
 
-const MyDocument: React.FC<{ textSource: TextSourceProps[], pdfStyleSheet?: PdfStyleSheet }> = ({ textSource, pdfStyleSheet }) => {
+const MyDocument: React.FC<{ musics: MusicTableProps[], pdfStyleSheet?: PdfStyleSheet }> = ({ musics, pdfStyleSheet }) => {
   const styles = initStyleSheet(pdfStyleSheet);
-  const documentSource = pdfUtil.generateSourceMultiplePDF(textSource, '\n\n');
+  const documentSource = pdfUtil.generateSourceMultiplePDF(musics, pdfStyleSheet?.delimiter);
   
   return (
     <Document>
