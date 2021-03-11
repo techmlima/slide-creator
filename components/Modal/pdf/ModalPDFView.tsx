@@ -34,37 +34,39 @@ const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOr
                     Pré-visualizar PDF
                     </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="overflow-auto">
                 <div className="container-fluid h-100">
                     <div className="row h-100">
-                        <div className="col">
+                        <div className="col mb-1">
                             <PDFViewer>
                                 <MyDocument musics={musics} pdfStyleSheet={pdfStyleSheet} />
                             </PDFViewer>
                         </div>
-                        <div className="col-4 border-left">
-                            <TooltipElement keyName='topConfigPDF' placement='top' text='Configurações do PDF'
-                                component={(
-                                    <Button
-                                        variant='info'
-                                        className='ml-1 mb-1'
-                                        onClick={() => setShowConfig(!showConfig)}
-                                        aria-controls="collapse-config-pdf"
-                                        aria-expanded={showConfig}
-                                    >
-                                        <Gear />
-                                    </Button>
-                                )}>
-                            </TooltipElement>
+                        <div className="row border-left">
+                            <div className="col-12">
+                                <TooltipElement keyName='topConfigPDF' placement='top' text='Configurações do PDF'
+                                    component={(
+                                        <Button
+                                            variant='info'
+                                            className="ml-1 mb-1"
+                                            onClick={() => setShowConfig(!showConfig)}
+                                            aria-controls="collapse-config-pdf"
+                                            aria-expanded={showConfig}
+                                        >
+                                            <Gear />
+                                        </Button>
+                                    )}>
+                                </TooltipElement>
 
-                            <Collapse in={showConfig}>
-                                <div id="collapse-config-pdf">
-                                    <ConfigPreferencesPDF pdfStyleSheet={pdfStyleSheet} setPdfStyleSheet={setPdfStyleSheet} />
-                                    <hr />
-                                </div>
-                            </Collapse>
+                                <Collapse in={showConfig}>
+                                    <div id="collapse-config-pdf">
+                                        <ConfigPreferencesPDF pdfStyleSheet={pdfStyleSheet} setPdfStyleSheet={setPdfStyleSheet} />
+                                        <hr />
+                                    </div>
+                                </Collapse>
 
-                            <DragAndDrop textsSource={musics} changeOrderList={changeOrderList} />
+                                <DragAndDrop textsSource={musics} changeOrderList={changeOrderList} />
+                            </div>
                         </div>
                     </div>
                 </div>

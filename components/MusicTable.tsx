@@ -11,6 +11,7 @@ export type MusicTableProps = {
 };
 
 const MusicTable: React.FC<{ musics: MusicTableProps[], onChange }> = ({ musics, onChange }) => {
+  //TODO: CRIAR ORDENADOR
   return (
     <>
       {musics.length == 0 ? (

@@ -11,11 +11,11 @@ const initStyleSheet = (pdfStyleSheet) => {
       justifyContent: 'center'
     },
     text: {
-      color: pdfStyleSheet?.fontColor ? pdfStyleSheet?.fontColor : 'white',
+      color: pdfStyleSheet?.fontColor,
       margin: 12,
-      fontSize: pdfStyleSheet?.fontSize ? pdfStyleSheet?.fontSize : 35,
+      fontSize: pdfStyleSheet?.fontSize,
       textAlign: 'center',
-      fontFamily: pdfStyleSheet?.fontFamily ? pdfStyleSheet?.fontFamily : 'Times-Roman'
+      fontFamily: pdfStyleSheet?.fontFamily
     }
   })
 }
