@@ -13,6 +13,7 @@ const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOr
     const [showConfig, setShowConfig] = useState(false);
     const [pdfStyleSheet, setPdfStyleSheet] = useState(
         configPreferencesDefault ? configPreferencesDefault : {
+            id: null,
             size: 'A4',
             fontColor: EnumColor.Colors.WHITE,
             fontSize: 20,

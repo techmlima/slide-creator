@@ -6,29 +6,30 @@ const tamanhoFolhasEnum = require("../../../util/tamanho-folhas");
 
 export class PdfStyleSheet {
     constructor(
-      public size: string,
-      public fontColor: string,
-      public fontSize: number,
-      public fontFamily: string,
-      public backgroundColor: string,
-      public delimiter: string) {
-  
-    }
-  }
+        public id: number,
+        public size: string,
+        public fontColor: string,
+        public fontSize: number,
+        public fontFamily: string,
+        public backgroundColor: string,
+        public delimiter: string) {
 
-const ConfigPreferencesPDF: React.FC<{ pdfStyleSheet?: PdfStyleSheet, setPdfStyleSheet?}> = ({pdfStyleSheet, setPdfStyleSheet}) => {
+    }
+}
+
+const ConfigPreferencesPDF: React.FC<{ pdfStyleSheet?: PdfStyleSheet, setPdfStyleSheet?}> = ({ pdfStyleSheet, setPdfStyleSheet }) => {
     const [session, loading] = useSession();
+
     const saveConfigPreferences = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         try {
             const body = { ...pdfStyleSheet, organizationId: (session?.user as any)?.organizationId }
-
             //TODO: EXIBIR SPINER E AVISAR QUANDO SALVAR Quando já ouver usar PUT EM vez de POST
             await fetch('/api/configuration-preferences-pdf', {
-                method: 'POST',
+                method: pdfStyleSheet.id ? 'PUT' : 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
-            }).then(() => console.log('salvou'))
+            }).then(() => {})
         } catch (error) {
             console.error(error)
         }
