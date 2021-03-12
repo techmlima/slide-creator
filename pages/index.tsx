@@ -42,8 +42,6 @@ const Home: React.FC<Props> = (props) => {
   const [musicsSelect, setMusicsSelect] = useState([])
   const [spinner, showSpinner] = useState(false)
 
-
-
   const handleChange = (e, id: number) => {
     pdfUtil.findSourceById(props.musics, id).isCreatePDF = e.target.checked
     setMusicsSelect(props.musics.filter(item => item.isCreatePDF))
