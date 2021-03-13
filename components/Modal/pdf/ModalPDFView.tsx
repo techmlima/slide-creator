@@ -7,8 +7,6 @@ import { MusicTableProps } from "../../MusicTable";
 import { useState } from "react";
 import TooltipElement from "../../TooltipElement";
 import ConfigPreferencesPDF, { PdfStyleSheet } from "./ConfigPreferencesPDF";
-import {BrowserView, MobileView } from "react-device-detect";
-import { MobilePDFReader } from 'reactjs-pdf-view';
 import * as EnumColor from "../../../util/colors";
 
 const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOrderList, configPreferencesDefault: PdfStyleSheet }> = ({ show, onHide, musics, changeOrderList, configPreferencesDefault }) => {
@@ -41,15 +39,9 @@ const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOr
                 <div className="container-fluid h-100">
                     <div className="row h-100">
                         <div className="col mb-1">
-                            <BrowserView>
-                                <PDFViewer>
-                                    <MyDocument musics={musics} pdfStyleSheet={pdfStyleSheet} />
-                                </PDFViewer>
-                            </BrowserView>
-
-                            <MobileView>
-                                <MobilePDFReader url="http://localhost:3000/teste.pdf"/>
-                            </MobileView>
+                            <PDFViewer>
+                                <MyDocument musics={musics} pdfStyleSheet={pdfStyleSheet} />
+                            </PDFViewer>
                         </div>
                         <div className="row border-left">
                             <div className="col-12">
@@ -81,7 +73,7 @@ const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOr
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <PDFDownloadLink className="ml-2" document={<MyDocument musics={musics} pdfStyleSheet={pdfStyleSheet} />} fileName="Documento.pdf">
+                <PDFDownloadLink key="modalPDFLink" className="ml-2" document={<MyDocument musics={musics} pdfStyleSheet={pdfStyleSheet} />} fileName="Documento.pdf">
                     {({ blob, url, loading, error }) => (loading ? '...' :
                         <div className='btn btn-info' >
                             Download PDF <Download className="mb-1" />
