@@ -2,7 +2,6 @@ import { useSession } from "next-auth/client";
 import { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import SpinnerLoading from "../../SpinnerLoading";
 
 const colorsEnum = require("../../../util/colors");
