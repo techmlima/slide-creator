@@ -15,9 +15,7 @@ export class PdfStyleSheet {
         public fontSize: number,
         public fontFamily: string,
         public backgroundColor: string,
-        public delimiter: string) {
-
-    }
+        public delimiter: string) { }
 }
 
 const ConfigPreferencesPDF: React.FC<{ pdfStyleSheet?: PdfStyleSheet, setPdfStyleSheet?}> = ({ pdfStyleSheet, setPdfStyleSheet }) => {

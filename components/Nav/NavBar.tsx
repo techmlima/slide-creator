@@ -1,16 +1,16 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { useRouter  } from "next/router";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Download, Eye, PlusCircle, Trash } from "react-bootstrap-icons";
 import MyDocument from "../pdf/PdfDocument";
 import TooltipElement from "../TooltipElement";
 import BasicConfirmModalCenter from "../Modal/BasicConfirmModalCenter";
-import ModalPDFView from "../Modal/pdf/ModalPDFView";
+import ModalPDFView, { defaultPreferences } from "../Modal/pdf/ModalPDFView";
 import { PdfStyleSheet } from "../Modal/pdf/ConfigPreferencesPDF";
 import { MusicTableProps } from "../MusicTable";
 
-const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences: PdfStyleSheet, changeOrderList, showSpinner}> = ({ musicsSelect, configPreferences, changeOrderList, showSpinner }) => {
+const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences: PdfStyleSheet, changeOrderList, showSpinner }> = ({ musicsSelect, configPreferences, changeOrderList, showSpinner }) => {
     const router = useRouter()
     const [modalShow, setModalShow] = useState(false);
     const [modalExcludeShow, setModalExcludeShow] = useState(false);
@@ -21,7 +21,7 @@ const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences: Pdf
 
         Promise.all(
             musicsSelect.map(t => (deleteMusic(t.id)))
-        ).finally(() =>{            
+        ).finally(() => {
             showSpinner(false)
             //TODO: RECARREGAR SOMENTE O QUE MUDOU
             location.reload()
@@ -29,16 +29,18 @@ const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences: Pdf
     }
 
     async function deleteMusic(id: number): Promise<any> {
-      return await fetch(`/api/music/${id}`, { method: 'DELETE' })       
+        return await fetch(`/api/music/${id}`, { method: 'DELETE' })
     }
 
     return (
-        <div key="nav-itens" className="row">         
+        <div key="nav-itens" className="row">
             <TooltipElement keyName='top1' placement='top' text='Download PDF'
                 component={(
                     <div className='nav-button'>
                         {musicsSelect.length > 0 ? (
-                            <PDFDownloadLink document={<MyDocument musics={musicsSelect} />} fileName="Documento.pdf">
+                            <PDFDownloadLink document={
+                                <MyDocument musics={musicsSelect} configPreferencesDefault={configPreferences ? configPreferences : defaultPreferences} />
+                            } fileName="Documento.pdf">
                                 {({ blob, url, loading, error }) => (loading ? '...' :
                                     <div className='btn btn-info' >
                                         <Download />
@@ -58,8 +60,8 @@ const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences: Pdf
                             <Trash />
                         </Button>
 
-                        <BasicConfirmModalCenter titleText="Cuidado!" show={modalExcludeShow}  onHide={() => setModalExcludeShow(false)} 
-                            message="Deseja realmente excluir a(s) música(s) selecinada(s)?" confirmAction={deletMusics}/>
+                        <BasicConfirmModalCenter titleText="Cuidado!" show={modalExcludeShow} onHide={() => setModalExcludeShow(false)}
+                            message="Deseja realmente excluir a(s) música(s) selecinada(s)?" confirmAction={deletMusics} />
                     </div>
                 )}>
             </TooltipElement>

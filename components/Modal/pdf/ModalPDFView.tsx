@@ -9,18 +9,19 @@ import TooltipElement from "../../TooltipElement";
 import ConfigPreferencesPDF, { PdfStyleSheet } from "./ConfigPreferencesPDF";
 import * as EnumColor from "../../../util/colors";
 
+export const defaultPreferences = {
+    id: null,
+    size: 'A4',
+    fontColor: EnumColor.Colors.WHITE,
+    fontSize: 20,
+    fontFamily: 'Times-Roman',
+    backgroundColor: EnumColor.Colors.BLACK,
+    delimiter: '\n\n'
+}
+
 const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOrderList, configPreferencesDefault: PdfStyleSheet }> = ({ show, onHide, musics, changeOrderList, configPreferencesDefault }) => {
     const [showConfig, setShowConfig] = useState(false);
-    const [pdfStyleSheet, setPdfStyleSheet] = useState(
-        configPreferencesDefault ? configPreferencesDefault : {
-            id: null,
-            size: 'A4',
-            fontColor: EnumColor.Colors.WHITE,
-            fontSize: 20,
-            fontFamily: 'Times-Roman',
-            backgroundColor: EnumColor.Colors.BLACK,
-            delimiter: '\n\n'
-        });
+    const [pdfStyleSheet, setPdfStyleSheet] = useState(configPreferencesDefault ? configPreferencesDefault : defaultPreferences);
 
     return (
         <Modal
@@ -40,7 +41,7 @@ const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOr
                     <div className="row h-100">
                         <div className="col mb-1">
                             <PDFViewer>
-                                <MyDocument musics={musics} pdfStyleSheet={pdfStyleSheet} />
+                                <MyDocument musics={musics} configPreferencesDefault={pdfStyleSheet} />
                             </PDFViewer>
                         </div>
                         <div className="row border-left">
@@ -73,7 +74,7 @@ const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOr
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <PDFDownloadLink key="modalPDFLink" className="ml-2" document={<MyDocument musics={musics} pdfStyleSheet={pdfStyleSheet} />} fileName="Documento.pdf">
+                <PDFDownloadLink key="modalPDFLink" className="ml-2" document={<MyDocument musics={musics} configPreferencesDefault={pdfStyleSheet} />} fileName="Documento.pdf">
                     {({ blob, url, loading, error }) => (loading ? '...' :
                         <div className='btn btn-info' >
                             Download PDF <Download className="mb-1" />

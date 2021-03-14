@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { Page, Text, Document, StyleSheet } from '@react-pdf/renderer';
 import { MusicTableProps } from '../MusicTable';
 import { PdfStyleSheet } from '../Modal/pdf/ConfigPreferencesPDF';
 var pdfUtil = require('../../util/pdf-util');
@@ -20,18 +20,16 @@ const initStyleSheet = (pdfStyleSheet) => {
   })
 }
 
-const MyDocument: React.FC<{ musics: MusicTableProps[], pdfStyleSheet?: PdfStyleSheet }> = ({ musics, pdfStyleSheet }) => {
-  const styles = initStyleSheet(pdfStyleSheet);
-  const documentSource = pdfUtil.generateSourceMultiplePDF(musics, pdfStyleSheet?.delimiter);
-  
+const MyDocument: React.FC<{ musics: MusicTableProps[], configPreferencesDefault?: PdfStyleSheet }> = ({ musics, configPreferencesDefault }) => {
+  const styles = initStyleSheet(configPreferencesDefault);
+  const documentSource = pdfUtil.generateSourceMultiplePDF(musics, configPreferencesDefault?.delimiter);
+
   return (
     <Document>
       {documentSource.map((text, index) => {
         return (
-          <Page key={`page${index}`} orientation='landscape' size={pdfStyleSheet?.size ? pdfStyleSheet.size : "A5"} style={styles.page}>
-            <View>
-              <Text style={styles.text}>{text}</Text>
-            </View>
+          <Page key={`page${index}`} orientation='landscape' size={configPreferencesDefault?.size ? configPreferencesDefault.size : "A5"} style={styles.page} wrap>
+            <Text style={styles.text}>{text}</Text>
           </Page>
         )
       })}
