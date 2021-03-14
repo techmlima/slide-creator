@@ -30,10 +30,7 @@ const MyDocument: React.FC<{ musics: MusicTableProps[], configPreferencesDefault
       {documentSource.map((text, index) => {
         return (
           <Page key={`page${index}`} orientation='landscape' size={configPreferencesDefault?.size ? configPreferencesDefault.size : "A5"} style={styles.page} wrap>
-            <Text style={styles.text}>
-               {index === 0 ? 'Música:\n':''}
-               {text}
-            </Text>
+            <Text style={styles.text}>{text}</Text>
           </Page>
         )
       })}
