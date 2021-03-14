@@ -30,15 +30,16 @@ const MusicTable: React.FC<{ musics: MusicTableProps[], onChange }> = ({ musics,
         <tbody>
           {musics.map((music) => (
             <tr key={music.id}>
-              <td className="max-width">
-                <TooltipElement keyName='top4' placement='top' text='Alterar'
-                  component={(
+              <TooltipElement keyName='titleTop' placement='top' text='Alterar'
+                component={(
+                  <td className="max-width">
+
                     <Link href={`/music/${music.id}`}>
                       <a>{music.title}</a>
                     </Link>
-                  )}>
-                </TooltipElement>
-              </td>
+                  </td>
+                )}>
+              </TooltipElement>
               <td className="limit-text">{music.text}</td>
               <td className="max-width">
                 <input type='checkbox'

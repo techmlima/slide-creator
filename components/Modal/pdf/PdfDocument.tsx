@@ -1,8 +1,9 @@
 import React from 'react';
-import { Page, Text, Document, StyleSheet } from '@react-pdf/renderer';
-import { MusicTableProps } from '../MusicTable';
-import { PdfStyleSheet } from '../Modal/pdf/ConfigPreferencesPDF';
-var pdfUtil = require('../../util/pdf-util');
+import { Page, Text, Document, StyleSheet} from '@react-pdf/renderer';
+import { MusicTableProps } from '../../MusicTable';
+import { PdfStyleSheet } from './ConfigPreferencesPDF';
+var pdfUtil = require('../../../util/pdf-util');
+
 
 const initStyleSheet = (pdfStyleSheet) => {
   return StyleSheet.create({
@@ -29,7 +30,10 @@ const MyDocument: React.FC<{ musics: MusicTableProps[], configPreferencesDefault
       {documentSource.map((text, index) => {
         return (
           <Page key={`page${index}`} orientation='landscape' size={configPreferencesDefault?.size ? configPreferencesDefault.size : "A5"} style={styles.page} wrap>
-            <Text style={styles.text}>{text}</Text>
+            <Text style={styles.text}>
+               {index === 0 ? 'Música:\n':''}
+               {text}
+            </Text>
           </Page>
         )
       })}
