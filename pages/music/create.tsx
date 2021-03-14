@@ -5,28 +5,46 @@ import { Button } from 'react-bootstrap'
 import Unauthorized from '../../components/Unauthorized'
 import { useSession } from 'next-auth/client'
 import SpinnerLoading from '../../components/SpinnerLoading'
+import { toast } from 'react-toastify'
+import { MusicTableProps } from '../../components/MusicTable'
 
-const Create: React.FC = () => {
+const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
   const [session, loading] = useSession();
-  const [title, setTitle] = useState('')
-  const [text, setText] = useState('')
   const [spinner, showSpinner] = useState(false)
+
+  const [title, setTitle] = useState(props?.title ? props?.title : '')
+  const [text, setText] = useState(props?.text ? props?.text : '')
+  const [id] = useState(props?.id)
 
   const submitData = async (e: React.SyntheticEvent) => {
     showSpinner(true)
     e.preventDefault()
     try {
+      const body = { id, title, text, userId: (session?.user as any)?.id | 0 }
+      const input = id ? `/api/music/${id}` : '/api/music';
+      const method = id ? 'PUT' : 'POST';
 
-      const body = { title, text, userId:  (session?.user as any)?.id | 0 }
-      
-      await fetch('/api/music', {
-        method: 'POST',
+      await fetch(input, {
+        method: method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
-      }).finally(() =>   showSpinner(false))
-      await Router.push('/')
+      }).finally(() => finallySubmit(method))
+
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  const finallySubmit = async (method: string) => {
+    showSpinner(false)
+    
+    if (method === 'PUT') {
+      toast.success("Atualizado. Redirecionando...")
+     await Router.push('/')
+    } else {
+      toast.success("Salvo com sucesso. Continue Cadastrando!")
+      setTitle('')
+      setText('')
     }
   }
 
@@ -36,7 +54,7 @@ const Create: React.FC = () => {
       {!loading && !session ? (<Unauthorized />) : (
         <>
           <div>
-            <form onSubmit={submitData}>
+            <form id='formCreateMusic' onSubmit={submitData}>
               <h1>Nova Música</h1>
               <input
                 autoFocus

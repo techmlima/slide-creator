@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/client";
 import { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SpinnerLoading from "../../SpinnerLoading";
 
@@ -47,7 +47,6 @@ const ConfigPreferencesPDF: React.FC<{ pdfStyleSheet?: PdfStyleSheet, setPdfStyl
         <>
             {loading || spinner ? (<SpinnerLoading />) :
                 (<Form onSubmit={saveConfigPreferences}>
-                    <ToastContainer />
                     <Form.Row>
                         <Form.Group as={Col} controlId="formTamanho">
                             <Form.Label>Tamanho letra</Form.Label>

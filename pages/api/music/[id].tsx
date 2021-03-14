@@ -1,15 +1,31 @@
 import prisma from '../../../lib/prisma'
 
 export default async function handle(req, res) {
-  const textId = req.query.id
-  if (req.method === 'DELETE') {
-    const music = await prisma.music.delete({
-      where: { id: Number(textId) },
-    })
-    res.json(music)
-  } else {
-    throw new Error(
-      `The HTTP ${req.method} method is not supported at this route.`
-    )
+  const id = Number(req.query.id)
+  const { title, text, userId } = req.body
+
+  let result;
+  switch (req.method) {
+    case 'DELETE':
+      result = await prisma.music.delete({
+        where: { id: id },
+      })
+      break;
+
+    case 'PUT':
+      result = await prisma.music.update({
+        where: {id: id},
+        data: {          
+          title: title,
+          text: text,
+          userId: userId
+        },
+      })
+      break;
+
+    default:
+      break;
   }
+  
+  res.json(result)
 }

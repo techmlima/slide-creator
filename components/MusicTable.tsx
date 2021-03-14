@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { Table } from "react-bootstrap";
+import TooltipElement from "./TooltipElement";
 
 export type MusicTableProps = {
   id: number;
@@ -16,7 +17,7 @@ const MusicTable: React.FC<{ musics: MusicTableProps[], onChange }> = ({ musics,
     <>
       {musics.length == 0 ? (
         <h5 className="w-100 mt-5 text-center">
-            Nenhuma música cadastrada para a sua Organização
+          Nenhuma música cadastrada para a sua Organização
         </h5>
       ) : (<Table striped bordered hover>
         <thead>
@@ -30,9 +31,13 @@ const MusicTable: React.FC<{ musics: MusicTableProps[], onChange }> = ({ musics,
           {musics.map((music) => (
             <tr key={music.id}>
               <td className="max-width">
-                <Link href={`/music/${music.id}`}>
-                  <a>{music.title}</a>
-                </Link>
+                <TooltipElement keyName='top4' placement='top' text='Alterar'
+                  component={(
+                    <Link href={`/music/${music.id}`}>
+                      <a>{music.title}</a>
+                    </Link>
+                  )}>
+                </TooltipElement>
               </td>
               <td className="limit-text">{music.text}</td>
               <td className="max-width">
@@ -62,7 +67,7 @@ const MusicTable: React.FC<{ musics: MusicTableProps[], onChange }> = ({ musics,
             }
          `}</style>
       </Table>
-        )}
+      )}
     </>
   );
 };
