@@ -7,10 +7,9 @@ import MyDocument from "../Modal/pdf/PdfDocument";
 import TooltipElement from "../TooltipElement";
 import BasicConfirmModalCenter from "../Modal/BasicConfirmModalCenter";
 import ModalPDFView, { defaultPreferences } from "../Modal/pdf/ModalPDFView";
-import { PdfStyleSheet } from "../Modal/pdf/ConfigPreferencesPDF";
 import { MusicTableProps } from "../MusicTable";
 
-const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences: PdfStyleSheet, changeOrderList, showSpinner }> = ({ musicsSelect, configPreferences, changeOrderList, showSpinner }) => {
+const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, changeOrderList, showSpinner }> = ({ musicsSelect, configPreferences, changeOrderList, showSpinner }) => {
     const router = useRouter()
     const [modalShow, setModalShow] = useState(false);
     const [modalExcludeShow, setModalExcludeShow] = useState(false);

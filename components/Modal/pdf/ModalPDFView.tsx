@@ -6,7 +6,7 @@ import DragAndDrop from "../../DragAndDrop";
 import { MusicTableProps } from "../../MusicTable";
 import { useState } from "react";
 import TooltipElement from "../../TooltipElement";
-import ConfigPreferencesPDF, { PdfStyleSheet } from "./ConfigPreferencesPDF";
+import ConfigPreferencesPDF from "./ConfigPreferencesPDF";
 import * as EnumColor from "../../../util/colors";
 
 export const defaultPreferences = {
@@ -16,13 +16,22 @@ export const defaultPreferences = {
     fontSize: 20,
     fontFamily: 'Times-Roman',
     backgroundColor: EnumColor.Colors.BLACK,
+    imageWidth: "50",
+    imageHeight: "50",
     delimiter: '\n\n'
 }
 
-const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOrderList, configPreferencesDefault: PdfStyleSheet }> = ({ show, onHide, musics, changeOrderList, configPreferencesDefault }) => {
+const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOrderList, configPreferencesDefault }> = ({ show, onHide, musics, changeOrderList, configPreferencesDefault }) => {
     const [selectedImage, setSelectedImage] = useState();
     const [showConfig, setShowConfig] = useState(false);
-    const [pdfStyleSheet, setPdfStyleSheet] = useState(configPreferencesDefault ? configPreferencesDefault : defaultPreferences);
+
+    //TODO: COMO O VALOR DA IMAGEM NÃO VEM DO BANCO AO SALVAR TA RESETANDO PRA 50%
+    const [pdfStyleSheet, setPdfStyleSheet] = useState(configPreferencesDefault ? {
+        ...configPreferencesDefault,
+        imageWidth: "50",
+        imageHeight: "50",
+    } : defaultPreferences);
+
 
     return (
         <Modal
