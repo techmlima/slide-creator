@@ -18,11 +18,12 @@ export class PdfStyleSheet {
         public delimiter: string) { }
 }
 
-const ConfigPreferencesPDF: React.FC<{ pdfStyleSheet?: PdfStyleSheet, setPdfStyleSheet?}> = ({ pdfStyleSheet, setPdfStyleSheet }) => {
+const ConfigPreferencesPDF: React.FC<{ pdfStyleSheet?: PdfStyleSheet, setPdfStyleSheet?, setSelectedImage?}> = ({ pdfStyleSheet, setPdfStyleSheet, setSelectedImage }) => {
     const [session, loading] = useSession()
     const [spinner, showSpinner] = useState(false)
 
     const saveConfigPreferences = async (e: React.SyntheticEvent) => {
+
         e.preventDefault()
         try {
             showSpinner(true)
@@ -40,69 +41,90 @@ const ConfigPreferencesPDF: React.FC<{ pdfStyleSheet?: PdfStyleSheet, setPdfStyl
         }
     }
 
+    const changeImage = (event) => {
+        if (event.target?.files[0]) {
+            var reader = new FileReader();
+            reader.onload = e => {
+                setSelectedImage(e.target.result)
+            }
+
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    };
+
     return (
         <>
             {loading || spinner ? (<SpinnerLoading />) :
-                (<Form onSubmit={saveConfigPreferences}>
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formTamanho">
-                            <Form.Label>Tamanho letra</Form.Label>
-                            <Form.Control type="number" min="1" max="60" value={pdfStyleSheet.fontSize}
-                                onChange={(e) => {
-                                    const num = Number(e.target.value);
-                                    if (num >= 1 && num <= 60) {
-                                        setPdfStyleSheet({ ...pdfStyleSheet, fontSize: num })
-                                    }
-                                }} />
-                        </Form.Group>
+                (
+                    <>
+                        <Form onSubmit={saveConfigPreferences}>
+                            <Form.Row>
+                                <Form.Group as={Col} controlId="formTamanho">
+                                    <Form.Label>Tamanho letra</Form.Label>
+                                    <Form.Control type="number" min="1" max="60" value={pdfStyleSheet.fontSize}
+                                        onChange={(e) => {
+                                            const num = Number(e.target.value);
+                                            if (num >= 1 && num <= 60) {
+                                                setPdfStyleSheet({ ...pdfStyleSheet, fontSize: num })
+                                            }
+                                        }} />
+                                </Form.Group>
 
-                        <Form.Group as={Col} controlId="formCor">
-                            <Form.Label>Cor letra</Form.Label>
-                            <Form.Control as="select" custom value={pdfStyleSheet.fontColor}
-                                onChange={(e) =>
-                                    setPdfStyleSheet({ ...pdfStyleSheet, fontColor: e.target.value })
-                                }>
-                                {colorsEnum.values().map((color, index) => (
-                                    <option key={`listCorLetra${index}`} value={color}>{colorsEnum.getNameByEnum(color)}</option>
-                                ))}
-                            </Form.Control>
-                        </Form.Group>
-                    </Form.Row>
+                                <Form.Group as={Col} controlId="formCor">
+                                    <Form.Label>Cor letra</Form.Label>
+                                    <Form.Control as="select" custom value={pdfStyleSheet.fontColor}
+                                        onChange={(e) =>
+                                            setPdfStyleSheet({ ...pdfStyleSheet, fontColor: e.target.value })
+                                        }>
+                                        {colorsEnum.values().map((color, index) => (
+                                            <option key={`listCorLetra${index}`} value={color}>{colorsEnum.getNameByEnum(color)}</option>
+                                        ))}
+                                    </Form.Control>
+                                </Form.Group>
+                            </Form.Row>
 
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formFundo">
-                            <Form.Label>Cor do fundo</Form.Label>
-                            <Form.Control as="select" custom value={pdfStyleSheet.backgroundColor}
-                                onChange={(e) =>
-                                    setPdfStyleSheet({ ...pdfStyleSheet, backgroundColor: e.target.value })
-                                }>
-                                {colorsEnum.values().map((color, index) => (
-                                    <option key={`listFundo${index}`} value={color}>{colorsEnum.getNameByEnum(color)}</option>
-                                ))}
-                            </Form.Control>
-                        </Form.Group>
+                            <Form.Row>
+                                <Form.Group as={Col} controlId="formFundo">
+                                    <Form.Label>Cor do fundo</Form.Label>
+                                    <Form.Control as="select" custom value={pdfStyleSheet.backgroundColor}
+                                        onChange={(e) =>
+                                            setPdfStyleSheet({ ...pdfStyleSheet, backgroundColor: e.target.value })
+                                        }>
+                                        {colorsEnum.values().map((color, index) => (
+                                            <option key={`listFundo${index}`} value={color}>{colorsEnum.getNameByEnum(color)}</option>
+                                        ))}
+                                    </Form.Control>
+                                </Form.Group>
 
-                        <Form.Group as={Col} controlId="formFolha">
-                            <Form.Label>Tamanho folha</Form.Label>
-                            <Form.Control as="select" custom value={pdfStyleSheet.size}
-                                onChange={(e) =>
-                                    setPdfStyleSheet({ ...pdfStyleSheet, size: e.target.value })
-                                }>
-                                {tamanhoFolhasEnum.values().map((folha, index) => (
-                                    <option key={`listTamanhoFolha${index}`} value={folha}>{folha}</option>
-                                ))}
-                            </Form.Control>
-                        </Form.Group>
-                    </Form.Row>
+                                <Form.Group as={Col} controlId="formFolha">
+                                    <Form.Label>Tamanho folha</Form.Label>
+                                    <Form.Control as="select" custom value={pdfStyleSheet.size}
+                                        onChange={(e) =>
+                                            setPdfStyleSheet({ ...pdfStyleSheet, size: e.target.value })
+                                        }>
+                                        {tamanhoFolhasEnum.values().map((folha, index) => (
+                                            <option key={`listTamanhoFolha${index}`} value={folha}>{folha}</option>
+                                        ))}
+                                    </Form.Control>
+                                </Form.Group>
+                            </Form.Row>
 
-                    <div className="row">
-                        <div className="col">
-                            <Button variant="success float-right" type="submit">
-                                Salvar preferências
-                    </Button>
+                            <div className="row">
+                                <div className="col">
+                                    <Button variant="success float-right" type="submit">
+                                        Salvar preferências
+                                </Button>
+                                </div>
+                            </div>
+                        </Form>
+
+                        <hr />
+
+                        <div>
+                            <input type="file" name="file" onChange={changeImage}
+                                accept="image/x-png,image/gif,image/jpeg" />
                         </div>
-                    </div>
-                </Form>
+                    </>
                 )}
         </>
     );

@@ -20,6 +20,7 @@ export const defaultPreferences = {
 }
 
 const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOrderList, configPreferencesDefault: PdfStyleSheet }> = ({ show, onHide, musics, changeOrderList, configPreferencesDefault }) => {
+    const [selectedImage, setSelectedImage] = useState();
     const [showConfig, setShowConfig] = useState(false);
     const [pdfStyleSheet, setPdfStyleSheet] = useState(configPreferencesDefault ? configPreferencesDefault : defaultPreferences);
 
@@ -41,7 +42,7 @@ const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOr
                     <div className="row h-100">
                         <div className="col mb-1">
                             <PDFViewer>
-                                <MyDocument musics={musics} configPreferencesDefault={pdfStyleSheet} />
+                                <MyDocument musics={musics} configPreferencesDefault={pdfStyleSheet} selectedImage={selectedImage}/>
                             </PDFViewer>
                         </div>
                         <div className="row border-left">
@@ -62,7 +63,7 @@ const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOr
 
                                 <Collapse in={showConfig}>
                                     <div id="collapse-config-pdf">
-                                        <ConfigPreferencesPDF pdfStyleSheet={pdfStyleSheet} setPdfStyleSheet={setPdfStyleSheet} />
+                                        <ConfigPreferencesPDF pdfStyleSheet={pdfStyleSheet} setPdfStyleSheet={setPdfStyleSheet}  setSelectedImage={setSelectedImage}/>
                                         <hr />
                                     </div>
                                 </Collapse>
@@ -74,7 +75,7 @@ const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOr
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <PDFDownloadLink key="modalPDFLink" className="ml-2" document={<MyDocument musics={musics} configPreferencesDefault={pdfStyleSheet} />} fileName="Documento.pdf">
+                <PDFDownloadLink key="modalPDFLink" className="ml-2" document={<MyDocument musics={musics} configPreferencesDefault={pdfStyleSheet} selectedImage={selectedImage}/>} fileName="Documento.pdf">
                     {({ blob, url, loading, error }) => (loading ? '...' :
                         <div className='btn btn-info' >
                             Download PDF <Download className="mb-1" />

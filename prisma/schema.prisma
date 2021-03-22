@@ -23,6 +23,7 @@ model Organization {
   administrators Int[]
   users          User[]
   configPDF      ConfigurationPreferencesPDF?
+  imageSource    String?
 }
 
 model User {

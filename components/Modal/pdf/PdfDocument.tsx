@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, Text, Document, StyleSheet} from '@react-pdf/renderer';
+import { Page, Text, Document, StyleSheet, Image } from '@react-pdf/renderer';
 import { MusicTableProps } from '../../MusicTable';
 import { PdfStyleSheet } from './ConfigPreferencesPDF';
 var pdfUtil = require('../../../util/pdf-util');
@@ -17,11 +17,16 @@ const initStyleSheet = (pdfStyleSheet) => {
       fontSize: pdfStyleSheet?.fontSize,
       textAlign: 'center',
       fontFamily: pdfStyleSheet?.fontFamily
+    },
+    image: {
+      width: "100%",
+      height: "140%",
+      justifyContent: 'center'
     }
   })
 }
 
-const MyDocument: React.FC<{ musics: MusicTableProps[], configPreferencesDefault?: PdfStyleSheet }> = ({ musics, configPreferencesDefault }) => {
+const MyDocument: React.FC<{ musics: MusicTableProps[], configPreferencesDefault?: PdfStyleSheet, selectedImage? }> = ({ musics, configPreferencesDefault, selectedImage }) => {
   const styles = initStyleSheet(configPreferencesDefault);
   const documentSource = pdfUtil.generateSourceMultiplePDF(musics, configPreferencesDefault?.delimiter);
 
@@ -30,7 +35,8 @@ const MyDocument: React.FC<{ musics: MusicTableProps[], configPreferencesDefault
       {documentSource.map((text, index) => {
         return (
           <Page key={`page${index}`} orientation='landscape' size={configPreferencesDefault?.size ? configPreferencesDefault.size : "A5"} style={styles.page} wrap>
-            <Text style={styles.text}>{text}</Text>
+            {index === 0  && selectedImage? ( <Image key={`image${index}`} style={styles.image} src={selectedImage}></Image> ) : null}
+            <Text key={`text${index}`} style={styles.text}>{text}</Text>
           </Page>
         )
       })}
