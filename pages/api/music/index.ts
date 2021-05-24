@@ -1,5 +1,5 @@
 
-import prisma from '../../../lib/prisma'
+import prisma from '../../../services/prisma/prisma'
 
 export default async function handle(req, res) {
   const { title, text, userId } = req.body

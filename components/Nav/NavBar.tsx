@@ -14,7 +14,7 @@ const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, cha
     const [modalShow, setModalShow] = useState(false);
     const [modalExcludeShow, setModalExcludeShow] = useState(false);
 
-    const deletMusics = () => {
+    const deleteMusics = () => {
         showSpinner(true)
         setModalExcludeShow(false)
 
@@ -60,7 +60,7 @@ const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, cha
                         </Button>
 
                         <BasicConfirmModalCenter titleText="Cuidado!" show={modalExcludeShow} onHide={() => setModalExcludeShow(false)}
-                            message="Deseja realmente excluir a(s) música(s) selecinada(s)?" confirmAction={deletMusics} />
+                            message="Deseja realmente excluir a(s) música(s) selecinada(s)?" confirmAction={deleteMusics} />
                     </div>
                 )}>
             </TooltipElement>

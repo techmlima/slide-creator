@@ -1,5 +1,5 @@
 import React from "react"
-import prisma from '../../lib/prisma'
+import prisma from '../../services/prisma/prisma'
 import { MusicTableProps } from "../../components/MusicTable"
 import Create from "./create"
 
