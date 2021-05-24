@@ -17,9 +17,9 @@ const Create: React.FC<{ props: Props }> = ({ props }) => {
   const [session, loading] = useSession();
   const [spinner, showSpinner] = useState(false)
 
-  const [name, setName] = useState(props?.organizationSelected?.name ? props.organizationSelected?.name : null)
-  const [email, setEmail] = useState(props?.organizationSelected?.email ? props.organizationSelected?.email : null)
-  const [id] = useState(props?.organizationSelected?.id)
+  const [name, setName] = useState(props?.organizationSelected?.name ? props.organizationSelected?.name : '')
+  const [email, setEmail] = useState(props?.organizationSelected?.email ? props.organizationSelected?.email : '')
+  const [id] = useState(props?.organizationSelected?.id ? props.organizationSelected?.id : '')
 
   const saveOrganization = async (e: React.SyntheticEvent) => {
     showSpinner(true)
@@ -39,7 +39,7 @@ const Create: React.FC<{ props: Props }> = ({ props }) => {
       console.error(error)
     }
   }
-
+  
   const finallySubmit = async (method: string) => {
     showSpinner(false)
     const msg = method === 'PUT' ? "Atualizado. Redirecionando..." : "Salvo com sucesso."

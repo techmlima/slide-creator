@@ -14,7 +14,7 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
 
   const [title, setTitle] = useState(props?.title ? props?.title : '')
   const [text, setText] = useState(props?.text ? props?.text : '')
-  const [id] = useState(props?.id)
+  const [id] = useState(props?.id ? props?.id : '')
 
   const submitData = async (e: React.SyntheticEvent) => {
     showSpinner(true)
