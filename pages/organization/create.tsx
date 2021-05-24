@@ -39,7 +39,7 @@ const Create: React.FC<{ props: Props }> = ({ props }) => {
       console.error(error)
     }
   }
-  
+
   const finallySubmit = async (method: string) => {
     showSpinner(false)
     const msg = method === 'PUT' ? "Atualizado. Redirecionando..." : "Salvo com sucesso."
