@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Layout from "../components/Layout"
-import prisma from '../lib/prisma'
+import prisma from '../services/prisma/prisma'
 import NavBar from "../components/Nav/NavBar"
 import FilterList from "../components/List/FilterList"
 import { getSession, useSession } from "next-auth/client"
@@ -8,16 +8,21 @@ import Unauthorized from "../components/Unauthorized"
 import SpinnerLoading from "../components/SpinnerLoading"
 import { PdfStyleSheet } from "../components/Modal/pdf/ConfigPreferencesPDF"
 import MusicTable, { MusicTableProps } from "../components/MusicTable"
+import { OrganizationModel } from "../prisma/models/Organization"
+import OrganizationModal from "../components/Modal/organization/OrganizationModal"
 var pdfUtil = require('../util/pdf-util')
 
 type Props = {
   musics: MusicTableProps[],
-  configPreferences: PdfStyleSheet
+  configPreferences: PdfStyleSheet,
+  hasOrganization: boolean,
+  organizations: OrganizationModel[]
 }
 
 export const getServerSideProps = async ({ req }) => {
   const session = await getSession({ req })
-  const organizationId = (session?.user as any)?.organizationId | 0;
+  const organizationId = (session?.user as any)?.organizationId | -1;
+  const hasOrganization = (organizationId !== -1);
 
   const musics = await prisma.music.findMany({
     where: {
@@ -29,11 +34,17 @@ export const getServerSideProps = async ({ req }) => {
     where: { organizationId: organizationId }
   })
 
-  return { props: { 
-    //Ordernar musicas pelo títulos
-    musics: musics.sort((m1, m2) => m1.title.localeCompare(m2.title)), 
-    configPreferences }
-   }
+  const organizations = await prisma.organization.findMany();
+
+  return {
+    props: {
+      //Orderna as musicas pelo títulos
+      musics: musics.sort((m1, m2) => m1.title.localeCompare(m2.title)),
+      configPreferences,
+      hasOrganization,
+      organizations
+    }
+  }
 }
 
 const Home: React.FC<Props> = (props) => {
@@ -41,6 +52,8 @@ const Home: React.FC<Props> = (props) => {
   const [textsFilter, setTextsFilter] = useState(props.musics)
   const [musicsSelect, setMusicsSelect] = useState([])
   const [spinner, showSpinner] = useState(false)
+  const [hasOrganization] = useState(props.hasOrganization)
+  const [modalShowOrganization, setModalShowOrganization] = useState(!props.hasOrganization);
 
   const handleChange = (e, id: number) => {
     pdfUtil.findSourceById(props.musics, id).isCreatePDF = e.target.checked
@@ -51,6 +64,13 @@ const Home: React.FC<Props> = (props) => {
     let listFilter = [];
     list.forEach(item => listFilter.push(props.musics.find(t => t.id === Number(item.id))))
     setMusicsSelect(listFilter);
+  }
+
+  const saveUserInOrganization = () => {
+    console.log('Salvar organização');
+    
+    setModalShowOrganization(false)
+
   }
 
   return (
@@ -78,6 +98,10 @@ const Home: React.FC<Props> = (props) => {
             <MusicTable musics={textsFilter} onChange={handleChange} />
           </div>
         </div>
+      )}
+
+      {hasOrganization ? (null) : (
+        <OrganizationModal show={modalShowOrganization} onHide={() => {}} organizations={props.organizations}/>
       )}
     </Layout>
   )
