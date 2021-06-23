@@ -19,9 +19,9 @@ type Props = {
   organizations: OrganizationModel[]
 }
 
-export const getServerSideProps = async ({ req }) => {
-  const session = await getSession({ req })
-  const organizationId = (session?.user as any)?.organizationId | -1;
+export const getServerSideProps = async (context) => {
+  const session = await getSession(context)
+  const organizationId = (session?.user as any)?.organizationId || -1;
   const hasOrganization = (organizationId !== -1);
 
   const musics = await prisma.music.findMany({
@@ -48,7 +48,7 @@ export const getServerSideProps = async ({ req }) => {
 }
 
 const Home: React.FC<Props> = (props) => {
-  const [session, loading] = useSession();
+  const [session, loading] = useSession()
   const [textsFilter, setTextsFilter] = useState(props.musics)
   const [musicsSelect, setMusicsSelect] = useState([])
   const [spinner, showSpinner] = useState(false)
@@ -64,13 +64,6 @@ const Home: React.FC<Props> = (props) => {
     let listFilter = [];
     list.forEach(item => listFilter.push(props.musics.find(t => t.id === Number(item.id))))
     setMusicsSelect(listFilter);
-  }
-
-  const saveUserInOrganization = () => {
-    console.log('Salvar organização');
-    
-    setModalShowOrganization(false)
-
   }
 
   return (
@@ -100,7 +93,7 @@ const Home: React.FC<Props> = (props) => {
         </div>
       )}
 
-      {hasOrganization ? (null) : (
+      {hasOrganization || !session ? (null) : (
         <OrganizationModal show={modalShowOrganization} onHide={() => {}} organizations={props.organizations}/>
       )}
     </Layout>

@@ -4,17 +4,30 @@ import { PlusCircle } from "react-bootstrap-icons";
 import TooltipElement from "../../TooltipElement";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
+import { toast } from "react-toastify";
 
 const OrganizationModal: React.FC<{ show, onHide, organizations }> = ({ show, onHide, organizations }) => {
-    const [organizationIdSelected, setOrganizationIdSelected] = useState(null)
+    const [organizationIdSelected, setOrganizationIdSelected] = useState('')
+    const [session, loading] = useSession()
+    const [spinner, showSpinner] = useState(false)
     const router = useRouter()
 
-    const saveOrganization = () => {
-        //TODO: FINALIZAR
-    }
-
-    const openCreateOrganization = () => {
-        //TODO: FINALIZAR
+    const saveOrganization = async (e: React.SyntheticEvent) => {
+        e.preventDefault()
+        try {
+             showSpinner(true)
+            await fetch(`/api/user/alter-organization-user/${(session?.user as any)?.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ organizationId: organizationIdSelected }),
+            }).then(() => {
+                showSpinner(false)
+                toast.success("Solicitação efetuada, aguarde a aprovação dos adminstradores.")
+            })
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (
@@ -61,12 +74,11 @@ const OrganizationModal: React.FC<{ show, onHide, organizations }> = ({ show, on
                 <TooltipElement keyName='topOrgForm2' placement='top' text='Cadastrar Organização'
                     component={(
                         <Button onClick={() => router.push(`/organization/create`)} variant="success">
-                            Organização <PlusCircle />
+                           Cadastrar Organização <PlusCircle />
                         </Button>
                     )}>
                 </TooltipElement>
-                <Button onClick={onHide}>Não</Button>
-                <Button variant="danger" onClick={saveOrganization}>Salvar</Button>
+                <Button variant="success" onClick={saveOrganization}>Salvar</Button>
             </Modal.Footer>
         </Modal>
     );
