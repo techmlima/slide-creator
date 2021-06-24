@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Layout from "../components/Layout"
+import Layout from "../components/Layout/Layout"
 import prisma from '../services/prisma/prisma'
 import NavBar from "../components/Nav/NavBar"
 import FilterList from "../components/List/FilterList"
