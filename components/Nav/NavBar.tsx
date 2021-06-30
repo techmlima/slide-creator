@@ -7,7 +7,7 @@ import MyDocument from "../Modal/pdf/PdfDocument";
 import TooltipElement from "../TooltipElement";
 import BasicConfirmModalCenter from "../Modal/BasicConfirmModalCenter";
 import ModalPDFView, { defaultPreferences } from "../Modal/pdf/ModalPDFView";
-import { MusicTableProps } from "../MusicTable";
+import { MusicTableProps } from "../Music/MusicTable";
 
 const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, changeOrderList, showSpinner }> = ({ musicsSelect, configPreferences, changeOrderList, showSpinner }) => {
     const router = useRouter()

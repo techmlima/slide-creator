@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import Layout from '../../components/Layout'
+import Layout from '../../components/Layout/Layout'
 import Router from 'next/router'
 import { Button } from 'react-bootstrap'
 import Unauthorized from '../../components/Unauthorized'
 import { useSession } from 'next-auth/client'
 import SpinnerLoading from '../../components/SpinnerLoading'
 import { toast } from 'react-toastify'
-import { MusicTableProps } from '../../components/MusicTable'
+import { MusicTableProps } from '../../components/Music/MusicTable'
 
 const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
   const [session, loading] = useSession();

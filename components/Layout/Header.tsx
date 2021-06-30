@@ -2,41 +2,43 @@ import React from "react";
 import { signOut, useSession } from 'next-auth/client'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
-import { Dropdown, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Dropdown, Navbar, Nav } from "react-bootstrap";
 import { useState } from "react";
 
 const Header: React.FC = () => {
   const [session, loading] = useSession()
   const [userName] = useState(session?.user?.name?.split(' ')[0]) //Primeiro nome
-  return (<>
+  return (
+  <div className="">
     <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className="mb-1">
       <div>
         <Dropdown>
           <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-            <img src='../../user.png' />
-            <br />
-            <span>{userName}</span>
+            <img src='../../user.png' title={userName}/>
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => signOut()}>Sair</Dropdown.Item>
           </Dropdown.Menu>
-        </Dropdown>
-        <style jsx>{`
+        </Dropdown>        
+      </div>
+
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav.Link href="music">Músicas</Nav.Link>
+        <Nav.Link href="organization">Organização</Nav.Link>
+      </Navbar.Collapse>
+
+      <style jsx>{`
           img {
             width: 30px;
             height: 30px;
             margin-top: -.25rem;
           }
         `}</style>
-      </div>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav.Link color="white" href="#home">Músicas</Nav.Link>
-        <Nav.Link href="#home">Organização</Nav.Link>
-      </Navbar.Collapse>
     </Navbar>
-  </>)
+  </div>
+  )
 }
 
 export default Header

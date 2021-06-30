@@ -3,7 +3,7 @@ import { Button, Collapse, Modal } from "react-bootstrap";
 import { Download, Gear } from "react-bootstrap-icons";
 import MyDocument from "./PdfDocument";
 import DragAndDrop from "../../DragAndDrop";
-import { MusicTableProps } from "../../MusicTable";
+import { MusicTableProps } from "../../Music/MusicTable";
 import { useState } from "react";
 import TooltipElement from "../../TooltipElement";
 import ConfigPreferencesPDF from "./ConfigPreferencesPDF";

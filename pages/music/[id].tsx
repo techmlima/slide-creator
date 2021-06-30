@@ -1,6 +1,6 @@
 import React from "react"
 import prisma from '../../services/prisma/prisma'
-import { MusicTableProps } from "../../components/MusicTable"
+import { MusicTableProps } from "../../components/Music/MusicTable"
 import Create from "./create"
 
 export const getServerSideProps = async ({ query }) => {

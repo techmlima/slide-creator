@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page, Text, Document, StyleSheet, Image, View } from '@react-pdf/renderer';
-import { MusicTableProps } from '../../MusicTable';
+import { MusicTableProps } from '../../Music/MusicTable';
 import { PdfStyleSheet } from './ConfigPreferencesPDF';
 var pdfUtil = require('../../../util/pdf-util');
 

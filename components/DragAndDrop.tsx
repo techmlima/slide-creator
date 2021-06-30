@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { MusicTableProps } from "./MusicTable";
+import { MusicTableProps } from "./Music/MusicTable";
 
 // a little function to help us with reordering the result
 const reorder = (list: [], startIndex: number, endIndex: number): object => {

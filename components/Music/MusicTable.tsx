@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { Table } from "react-bootstrap";
-import TooltipElement from "./TooltipElement";
+import TooltipElement from "../TooltipElement";
 
 export type MusicTableProps = {
   id: number;
@@ -15,7 +15,7 @@ const MusicTable: React.FC<{ musics: MusicTableProps[], onChange }> = ({ musics,
   //TODO: CRIAR ORDENADOR
   return (
     <>
-      {musics.length == 0 ? (
+      {!musics || musics?.length == 0 ? (
         <h5 className="w-100 mt-5 text-center">
           Nenhuma música cadastrada para a sua Organização
         </h5>

@@ -1,4 +1,4 @@
-import { MusicTableProps } from "../components/MusicTable";
+import { MusicTableProps } from "../components/Music/MusicTable";
 
 
 const generateSourcePDF = (music: MusicTableProps, splitValue: string) => {
