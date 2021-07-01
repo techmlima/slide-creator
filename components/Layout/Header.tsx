@@ -4,6 +4,7 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import { Dropdown, Navbar, Nav } from "react-bootstrap";
 import { useState } from "react";
+import Router from 'next/router'
 
 const Header: React.FC = () => {
   const [session, loading] = useSession()
@@ -25,8 +26,9 @@ const Header: React.FC = () => {
 
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav.Link href="music">Músicas</Nav.Link>
-        <Nav.Link href="organization">Organização</Nav.Link>
+      <Nav.Link className="navbar-link" onClick={() => Router.push('/')}>Início</Nav.Link>
+        <Nav.Link className="navbar-link" href="music">Músicas</Nav.Link>
+        <Nav.Link className="navbar-link" href="organization">Organização</Nav.Link>
       </Navbar.Collapse>
 
       <style jsx>{`

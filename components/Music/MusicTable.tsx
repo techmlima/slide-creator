@@ -17,7 +17,7 @@ const MusicTable: React.FC<{ musics: MusicTableProps[], onChange }> = ({ musics,
     <>
       {!musics || musics?.length == 0 ? (
         <h5 className="w-100 mt-5 text-center">
-          Nenhuma música cadastrada para a sua Organização
+          Nenhuma música encontrada
         </h5>
       ) : (<Table striped bordered hover>
         <thead>

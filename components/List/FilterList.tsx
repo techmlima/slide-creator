@@ -30,7 +30,7 @@ const FilterList: React.FC<{ placeholder, list: Array<any>, propertName?: string
 
             <TooltipElement keyName='topCancel' placement='top' text='Limpar filtro'
                 component={(
-                    <Button type='reset' onClick={() => handleChange(filter(""))} variant="primary" className='ml-1 mb-1'>
+                    <Button type='reset' onClick={() => handleChange(filter(""))} variant="danger" className='ml-1 mb-1'>
                         <XCircle />
                     </Button>
                 )}>

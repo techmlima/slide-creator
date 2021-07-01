@@ -11,3 +11,22 @@ iframe {
     width: 100% !important;
     height: 100% !important;
 }
+
+.navbar-link {
+    color:#FFFAFA;
+}
+   
+.navbar-link:hover {
+    color:rgba(155, 154, 154, 0.9);
+}
+
+.nav-link-active {
+    color: rgba(155, 154, 154, 0.9);
+}
+
+@media (max-width: 576px) { 
+    .btn-music {
+        justify-content: flex-end!important;
+        flex-grow: 1!important;
+    }
+ }

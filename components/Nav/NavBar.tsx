@@ -32,10 +32,10 @@ const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, cha
     }
 
     return (
-        <div key="nav-itens" className="row">
+        <div key="nav-itens" className="d-flex align-items-center">
             <TooltipElement keyName='top1' placement='top' text='Download PDF'
                 component={(
-                    <div className='nav-button'>
+                    <div>
                         {musicsSelect.length > 0 ? (
                             <PDFDownloadLink document={
                                 <MyDocument musics={musicsSelect} configPreferencesDefault={configPreferences ? configPreferences : defaultPreferences} />
@@ -53,7 +53,7 @@ const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, cha
 
             <TooltipElement keyName='top2' placement='top' text='Deletar um ou mais textos'
                 component={(
-                    <div className='nav-button'>
+                    <div className='ml-1'>
                         <Button onClick={() => setModalExcludeShow(true)} variant="danger" disabled={musicsSelect.length === 0}
                             className='nav-button'>
                             <Trash />
@@ -67,7 +67,7 @@ const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, cha
 
             <TooltipElement keyName='top3' placement='top' text='Visualizar PDF'
                 component={(
-                    <div className='nav-button'>
+                    <div className='ml-1'>
                         <Button className='nav-button' disabled={musicsSelect.length === 0} variant="primary" onClick={() => setModalShow(true)}>
                             <Eye />
                         </Button>
@@ -80,7 +80,7 @@ const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, cha
 
             <TooltipElement keyName='top4' placement='top' text='Criar Novo'
                 component={(
-                    <div className='nav-button mr-3'>
+                    <div className='ml-1'>
                         <Button onClick={() => router.push("/music/create")} variant="success">
                             <PlusCircle />
                         </Button>
