@@ -15,6 +15,7 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
   const [title, setTitle] = useState(props?.title ? props?.title : '')
   const [text, setText] = useState(props?.text ? props?.text : '')
   const [id] = useState(props?.id ? props?.id : '')
+  const [pageTitle] = useState(id ? 'Alterar' : 'Cadastrar');
 
   const submitData = async (e: React.SyntheticEvent) => {
     showSpinner(true)
@@ -53,20 +54,20 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
       {spinner ? (<SpinnerLoading />) : (null)}
       {!loading && !session ? (<Unauthorized />) : (
         <>
-          <div>
+          <div className="container-fluid">
             <form id='formCreateMusic' onSubmit={submitData}>
-              <h1>Nova Música</h1>
+              <h5>{pageTitle} Música</h5>
               <input
                 autoFocus
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Título"
+                placeholder="título"
                 type="text"
                 value={title}
               />
               <textarea
                 cols={50}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="Conteúdo"
+                placeholder="Letra"
                 rows={8}
                 value={text}
               />

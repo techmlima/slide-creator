@@ -24,7 +24,7 @@ const MusicTable: React.FC<{ musics: MusicTableProps[], onChange }> = ({ musics,
           <tr>
             <th>Título</th>
             <th>Trecho</th>
-            <th>Selecionar</th>
+            <th>Selecione</th>
           </tr>
         </thead>
         <tbody>
