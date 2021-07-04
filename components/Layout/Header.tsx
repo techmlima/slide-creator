@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { signOut, useSession } from 'next-auth/client'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import { Dropdown, Navbar, Nav } from "react-bootstrap";
+import { GearFill, ArrowReturnLeft } from "react-bootstrap-icons";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
 const Header: React.FC = () => {
   const router = useRouter()
   const [session, loading] = useSession()
-  const [userName] = useState(session?.user?.name?.split(' ')[0]) //Primeiro nome
   const [currentPath, setCurrentPath] = useState(router.pathname)
 
   const goRouter = (path: string) => {
@@ -21,36 +21,50 @@ const Header: React.FC = () => {
     return currentPath === path ? 'nav-link-active' : '';
   }
 
-  return (
-    <div>
-      <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className="mb-1">
-        <Dropdown>
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-            <img src='../../user.png' title={userName} />
-          </Dropdown.Toggle>
+  const getFirstNameUser = () => {
+    return session?.user?.name?.split(' ')[0]
+  }
+  return (<>
+    {!session ? (null) : (
+      <div>
+        <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className="mb-1">
+          <div>
+            <Dropdown>
+              <Dropdown.Toggle variant="secondary" id="dropdown-basic" className="dropdown-user">
+                <img src='../../user.png' alt={getFirstNameUser()} />
+              </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={() => signOut()}>Sair</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+              <Dropdown.Menu>
+                <h6 className="text-center">Olá {getFirstNameUser()}!</h6>
+                <hr />
+                <Dropdown.Item onClick={() => { }}>
+                  <GearFill /> Gerenciar cadastros
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => signOut()}>
+                  <ArrowReturnLeft /> Sair
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
 
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav.Link className={"navbar-link " + getActiveRouteClass('/')} onClick={() => goRouter('/')}>Início</Nav.Link>
-          <Nav.Link className={"navbar-link " + getActiveRouteClass('/music')} onClick={() => goRouter('/music')}>Músicas</Nav.Link>
-          <Nav.Link className={"navbar-link " + getActiveRouteClass('/organization')} onClick={() => goRouter('/organization')}>Organização</Nav.Link>
-        </Navbar.Collapse>
-      </Navbar>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav.Link className={"navbar-link " + getActiveRouteClass('/')} onClick={() => goRouter('/')}>Início</Nav.Link>
+            <Nav.Link className={"navbar-link " + getActiveRouteClass('/music')} onClick={() => goRouter('/music')}>Músicas</Nav.Link>
+            <Nav.Link className={"navbar-link " + getActiveRouteClass('/organization')} onClick={() => goRouter('/organization')}>Organização</Nav.Link>
+          </Navbar.Collapse>
+        </Navbar>
 
-      <style jsx>{`
+        <style jsx>{`
           img {
             width: 30px;
             height: 30px;
-            margin-top: -.25rem;
+            margin-top: -.7rem;
+            transform: scale(1.3, 0.9);
           }
         `}</style>
-    </div>
-  )
+      </div>)
+    }
+  </>)
 }
-
 export default Header

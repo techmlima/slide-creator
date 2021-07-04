@@ -1,9 +1,8 @@
 import { signIn } from 'next-auth/client'
 
 export default function Unauthorized() {
-
     return (
-        <div className="row">
+        <div className="container">
             <div className="col text-center">
 
                 <p>Para ter acesso a essa página é necessário efetuar login.</p>

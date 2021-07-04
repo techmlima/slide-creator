@@ -26,6 +26,12 @@ iframe {
     text-decoration-color: 3px solid rgba(155, 154, 154, 0.9);;
 }
 
+.dropdown-user {
+    border-radius: 50%!important;
+    transform: scale(0.6, 1);
+    color: #FFFAFA;
+}
+
 @media (max-width: 576px) { 
     .btn-music {
         justify-content: flex-end!important;

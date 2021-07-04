@@ -54,7 +54,7 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
       {!loading && !session ? (<Unauthorized />) : (
         <div>
           <form id='formCreateMusic' onSubmit={submitData}>
-            <h5>{pageTitle} Música</h5>
+            <h5>{pageTitle} música</h5>
             <input
               autoFocus
               onChange={(e) => setTitle(e.target.value)}
