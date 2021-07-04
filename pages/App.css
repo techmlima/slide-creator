@@ -22,6 +22,8 @@ iframe {
 
 .nav-link-active {
     color: rgba(155, 154, 154, 0.9);
+    text-decoration: underline;
+    text-decoration-color: 3px solid rgba(155, 154, 154, 0.9);;
 }
 
 @media (max-width: 576px) { 

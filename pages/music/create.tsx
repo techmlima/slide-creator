@@ -37,11 +37,11 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
   }
 
   const finallySubmit = async (method: string) => {
-    showSpinner(false)
+   showSpinner(false)
     
     if (method === 'PUT') {
       toast.success("Atualizado. Redirecionando...")
-     await Router.push('/')
+      setTimeout(() => Router.push('/music'), 2000);      
     } else {
       toast.success("Salvo com sucesso. Continue Cadastrando!")
       setTitle('')
@@ -77,7 +77,7 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
                   <Button variant="success" type="submit" disabled={!text || !title}>
                     Salvar
                   </Button>
-                  <Button variant="primary" className="ml-2" onClick={() => Router.push('/')}>
+                  <Button variant="primary" className="ml-2" onClick={() => Router.push('/music')}>
                     Cancelar
                   </Button>
                 </div>
