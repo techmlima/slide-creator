@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Layout from '../../components/Layout/Layout'
 import Router from 'next/router'
 import { Button } from 'react-bootstrap'
 import Unauthorized from '../../components/Unauthorized'
@@ -37,11 +36,11 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
   }
 
   const finallySubmit = async (method: string) => {
-   showSpinner(false)
-    
+    showSpinner(false)
+
     if (method === 'PUT') {
       toast.success("Atualizado. Redirecionando...")
-      setTimeout(() => Router.push('/music'), 2000);      
+      setTimeout(() => Router.push('/music'), 2000);
     } else {
       toast.success("Salvo com sucesso. Continue Cadastrando!")
       setTitle('')
@@ -50,41 +49,39 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
   }
 
   return (
-    <Layout>
+    <>
       {spinner ? (<SpinnerLoading />) : (null)}
       {!loading && !session ? (<Unauthorized />) : (
-        <>
-          <div className="container-fluid">
-            <form id='formCreateMusic' onSubmit={submitData}>
-              <h5>{pageTitle} Música</h5>
-              <input
-                autoFocus
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="título"
-                type="text"
-                value={title}
-              />
-              <textarea
-                cols={50}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Letra"
-                rows={8}
-                value={text}
-              />
+        <div>
+          <form id='formCreateMusic' onSubmit={submitData}>
+            <h5>{pageTitle} Música</h5>
+            <input
+              autoFocus
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="título"
+              type="text"
+              value={title}
+            />
+            <textarea
+              cols={50}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="Letra"
+              rows={8}
+              value={text}
+            />
 
-              <div className="row">
-                <div className="col d-flex justify-content-end">
-                  <Button variant="success" type="submit" disabled={!text || !title}>
-                    Salvar
-                  </Button>
-                  <Button variant="primary" className="ml-2" onClick={() => Router.push('/music')}>
-                    Cancelar
-                  </Button>
-                </div>
+            <div className="row">
+              <div className="col d-flex justify-content-end">
+                <Button variant="success" type="submit" disabled={!text || !title}>
+                  Salvar
+                </Button>
+                <Button variant="primary" className="ml-2" onClick={() => Router.push('/music')}>
+                  Cancelar
+                </Button>
               </div>
+            </div>
 
-            </form>
-          </div>
+          </form>
           <style jsx>{`
         .page {
           background: white;
@@ -113,9 +110,9 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
           margin-left: 1rem;
         }
       `}</style>
-        </>
+        </div>
       )}
-    </Layout>
+    </>
   )
 }
 

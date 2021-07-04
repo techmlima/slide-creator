@@ -10,7 +10,7 @@ const Layout: React.FC<Props> = (props) => (
   <div>
     <Header />
     <ToastContainer />
-    <div className="layout">{props.children}</div>
+    <div className="layout container-fluid layout-children">{props.children}</div>
     <style jsx global>{`
       html {
         box-sizing: border-box;
@@ -39,11 +39,6 @@ const Layout: React.FC<Props> = (props) => (
 
       button {
         cursor: pointer;
-      }
-    `}</style>
-    <style jsx>{`
-      .layout {
-        padding: 0 2rem;
       }
     `}</style>
   </div>

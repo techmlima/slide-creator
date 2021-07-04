@@ -7,6 +7,7 @@ import { Provider } from 'next-auth/client'
 import SpinnerLoading from '../components/SpinnerLoading';  
 import Router from "next/router";
 import React from 'react';
+import Layout from '../components/Layout/Layout';
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = React.useState(false)
@@ -27,7 +28,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Provider session={pageProps.session}>
-       {loading ? (<SpinnerLoading />) : ( <Component {...pageProps} />  )}
+       {loading ? (<SpinnerLoading />) : 
+        (<Layout>
+          <Component {...pageProps}/>
+         </Layout>
+         )}
     </Provider>
   )
 }

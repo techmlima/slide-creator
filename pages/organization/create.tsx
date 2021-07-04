@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Layout from '../../components/Layout/Layout'
 import Router from 'next/router'
 import { Button, Col, Form } from 'react-bootstrap'
 import Unauthorized from '../../components/Unauthorized'
@@ -48,7 +47,7 @@ const Create: React.FC<{ props: Props }> = ({ props }) => {
   }
 
   return (
-    <Layout>
+    <>
       {spinner ? (<SpinnerLoading />) : (null)}
       {!loading && !session ? (<Unauthorized />) : (
         <>
@@ -83,7 +82,7 @@ const Create: React.FC<{ props: Props }> = ({ props }) => {
           </Form>
         </>
       )}
-    </Layout>
+    </>
   )
 }
 

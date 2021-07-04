@@ -31,4 +31,9 @@ iframe {
         justify-content: flex-end!important;
         flex-grow: 1!important;
     }
- }
+
+    .layout-children {
+        margin: 0 auto!important;
+        width: 70%!important;
+    }
+}

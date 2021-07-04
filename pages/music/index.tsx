@@ -7,7 +7,6 @@ import MusicTable, { MusicTableProps } from "../../components/Music/MusicTable"
 import { OrganizationModel } from "../../prisma/models/Organization"
 import NavBar from "../../components/Nav/NavBar"
 import FilterList from "../../components/List/FilterList"
-import Layout from "../../components/Layout/Layout"
 var pdfUtil = require('../../util/pdf-util')
 
 type Props = {
@@ -63,7 +62,7 @@ const MusicPage: React.FC<Props> = (props) => {
     }
 
     return (
-        <Layout>
+        <>
             <div>
                 <div className="container-fluid">
                     <div className="row">
@@ -81,7 +80,7 @@ const MusicPage: React.FC<Props> = (props) => {
                     </div>
                 </div>
             </div>
-        </Layout>
+        </>
     )
 
 }

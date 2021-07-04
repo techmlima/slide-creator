@@ -32,14 +32,14 @@ const Home: React.FC<Props> = (props) => {
   const [modalShowOrganization, setModalShowOrganization] = useState(!props.hasOrganization);
 
   return (
-    <Layout>
+    <>
       {loading || spinner ? (<SpinnerLoading />) : (null)}
       {!loading && !session ? (<Unauthorized />) : (<div> olá</div>)}
 
       {props.hasOrganization || !session ? (null) : (
         <OrganizationModal show={modalShowOrganization} onHide={() => { }} organizations={props.organizationsList} />
       )}
-    </Layout>
+    </>
   )
 
 }
