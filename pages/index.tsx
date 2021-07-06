@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import Layout from "../components/Layout/Layout"
 import prisma from '../services/prisma/prisma'
 import { getSession, useSession } from "next-auth/client"
 import Unauthorized from "../components/Unauthorized"
@@ -34,7 +33,12 @@ const Home: React.FC<Props> = (props) => {
   return (
     <>
       {loading || spinner ? (<SpinnerLoading />) : (null)}
-      {!loading && !session ? (<Unauthorized />) : (<div> olá</div>)}
+      {!loading && !session ? (<Unauthorized />) : 
+        (
+        <div>
+
+        </div>
+      )}
 
       {props.hasOrganization || !session ? (null) : (
         <OrganizationModal show={modalShowOrganization} onHide={() => { }} organizations={props.organizationsList} />

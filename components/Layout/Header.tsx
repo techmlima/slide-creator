@@ -27,7 +27,7 @@ const Header: React.FC = () => {
   return (<>
     {!session ? (null) : (
       <div>
-        <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className="mb-1">
+        <Navbar collapseOnSelect expand="sm"  variant="dark" className="mb-1 bg-midnight">
           <div>
             <Dropdown>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic" className="dropdown-user">
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
                 <h6 className="text-center">Olá {getFirstNameUser()}!</h6>
                 <hr />
                 <Dropdown.Item onClick={() => { }}>
-                  <GearFill /> Gerenciar cadastros
+                  <GearFill /> Gerenciar usuários
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => signOut()}>
                   <ArrowReturnLeft /> Sair

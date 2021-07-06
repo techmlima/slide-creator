@@ -63,21 +63,19 @@ const MusicPage: React.FC<Props> = (props) => {
 
     return (
         <>
-            <div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="d-flex btn-music">
-                            <NavBar musicsSelect={musicsSelect} configPreferences={props.configPreferences} changeOrderList={changeOrderList} showSpinner={showSpinner} />
-                        </div>
-                        <div className="d-flex justify-content-end flex-grow-1 mt-1">
-                            <FilterList placeholder='Encontrar música' list={props.musics}
-                                handleChange={(listFilter: MusicTableProps[]) => setTextsFilter(listFilter)} />
-                        </div>
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="d-flex btn-music">
+                        <NavBar musicsSelect={musicsSelect} configPreferences={props.configPreferences} changeOrderList={changeOrderList} showSpinner={showSpinner} />
                     </div>
+                    <div className="d-flex justify-content-end flex-grow-1 mt-1">
+                        <FilterList placeholder='Encontrar música' list={props.musics}
+                            handleChange={(listFilter: MusicTableProps[]) => setTextsFilter(listFilter)} />
+                    </div>
+                </div>
 
-                    <div className="row mt-1">
-                        <MusicTable musics={textsFilter} onChange={handleChange} />
-                    </div>
+                <div className="row mt-1">
+                    <MusicTable musics={textsFilter} onChange={handleChange} />
                 </div>
             </div>
         </>

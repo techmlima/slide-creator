@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
 import Header from "./Header";
+import Footer from "./Footer";
 
 type Props = {
   children: ReactNode;
@@ -10,7 +11,11 @@ const Layout: React.FC<Props> = (props) => (
   <div>
     <Header />
     <ToastContainer />
-    <div className="layout container-fluid layout-children">{props.children}</div>
+    <div className="bg-main-img"></div>
+    <div className="page-container mt-n1">
+    <div className="bg-sugar-cane container-fluid layout-children card">{props.children}</div>
+    <Footer />
+    </div>
     <style jsx global>{`
       html {
         box-sizing: border-box;
@@ -30,6 +35,7 @@ const Layout: React.FC<Props> = (props) => (
           Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
           "Segoe UI Symbol";
         background: rgba(0, 0, 0, 0.05);
+        background-size: cover;
       }
 
       input,

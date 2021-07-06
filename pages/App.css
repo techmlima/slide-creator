@@ -32,10 +32,32 @@ iframe {
     color: #FFFAFA;
 }
 
+.background-body {
+    height: 85vh;
+    width: 100vw;
+}
+
+.background-body > img {
+    opacity: 0.3;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.page-container {
+    position: relative;
+    min-height: 100%;
+}
+
 @media (max-width: 576px) { 
     .btn-music {
         justify-content: flex-end!important;
         flex-grow: 1!important;
+        margin-top: 0.3rem!important;
+    }
+
+    .layout-children {
+        width: 100vw;
+        height: 85vh;
     }
  }
 
@@ -43,5 +65,6 @@ iframe {
     .layout-children {
         margin: 0 auto!important;
         width: 70%!important;
+        height: 86.6vh;
     }
  }

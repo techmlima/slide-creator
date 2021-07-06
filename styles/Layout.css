@@ -1,0 +1,53 @@
+.bg-midnight {
+    background-color: #011627;
+}
+
+.bg-sugar-cane {
+    background-color: #fdfffc;
+}
+
+
+.bg-turquoise {
+    background-color: #2ec4b6;
+}
+
+
+.bg-alizarin-crimson {
+    background-color: #e71d36;
+}
+
+
+.bg-tree-poppy {
+    background-color: #ff9f1c;
+}
+
+.bg-main-img {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url("../public/background.jpg") center center;
+    opacity: .5;
+    width: 100vw;
+    height: 100vh;
+}
+
+.footer {
+    background-color: #011627;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;   
+}
+
+.btn-social-media {
+    transform: scale(1.5)!important;
+}
+
+.copyright {
+    font-size: 12px;
+    color: #6f6f6f;
+    font-weight: 500;
+}
