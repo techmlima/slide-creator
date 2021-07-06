@@ -5,7 +5,7 @@ import React, { useState } from "react"
 import { PdfStyleSheet } from "../../components/Modal/pdf/ConfigPreferencesPDF"
 import MusicTable, { MusicTableProps } from "../../components/Music/MusicTable"
 import { OrganizationModel } from "../../prisma/models/Organization"
-import NavBar from "../../components/Nav/NavBar"
+import MainMenu from "../../components/main-menu/main-menu"
 import FilterList from "../../components/List/FilterList"
 var pdfUtil = require('../../util/pdf-util')
 
@@ -66,7 +66,7 @@ const MusicPage: React.FC<Props> = (props) => {
             <div className="container-fluid">
                 <div className="row">
                     <div className="d-flex btn-music">
-                        <NavBar musicsSelect={musicsSelect} configPreferences={props.configPreferences} changeOrderList={changeOrderList} showSpinner={showSpinner} />
+                        <MainMenu musicsSelect={musicsSelect} configPreferences={props.configPreferences} changeOrderList={changeOrderList} showSpinner={showSpinner} />
                     </div>
                     <div className="d-flex justify-content-end flex-grow-1 mt-1">
                         <FilterList placeholder='Encontrar música' list={props.musics}

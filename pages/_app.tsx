@@ -29,11 +29,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Provider session={pageProps.session}>
-       {loading ? (<SpinnerLoading />) : 
-        (<Layout>
-          <Component {...pageProps}/>
+         <Layout>
+            {loading ? (<SpinnerLoading />) : (<Component {...pageProps}/>)}
          </Layout>
-         )}
     </Provider>
   )
 }

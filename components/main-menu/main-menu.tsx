@@ -9,7 +9,7 @@ import BasicConfirmModalCenter from "../Modal/BasicConfirmModalCenter";
 import ModalPDFView, { defaultPreferences } from "../Modal/pdf/ModalPDFView";
 import { MusicTableProps } from "../Music/MusicTable";
 
-const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, changeOrderList, showSpinner }> = ({ musicsSelect, configPreferences, changeOrderList, showSpinner }) => {
+const MainMenu: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, changeOrderList, showSpinner }> = ({ musicsSelect, configPreferences, changeOrderList, showSpinner }) => {
     const router = useRouter()
     const [modalShow, setModalShow] = useState(false);
     const [modalExcludeShow, setModalExcludeShow] = useState(false);
@@ -96,5 +96,5 @@ const NavBar: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, cha
     );
 }
 
-export default NavBar;
+export default MainMenu;
 
