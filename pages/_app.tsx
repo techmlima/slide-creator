@@ -2,7 +2,8 @@ import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import '../styles/Layout.css';
+import '../styles/layout.css';
+import '../styles/timeline.css';
 
 import { Provider } from 'next-auth/client'
 import SpinnerLoading from '../components/SpinnerLoading';  

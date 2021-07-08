@@ -75,7 +75,7 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
                 <Button variant="success" type="submit" disabled={!text || !title}>
                   Salvar
                 </Button>
-                <Button variant="primary" className="ml-2" onClick={() => Router.push('/music')}>
+                <Button variant="secondary" className="ml-2" onClick={() => Router.push('/music')}>
                   Cancelar
                 </Button>
               </div>
