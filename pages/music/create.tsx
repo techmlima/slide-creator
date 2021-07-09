@@ -67,7 +67,7 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
             <Form.Row>
               <Form.Group as={Col} controlId="formText">
                 <Form.Label>Letra</Form.Label>
-                <Form.Control as="textarea" value={text}
+                <Form.Control as="textarea" value={text} rows={text?.split('\n').length} className="custom-textarea"
                   onChange={(e) => setText(e.target.value)} />
               </Form.Group>
             </Form.Row>
@@ -92,16 +92,6 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
               justify-content: center;
               align-items: center;
             }
-
-        input[type='text'],
-        textarea {
-          width: 100%;
-          padding: 0.5rem;
-          margin: 0.5rem 0;
-          border-radius: 0.25rem;
-          border: 0.125rem solid rgba(0, 0, 0, 0.2);
-        }
-
         input[type='submit'] {
           background: #ececec;
           border: 0;

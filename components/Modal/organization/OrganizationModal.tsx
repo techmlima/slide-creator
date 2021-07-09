@@ -15,6 +15,7 @@ const OrganizationModal: React.FC<{ show, organizations }> = ({ show, organizati
         e.preventDefault()
         try {
             showSpinner(true)
+              // TODO: ESTA DANDO ERRO 500
             await fetch(`/api/user/alter-organization-user/${(session?.user as any)?.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -22,6 +23,7 @@ const OrganizationModal: React.FC<{ show, organizations }> = ({ show, organizati
             }).then(() => {
                 showSpinner(false)
                 toast.success("Solicitação efetuada, aguarde a aprovação dos adminstradores.")
+                // TODO: APÓS SALVAR APARECER TELA DE AGUARDANDO APROVAÇÃO
             })
         } catch (error) {
             console.error(error)

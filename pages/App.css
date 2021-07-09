@@ -48,6 +48,10 @@ iframe {
     min-height: 100%;
 }
 
+.custom-textarea {
+    overflow: hidden !important;
+}
+
 @media (max-width: 576px) { 
     .btn-music {
         justify-content: flex-end!important;
