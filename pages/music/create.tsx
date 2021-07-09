@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Router from 'next/router'
-import { Button } from 'react-bootstrap'
+import Router, { useRouter } from 'next/router'
+import { Button, Col, Form } from 'react-bootstrap'
 import Unauthorized from '../../components/Unauthorized'
 import { useSession } from 'next-auth/client'
 import SpinnerLoading from '../../components/SpinnerLoading'
@@ -8,7 +8,8 @@ import { toast } from 'react-toastify'
 import { MusicTableProps } from '../../components/Music/MusicTable'
 
 const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
-  const [session, loading] = useSession();
+  const router = useRouter()
+  const [session, loading] = useSession()
   const [spinner, showSpinner] = useState(false)
 
   const [title, setTitle] = useState(props?.title ? props?.title : '')
@@ -52,44 +53,45 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
     <>
       {spinner ? (<SpinnerLoading />) : (null)}
       {!loading && !session ? (<Unauthorized />) : (
-        <div>
-          <form id='formCreateMusic' onSubmit={submitData}>
-            <h5>{pageTitle} música</h5>
-            <input
-              autoFocus
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="título"
-              type="text"
-              value={title}
-            />
-            <textarea
-              cols={50}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Letra"
-              rows={8}
-              value={text}
-            />
+        <div className="card shadow p-2">
+           <h5>{pageTitle} música</h5>
+           <Form onSubmit={submitData} >
+            <Form.Row>
+              <Form.Group as={Col} controlId="formTitle">
+                <Form.Label>Título</Form.Label>
+                <Form.Control type="text" value={title}
+                  onChange={(e) => setTitle(e.target.value)} />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col} controlId="formText">
+                <Form.Label>Letra</Form.Label>
+                <Form.Control as="textarea" value={text}
+                  onChange={(e) => setText(e.target.value)} />
+              </Form.Group>
+            </Form.Row>
 
             <div className="row">
               <div className="col d-flex justify-content-end">
-                <Button variant="success" type="submit" disabled={!text || !title}>
+                <Button variant="success" type="submit" disabled={!title || !text}>
                   Salvar
-                </Button>
-                <Button variant="secondary" className="ml-2" onClick={() => Router.push('/music')}>
+                  </Button>
+                <Button variant="secondary" className="ml-2" onClick={router.back}>
                   Cancelar
-                </Button>
+                  </Button>
               </div>
             </div>
-
-          </form>
+          </Form>       
+     
           <style jsx>{`
-        .page {
-          background: white;
-          padding: 3rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+            .page {
+              background: white;
+              padding: 3rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
 
         input[type='text'],
         textarea {

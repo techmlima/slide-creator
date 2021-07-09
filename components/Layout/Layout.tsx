@@ -13,7 +13,7 @@ const Layout: React.FC<Props> = (props) => (
     <ToastContainer />
     <div className="bg-main-img"></div>
     <div className="page-container mt-n1">
-    <div className="bg-sugar-cane container-fluid layout-children card overflow-auto">{props.children}</div>
+    <div className="bg-sugar-cane container-fluid layout-children card shadow p-3 rounded overflow-auto">{props.children}</div>
     <Footer />
     </div>
     <style jsx global>{`

@@ -18,12 +18,12 @@ iframe {
    
 .navbar-link:hover {
     color:rgba(155, 154, 154, 0.9);
+    text-decoration: wavy !important;
 }
 
 .nav-link-active {
     color: rgba(155, 154, 154, 0.9);
-    text-decoration: underline;
-    text-decoration-color: 3px solid rgba(155, 154, 154, 0.9);;
+    text-decoration: underline !important;
 }
 
 .dropdown-user {

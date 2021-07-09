@@ -63,7 +63,7 @@ const MusicPage: React.FC<Props> = (props) => {
 
     return (
         <>
-            <div className="container-fluid">
+            <div className="container-fluid card shadow-sm">
                 <div className="row">
                     <div className="d-flex btn-music">
                         <MainMenu musicsSelect={musicsSelect} configPreferences={props.configPreferences} changeOrderList={changeOrderList} showSpinner={showSpinner} />

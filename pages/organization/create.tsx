@@ -1,24 +1,20 @@
 import React, { useState } from 'react'
-import Router from 'next/router'
 import { Button, Col, Form } from 'react-bootstrap'
 import Unauthorized from '../../components/Unauthorized'
 import { useSession } from 'next-auth/client'
 import SpinnerLoading from '../../components/SpinnerLoading'
 import { toast } from 'react-toastify'
 import { OrganizationModel } from '../../prisma/models/Organization'
+import { useRouter } from 'next/router'
 
-type Props = {
-  organizationSelected: OrganizationModel,
-  organizations: OrganizationModel[]
-}
-
-const Create: React.FC<{ props: Props }> = ({ props }) => {
+const Create: React.FC<{ props: OrganizationModel }> = ({ props }) => {
+  const router = useRouter()
   const [session, loading] = useSession();
   const [spinner, showSpinner] = useState(false)
 
-  const [name, setName] = useState(props?.organizationSelected?.name ? props.organizationSelected?.name : '')
-  const [email, setEmail] = useState(props?.organizationSelected?.email ? props.organizationSelected?.email : '')
-  const [id] = useState(props?.organizationSelected?.id ? props.organizationSelected?.id : '')
+  const [name, setName] = useState(props?.name ? props?.name : '')
+  const [email, setEmail] = useState(props?.email ? props?.email : '')
+  const [id] = useState(props?.id ? props?.id : '')
 
   const saveOrganization = async (e: React.SyntheticEvent) => {
     showSpinner(true)
@@ -41,9 +37,11 @@ const Create: React.FC<{ props: Props }> = ({ props }) => {
 
   const finallySubmit = async (method: string) => {
     showSpinner(false)
-    const msg = method === 'PUT' ? "Atualizado. Redirecionando..." : "Salvo com sucesso."
+    const msg = method === 'PUT' ? "Atualizado com sucesso." : "Salvo com sucesso. Redirecionando..."
     toast.success(msg)
-    await Router.push('/')
+
+    if (method === 'POST')
+      router.back()
   }
 
   return (
@@ -51,8 +49,8 @@ const Create: React.FC<{ props: Props }> = ({ props }) => {
       {spinner ? (<SpinnerLoading />) : (null)}
       {!loading && !session ? (<Unauthorized />) : (
         <>
-         <h1>Nova Organização</h1>
-          <Form onSubmit={saveOrganization}>
+          <Form onSubmit={saveOrganization} className="card shadow p-2">
+            <h5>{id ? 'Alterar' : 'Nova'} Congregação</h5>
             <Form.Row>
               <Form.Group as={Col} controlId="formName">
                 <Form.Label>Nome</Form.Label>
@@ -73,10 +71,10 @@ const Create: React.FC<{ props: Props }> = ({ props }) => {
               <div className="col d-flex justify-content-end">
                 <Button variant="success" type="submit" disabled={!name || !email}>
                   Salvar
-                  </Button>
-                <Button variant="primary" className="ml-2" onClick={() => Router.push('/')}>
+                </Button>
+                <Button variant="secondary" className="ml-2" onClick={router.back}>
                   Cancelar
-                  </Button>
+                </Button>
               </div>
             </div>
           </Form>

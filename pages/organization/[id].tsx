@@ -3,23 +3,17 @@ import { OrganizationModel } from "../../prisma/models/Organization"
 import prisma from '../../services/prisma/prisma'
 import Create from "./create"
 
-
-type Props = {
-  organizationSelected: OrganizationModel,
-  organizations: OrganizationModel[]
-}
-
 export const getServerSideProps = async ({ query }) => {
   const organization = await prisma.organization.findUnique({
     where: { id: Number(query.id) }
   })
 
   return {
-    props: {organizationSelected: organization} 
+    props: organization
   }
 }
 
-const MusicDetail: React.FC<Props> = (props) => {
+const MusicDetail: React.FC<OrganizationModel> = (props) => {
   return (
     <Create props={props}/>
   )

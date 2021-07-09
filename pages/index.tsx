@@ -51,7 +51,7 @@ const Home: React.FC<Props> = (props) => {
         </>)}
 
       {props.hasOrganization || !session ? (null) : (
-        <OrganizationModal show={modalShowOrganization} onHide={() => { }} organizations={props.organizationsList} />
+        <OrganizationModal show={modalShowOrganization} organizations={props.organizationsList} />
       )}
     </>
   )

@@ -4,21 +4,15 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import { Dropdown, Navbar, Nav } from "react-bootstrap";
 import { GearFill, ArrowReturnLeft } from "react-bootstrap-icons";
-import { useState } from "react";
 import { useRouter } from "next/router";
 
 const Header: React.FC = () => {
   const router = useRouter()
-  const [session, loading] = useSession()
-  const [currentPath, setCurrentPath] = useState(router.pathname)
-
-  const goRouter = (path: string) => {
-    setCurrentPath(path);
-    router.push(path);
-  }
+  const [session] = useSession()
 
   const getActiveRouteClass = (path: string) => {
-    return currentPath === path ? 'nav-link-active' : '';
+    const mainPath = router.pathname.split('/')[1];
+    return `/${mainPath}` === path ? 'nav-link-active' : '';
   }
 
   const getFirstNameUser = () => {
@@ -49,9 +43,9 @@ const Header: React.FC = () => {
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav.Link className={"navbar-link " + getActiveRouteClass('/')} onClick={() => goRouter('/')}>Início</Nav.Link>
-            <Nav.Link className={"navbar-link " + getActiveRouteClass('/music')} onClick={() => goRouter('/music')}>Músicas</Nav.Link>
-            <Nav.Link className={"navbar-link " + getActiveRouteClass('/organization')} onClick={() => goRouter('/organization')}>Organização</Nav.Link>
+            <Nav.Link className={"navbar-link " + getActiveRouteClass('/')} onClick={() => router.push('/')}>Início</Nav.Link>
+            <Nav.Link className={"navbar-link " + getActiveRouteClass('/music')} onClick={() => router.push('/music')}>Músicas</Nav.Link>
+            <Nav.Link className={"navbar-link " + getActiveRouteClass('/organization')} onClick={() => router.push('/organization')}>Congregação</Nav.Link>
           </Navbar.Collapse>
         </Navbar>
 
