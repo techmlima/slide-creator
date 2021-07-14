@@ -15,11 +15,11 @@ const OrganizationModal: React.FC<{ show, organizations }> = ({ show, organizati
         e.preventDefault()
         try {
             showSpinner(true)
-              // TODO: ESTA DANDO ERRO 500
+              // TODO: Tem que primeiro fazer uma solicitação para participar da organização
             await fetch(`/api/user/alter-organization-user/${(session?.user as any)?.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ organizationId: organizationIdSelected }),
+                body: JSON.stringify({ organizationId: Number(organizationIdSelected) }),
             }).then(() => {
                 showSpinner(false)
                 toast.success("Solicitação efetuada, aguarde a aprovação dos adminstradores.")

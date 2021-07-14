@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Button, Col, Form } from 'react-bootstrap'
-import Unauthorized from '../../components/Unauthorized'
 import { useSession } from 'next-auth/client'
 import SpinnerLoading from '../../components/SpinnerLoading'
 import { toast } from 'react-toastify'
@@ -47,7 +46,6 @@ const Create: React.FC<{ props: OrganizationModel }> = ({ props }) => {
   return (
     <>
       {spinner ? (<SpinnerLoading />) : (null)}
-      {!loading && !session ? (<Unauthorized />) : (
         <>
           <Form onSubmit={saveOrganization} className="card shadow p-2">
             <h5>{id ? 'Alterar' : 'Nova'} Congregação</h5>
@@ -79,7 +77,6 @@ const Create: React.FC<{ props: OrganizationModel }> = ({ props }) => {
             </div>
           </Form>
         </>
-      )}
     </>
   )
 }

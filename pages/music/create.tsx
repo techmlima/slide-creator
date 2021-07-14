@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Router, { useRouter } from 'next/router'
 import { Button, Col, Form } from 'react-bootstrap'
-import Unauthorized from '../../components/Unauthorized'
 import { useSession } from 'next-auth/client'
 import SpinnerLoading from '../../components/SpinnerLoading'
 import { toast } from 'react-toastify'
@@ -52,7 +51,6 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
   return (
     <>
       {spinner ? (<SpinnerLoading />) : (null)}
-      {!loading && !session ? (<Unauthorized />) : (
         <div className="card shadow p-2">
            <h5>{pageTitle} música</h5>
            <Form onSubmit={submitData} >
@@ -103,7 +101,6 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
         }
       `}</style>
         </div>
-      )}
     </>
   )
 }
