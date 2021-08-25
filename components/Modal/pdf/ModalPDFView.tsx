@@ -8,6 +8,7 @@ import { useState } from "react";
 import TooltipElement from "../../TooltipElement";
 import ConfigPreferencesPDF from "./ConfigPreferencesPDF";
 import * as EnumColor from "../../../util/colors";
+import { useSession } from "next-auth/client";
 
 export const defaultPreferences = {
     id: null,
@@ -22,16 +23,10 @@ export const defaultPreferences = {
 }
 
 const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOrderList, configPreferencesDefault }> = ({ show, onHide, musics, changeOrderList, configPreferencesDefault }) => {
+    const [session] = useSession()
     const [selectedImage, setSelectedImage] = useState();
     const [showConfig, setShowConfig] = useState(false);
-
-    //TODO: COMO O VALOR DA IMAGEM NÃO VEM DO BANCO AO SALVAR TA RESETANDO PRA 50%
-    const [pdfStyleSheet, setPdfStyleSheet] = useState(configPreferencesDefault ? {
-        ...configPreferencesDefault,
-        imageWidth: "50",
-        imageHeight: "50",
-    } : defaultPreferences);
-
+    const [pdfStyleSheet, setPdfStyleSheet] = useState(configPreferencesDefault ? configPreferencesDefault : defaultPreferences);
 
     return (
         <Modal

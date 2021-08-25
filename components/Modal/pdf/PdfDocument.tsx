@@ -40,6 +40,14 @@ const MyDocument: React.FC<{ musics: MusicTableProps[], configPreferencesDefault
   let documentSource = pdfUtil.generateSourceMultiplePDF(musics, configPreferencesDefault?.delimiter);
   const IMAGE = "___IMAGE_PAGE_SELECTED";
 
+  //TODO: deve ser excluído quando a imagem estiver sendo salva no DB
+  if (!selectedImage) {    
+    styles.image.width = "70%"
+    styles.image.height = "100%"
+    const temporaryImage = require("./temporary-image.json")
+    selectedImage = temporaryImage.value
+  }
+
   if (selectedImage)
     documentSource = [IMAGE, ...documentSource]
 
@@ -48,7 +56,10 @@ const MyDocument: React.FC<{ musics: MusicTableProps[], configPreferencesDefault
       {documentSource.map((text, index) => {
         return (
           <Page key={`page${index}`} orientation='landscape' size={configPreferencesDefault?.size ? configPreferencesDefault.size : "A5"} style={styles.page} wrap>
-            {text === IMAGE && selectedImage ? (<View style={styles.view}><Image key={`image${index}`} style={styles.image} src={selectedImage}></Image></View>)
+            {text === IMAGE && selectedImage ? 
+            (<View style={styles.view}>
+              <Image key={`image${index}`} style={styles.image} src={selectedImage}></Image>
+            </View>)
               : <Text key={`text${index}`} style={styles.text}>{text}</Text>}
           </Page>
         )
