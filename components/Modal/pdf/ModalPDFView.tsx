@@ -1,4 +1,4 @@
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { Button, Collapse, Modal } from "react-bootstrap";
 import { Download, Gear } from "react-bootstrap-icons";
 import MyDocument from "./PdfDocument";

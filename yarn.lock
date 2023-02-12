@@ -1224,7 +1224,7 @@
   "resolved" "https://registry.npmjs.org/@react-pdf/png-js/-/png-js-1.0.0.tgz"
   "version" "1.0.0"
 
-"@react-pdf/renderer@^1.6.13":
+"@react-pdf/renderer@^1.6.17":
   "integrity" "sha512-gjjNSjS4/TlH5V2f7EI+v8veSPYEDpcOE8vtMFYuRUnIqXBsDae0G6KVKamSKrjsaPLEyEuCYr/ZscxrNgYyFw=="
   "resolved" "https://registry.npmjs.org/@react-pdf/renderer/-/renderer-1.6.17.tgz"
   "version" "1.6.17"
