@@ -20,7 +20,7 @@ model Organization {
   id             Int                          @id @default(autoincrement())
   name           String?
   email          String?                      @unique
-  administrators Int[]
+  administrators String
   users          User[]
   configPDF      ConfigurationPreferencesPDF?
   imageSource    String?
