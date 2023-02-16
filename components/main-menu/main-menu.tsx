@@ -1,4 +1,4 @@
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import { PDFDownloadLink } from 'react-pdf';
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
