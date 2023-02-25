@@ -1,4 +1,3 @@
-import { PDFDownloadLink } from 'react-pdf';
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
@@ -8,6 +7,7 @@ import TooltipElement from "../TooltipElement";
 import BasicConfirmModalCenter from "../Modal/BasicConfirmModalCenter";
 import ModalPDFView, { defaultPreferences } from "../Modal/pdf/ModalPDFView";
 import { MusicTableProps } from "../Music/MusicTable";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 const MainMenu: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, changeOrderList, showSpinner }> = ({ musicsSelect, configPreferences, changeOrderList, showSpinner }) => {
     const router = useRouter()
@@ -36,6 +36,7 @@ const MainMenu: React.FC<{ musicsSelect: MusicTableProps[], configPreferences, c
             <TooltipElement keyName='top1' placement='top' text='Download PDF'
                 component={(
                     <div>
+                        <PDFDownloadLink document={null}></PDFDownloadLink>
                         {musicsSelect.length > 0 ? (
                             <PDFDownloadLink document={
                                 <MyDocument musics={musicsSelect} configPreferencesDefault={configPreferences ? configPreferences : defaultPreferences} />

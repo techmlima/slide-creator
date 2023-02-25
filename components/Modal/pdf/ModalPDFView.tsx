@@ -1,4 +1,3 @@
-import { PDFDownloadLink, PDFViewer } from 'react-pdf';
 import { Button, Collapse, Modal } from "react-bootstrap";
 import { Download, Gear } from "react-bootstrap-icons";
 import MyDocument from "./PdfDocument";
@@ -9,6 +8,7 @@ import TooltipElement from "../../TooltipElement";
 import ConfigPreferencesPDF from "./ConfigPreferencesPDF";
 import * as EnumColor from "../../../util/colors";
 import { useSession } from "next-auth/client";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 
 export const defaultPreferences = {
     id: null,

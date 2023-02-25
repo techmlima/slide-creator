@@ -1,9 +1,12 @@
+import { Document, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import React from 'react';
-import { Page, Text, Document, StyleSheet, Image, View } from 'react-pdf';
 import { MusicTableProps } from '../../Music/MusicTable';
 import { PdfStyleSheet } from './ConfigPreferencesPDF';
 var pdfUtil = require('../../../util/pdf-util');
 
+// rename helper for react18 overload
+const NewDocument: any = Document;
+const NewPage: any = Page;
 
 const initStyleSheet = (pdfStyleSheet) => {
   return StyleSheet.create({
@@ -52,19 +55,20 @@ const MyDocument: React.FC<{ musics: MusicTableProps[], configPreferencesDefault
     documentSource = [IMAGE, ...documentSource]
 
   return (
-    <Document>
+    <NewDocument>
       {documentSource.map((text, index) => {
         return (
-          <Page key={`page${index}`} orientation='landscape' size={configPreferencesDefault?.size ? configPreferencesDefault.size : "A5"} style={styles.page} wrap>
+          <NewPage key={`page${index}`} orientation='landscape' style={styles.page} wrap={true}
+             size={configPreferencesDefault?.size ? configPreferencesDefault.size : "A5"}>
             {text === IMAGE && selectedImage ? 
             (<View style={styles.view}>
-              <Image key={`image${index}`} style={styles.image} src={selectedImage}></Image>
+              <Image style={styles.image} src={selectedImage} />
             </View>)
               : <Text key={`text${index}`} style={styles.text}>{text}</Text>}
-          </Page>
+          </NewPage>
         )
       })}
-    </Document>
+    </NewDocument>
   );
 };
 

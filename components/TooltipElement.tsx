@@ -1,18 +1,26 @@
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Placement } from "react-bootstrap/esm/Overlay";
 
-const TooltipElement: React.FC<{ keyName: string , placement: Placement , text: string , component }> = ({ keyName, placement, text, component }) => {
+type TooltipProps = {
+    keyName: string;
+    placement: Placement;
+    text: string;
+    component: any;
+    children: never[];
+}
+
+const TooltipElement: React.FC<TooltipProps> = (props) => {
     return (
         <OverlayTrigger
-            key={keyName}
-            placement={placement}
+            key={props.keyName}
+            placement={props.placement}
             overlay={
-                <Tooltip id={`tooltip-${keyName}`}>
-                    {text}
+                <Tooltip id={`tooltip-${props.keyName}`}>
+                    {props.text}
                 </Tooltip>
             }
         >
-            {component}
+            {props.component}
         </OverlayTrigger>
     );
 }
