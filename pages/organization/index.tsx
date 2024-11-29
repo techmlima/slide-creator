@@ -1,4 +1,4 @@
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import { useState } from "react";
 import prisma from "../../services/prisma/prisma";
 import Create from "./create";

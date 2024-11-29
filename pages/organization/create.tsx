@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Col, Form } from 'react-bootstrap'
-import { useSession } from 'next-auth/client'
+import { Button, Col, Form, Row } from 'react-bootstrap'
+import { useSession } from 'next-auth/react'
 import SpinnerLoading from '../../components/SpinnerLoading'
 import { toast } from 'react-toastify'
 import { OrganizationModel } from '../../prisma/models/Organization'
@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 
 const Create: React.FC<{ props: OrganizationModel }> = ({ props }) => {
   const router = useRouter()
-  const [session, loading] = useSession();
+  const { data: session, status: loading } = useSession();
   const [spinner, showSpinner] = useState(false)
 
   const [name, setName] = useState(props?.name ? props?.name : '')
@@ -49,21 +49,21 @@ const Create: React.FC<{ props: OrganizationModel }> = ({ props }) => {
         <>
           <Form onSubmit={saveOrganization} className="card shadow p-2">
             <h5>{id ? 'Alterar' : 'Nova'} Congregação</h5>
-            <Form.Row>
+            <Row>
               <Form.Group as={Col} controlId="formName">
                 <Form.Label>Nome</Form.Label>
                 <Form.Control type="text" value={name}
                   onChange={(e) => setName(e.target.value)} />
               </Form.Group>
-            </Form.Row>
+            </Row>
 
-            <Form.Row>
+            <Row>
               <Form.Group as={Col} controlId="formEmail">
                 <Form.Label>E-mail</Form.Label>
                 <Form.Control type="text" value={email}
                   onChange={(e) => setEmail(e.target.value)} />
               </Form.Group>
-            </Form.Row>
+            </Row>
 
             <div className="row">
               <div className="col d-flex justify-content-end">

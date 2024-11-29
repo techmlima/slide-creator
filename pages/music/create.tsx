@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import Router, { useRouter } from 'next/router'
-import { Button, Col, Form } from 'react-bootstrap'
-import { useSession } from 'next-auth/client'
+import { Button, Col, Form, Row } from 'react-bootstrap'
+import { useSession } from 'next-auth/react'
 import SpinnerLoading from '../../components/SpinnerLoading'
 import { toast } from 'react-toastify'
 import { MusicTableProps } from '../../components/Music/MusicTable'
 
 const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
   const router = useRouter()
-  const [session, loading] = useSession()
+  const { data: session, status: loading } = useSession();
   const [spinner, showSpinner] = useState(false)
 
   const [title, setTitle] = useState(props?.title ? props?.title : '')
@@ -54,21 +54,21 @@ const Create: React.FC<{ props: MusicTableProps }> = ({ props }) => {
         <div className="card shadow p-2">
            <h5>{pageTitle} música</h5>
            <Form onSubmit={submitData} >
-            <Form.Row>
+            <Row>
               <Form.Group as={Col} controlId="formTitle">
                 <Form.Label>Título</Form.Label>
                 <Form.Control type="text" value={title}
                   onChange={(e) => setTitle(e.target.value)} />
               </Form.Group>
-            </Form.Row>
+            </Row>
 
-            <Form.Row>
+            <Row>
               <Form.Group as={Col} controlId="formText">
                 <Form.Label>Letra</Form.Label>
                 <Form.Control as="textarea" value={text} rows={text?.split('\n').length} className="custom-textarea"
                   onChange={(e) => setText(e.target.value)} />
               </Form.Group>
-            </Form.Row>
+            </Row>
 
             <div className="row">
               <div className="col d-flex justify-content-end">

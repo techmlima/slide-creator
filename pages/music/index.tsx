@@ -1,6 +1,6 @@
 
 import prisma from '../../services/prisma/prisma'
-import { getSession } from "next-auth/client"
+import { getSession } from "next-auth/react"
 import React, { useState } from "react"
 import { PdfStyleSheet } from "../../components/Modal/pdf/ConfigPreferencesPDF"
 import MusicTable, { MusicTableProps } from "../../components/Music/MusicTable"

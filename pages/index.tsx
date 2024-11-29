@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import prisma from '../services/prisma/prisma'
-import { getSession, useSession } from "next-auth/client"
+import { getSession, useSession } from "next-auth/react"
 import SpinnerLoading from "../components/SpinnerLoading"
 import { OrganizationModel } from "../prisma/models/Organization"
 import OrganizationModal from "../components/Modal/organization/OrganizationModal"
@@ -26,7 +26,7 @@ export const getServerSideProps = async (context) => {
 }
 
 const Home: React.FC<Props> = (props) => {
-  const [session, loading] = useSession()
+  const { data: session, status: loading } = useSession();
   const [spinner, showSpinner] = useState(false)
   const [modalShowOrganization, setModalShowOrganization] = useState(!props.hasOrganization);
 

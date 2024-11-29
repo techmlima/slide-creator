@@ -1,22 +1,23 @@
-import '../styles/globals.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import '../styles/globals.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import '../styles/layout.css';
 import '../styles/timeline.css';
 
-import { Provider } from 'next-auth/client'
+import { SessionProvider } from 'next-auth/react';  // Correct import for session provider
 import SpinnerLoading from '../components/SpinnerLoading';  
 import Router from "next/router";
 import React from 'react';
 import Layout from '../components/Layout/Layout';
+import { AppProps } from 'next/app';  // Importing type for pageProps
 
-function MyApp({ Component, pageProps }) {
-  const [loading, setLoading] = React.useState(false)
-  
+function MyApp({ Component, pageProps }: AppProps) {  // Use AppProps to type pageProps
+  const [loading, setLoading] = React.useState(false);
+
   React.useEffect(() => {
-    const start = () => setLoading(true)
-    const end = () => setLoading(false)
+    const start = () => setLoading(true);
+    const end = () => setLoading(false);
 
     Router.events.on("routeChangeStart", start);
     Router.events.on("routeChangeComplete", end);
@@ -29,12 +30,12 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <Provider session={pageProps.session}>
-         <Layout>
-            {loading ? (<SpinnerLoading />) : (<Component {...pageProps}/>)}
-         </Layout>
-    </Provider>
-  )
+    <SessionProvider session={pageProps.session}>  {/* Corrected from Provider to SessionProvider */}
+      <Layout>
+        {loading ? <SpinnerLoading /> : <Component {...pageProps} />}
+      </Layout>
+    </SessionProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

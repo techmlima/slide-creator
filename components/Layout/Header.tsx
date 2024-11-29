@@ -1,5 +1,5 @@
 import React from "react";
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import { Dropdown, Navbar, Nav } from "react-bootstrap";
@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 const Header: React.FC = () => {
   const router = useRouter()
-  const [session] = useSession()
+  const { data: session, status: loading } = useSession()
 
   const getActiveRouteClass = (path: string) => {
     const mainPath = router.pathname.split('/')[1];

@@ -1,13 +1,12 @@
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Placement } from "react-bootstrap/esm/Overlay";
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { ReactElement } from 'react';
 
 type TooltipProps = {
     keyName: string;
-    placement: Placement;
+    placement: "top" | "bottom" | "left" | "right" | "top-start" | "top-end" | "bottom-start" | "bottom-end" | "left-start" | "left-end" | "right-start" | "right-end"; // Define specific placement types
     text: string;
-    component: any;
-    children: never[];
-}
+    component: ReactElement; // Ensure it's a ReactElement
+};
 
 const TooltipElement: React.FC<TooltipProps> = (props) => {
     return (
@@ -23,6 +22,6 @@ const TooltipElement: React.FC<TooltipProps> = (props) => {
             {props.component}
         </OverlayTrigger>
     );
-}
+};
 
 export default TooltipElement;

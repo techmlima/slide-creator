@@ -1,27 +1,33 @@
 {
   "name": "slide-creator",
   "version": "2.0.0",
-  "description": "",
+  "description": "Slide creation tool built with Next.js and React",
   "scripts": {
-    "dev": "next",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "prisma-studio": "npx prisma studio"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "next.js",
+    "slide creator",
+    "react pdf"
+  ],
+  "author": "Your Name",
   "license": "MIT",
   "dependencies": {
-    "@popperjs/core": "^2.8.4",
-    "@prisma/client": "^2.17.0",
+    "@next-auth/prisma-adapter": "^1.0.7",
+    "@popperjs/core": "^2.11.6",
+    "@prisma/client": "^4.16.2",
     "@react-pdf/renderer": "^1.6.17",
     "@types/react-dom": "^18.0.11",
     "core-js": "^3.9.0",
     "font-awesome": "^4.7.0",
     "iconv-lite": "^0.6.2",
-    "jquery": "^1.9.1",
-    "next": "9.5.5",
-    "next-auth": "^3.4.2",
+    "jquery": "^3.6.0",
+    "next": "^13.1.0",
+    "next-auth": "^4.0.0",
     "popper.js": "^1.16.1",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.0.0",
@@ -32,16 +38,16 @@
   },
   "devDependencies": {
     "@types/next-auth": "3.1.14",
-    "@types/node": "14.14.6",
+    "@types/node": "^18.0.0",
     "@types/react": "^18.0.28",
-    "bootstrap": "^4.6.0",
-    "prisma": "^2.17.0",
-    "react-bootstrap": "^1.5.0",
+    "bootstrap": "^5.3.0",
+    "prisma": "^4.16.2",
+    "react-bootstrap": "^2.7.0",
     "react-pdf": "^6.2.2",
-    "typescript": "^4.2.2"
+    "typescript": "^5.0.0"
   },
   "resolutions": {
-    "@types/react": "18.0.9"
+    "@types/react": "18.0.28"
   },
   "repository": {
     "type": "git",

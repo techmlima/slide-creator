@@ -2,7 +2,7 @@ import React from "react"
 import prisma from '../../services/prisma/prisma'
 import { MusicTableProps } from "../../components/Music/MusicTable"
 import Create from "./create"
-import { getSession } from "next-auth/client"
+import { getSession } from "next-auth/react"
 import Custom404 from "../404"
 
 export const getServerSideProps = async (context) => {

@@ -7,7 +7,7 @@ import { useState } from "react";
 import TooltipElement from "../../TooltipElement";
 import ConfigPreferencesPDF from "./ConfigPreferencesPDF";
 import * as EnumColor from "../../../util/colors";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 
 export const defaultPreferences = {
@@ -23,7 +23,7 @@ export const defaultPreferences = {
 }
 
 const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOrderList, configPreferencesDefault }> = ({ show, onHide, musics, changeOrderList, configPreferencesDefault }) => {
-    const [session] = useSession()
+    const { data: session, status: loading } = useSession();
     const [selectedImage, setSelectedImage] = useState();
     const [showConfig, setShowConfig] = useState(false);
     const [pdfStyleSheet, setPdfStyleSheet] = useState(configPreferencesDefault ? configPreferencesDefault : defaultPreferences);
@@ -51,19 +51,22 @@ const ModalPDFView: React.FC<{ show, onHide, musics: MusicTableProps[], changeOr
                         </div>
                         <div className="row border-left">
                             <div className="col-12">
-                                <TooltipElement keyName='topConfigPDF' placement='top' text='Configurações do PDF'
-                                    component={(
-                                        <Button
-                                            variant='info'
-                                            className="ml-1 mb-1"
-                                            onClick={() => setShowConfig(!showConfig)}
-                                            aria-controls="collapse-config-pdf"
-                                            aria-expanded={showConfig}
-                                        >
-                                            <Gear />
-                                        </Button>
-                                    )}>
-                                </TooltipElement>
+                            <TooltipElement
+                                keyName="topConfigPDF"
+                                placement="top"
+                                text="Configurações do PDF"
+                                component={(
+                                    <Button
+                                        variant="info"
+                                        className="ml-1 mb-1"
+                                        onClick={() => setShowConfig(!showConfig)}
+                                        aria-controls="collapse-config-pdf"
+                                        aria-expanded={showConfig}
+                                    >
+                                        <Gear />
+                                    </Button>
+                                )}
+                            />
 
                                 <Collapse in={showConfig}>
                                     <div id="collapse-config-pdf">
